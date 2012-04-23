@@ -1,7 +1,7 @@
-CXXFLAGS = `hcustom -c`
-LDFLAGS = `hcustom -m`
+CXXFLAGS = $(shell hcustom -c) -I . -I ./3rdparty/include -I ./3rdparty/osx/include 
+LDFLAGS := $(shell hcustom -m) -L./3rdparty/osx/lib/ -lblitz -lfftw3f
 
-SOP_Cleave: SOP_Cleave.o
+VEX_Ocean: VEX_Ocean.o
 	echo "CC is " $(CXX)
 	echo "LD is " $(LD)
-	$(CXX) $(LDFLAGS) SOP_Cleave.o -o SOP_Cleave.dylib
+	$(CXX) $(LDFLAGS) VEX_Ocean.o -bundle -o VEX_Ocean.dylib

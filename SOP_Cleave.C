@@ -29,7 +29,7 @@
  at http://www.gnu.org/copyleft/gpl.html
 */
 
-// #include <UT/UT_DSOVersion.h>
+#include <UT/UT_DSOVersion.h>
 #include <UT/UT_Math.h>
 #include <UT/UT_Matrix3.h>
 #include <UT/UT_Matrix4.h>
@@ -44,9 +44,6 @@
 #include <PRM/PRM_Include.h>
 #include <OP/OP_Operator.h>
 #include <OP/OP_OperatorTable.h>
-
-#include <GA/GA_AttributeRef.h> 
-
 //#include <SOP/SOP_Guide.h>
 #include <tools/tools.h>
 #include "SOP_Cleave.h"
@@ -219,7 +216,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
         GA_FOR_ALL_PRIMITIVES(gdp,prim)
         {
 
-            if ( (prim->getPrimitiveId()==GEO_PrimTypeCompat::GEOPRIMPOLY) && (polyGroup->contains(prim)!=0))
+            if ( (prim->getTypeId()==GEO_PRIMPOLY) && (polyGroup->contains(prim)!=0))
                 cleave_group->add(prim);
             else
                 not_cleave_group->add(prim);
@@ -229,7 +226,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
         GA_FOR_ALL_PRIMITIVES(gdp,prim)
         {
-            if (prim->getPrimitiveId()==GEO_PrimTypeCompat::GEOPRIMPOLY)
+            if (prim->getTypeId()==GEO_PRIMPOLY)
                 cleave_group->add(prim);
             else
                 not_cleave_group->add(prim);
@@ -247,11 +244,9 @@ SOP_Cleave::cookMySop(OP_Context &context)
     delete scratch_gdp;
 
     // create rest pos attribute
-    // float zeros[3] = {1,1,1};
-    //GA_RWAttributeRef cleave_rest_pos = gdp->addPointAttrib("CleaveRestPos", sizeof(float)*3,
-	//														GB_ATTRIB_FLOAT, (void *)zeros);
-    GA_RWAttributeRef cleave_rest_pos = gdp->addFloatTuple(GA_ATTRIB_POINT, "CleaveRestPos",
-														   1, GA_Defaults(1.0));
+    float zeros[3] = {1,1,1};
+    
+	GA_RWAttributeRef cleave_rest_pos = gdp->addFloatTuple(GA_ATTRIB_POINT, "CleaveRestPos", 3, GA_Defaults(3, GA_STORE_REAL32, 0.0, 0.0, 0.0));
 
     // Pointer to the color data
     float* rpos = 0;
@@ -265,27 +260,19 @@ SOP_Cleave::cookMySop(OP_Context &context)
     gdp->uniquePoints();
 
     // assign rest pos attribute
+	
     for (i = 0; i < gdp->points().entries(); i++) {
+		
+	
 
         ppt = gdp->points()(i);
 
-        // Use the index that we were returned in the example above
         pos = ppt->getPos();
-        // pre 9.1 rpos = (float *)ppt->getAttribData(cleave_rest_pos);
-		/*
-        rpos = (float *)ppt->castAttribData<float>(cleave_rest_pos);
+        
+		UT_Vector3 nrestPos(pos.x(), pos.y(), pos.z());
+		ppt->setValue(cleave_rest_pos,UT_Vector3(pos.x(), pos.y(), pos.z()));
+        
 
-        rpos[0] = pos.x();
-        rpos[1] = pos.y();
-        rpos[2] = pos.z();
-		*/
-        // rpos = ppt->getValue<float*>(cleave_rest_pos);
-        ppt->setValue<float>(cleave_rest_pos,pos.x(),0);
-        ppt->setValue<float>(cleave_rest_pos,pos.y(),1);
-        ppt->setValue<float>(cleave_rest_pos,pos.z(),2);
-        // rpos[0] = pos.x();
-        // rpos[1] = pos.y();
-        // rpos[2] = pos.z();
     }
 	
 
@@ -314,7 +301,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
     unsigned int seed = SEED(now);
 
-    UT_Matrix4 mat4;
+    UT_Matrix4D mat4;
 
     float rval;
 
@@ -380,15 +367,12 @@ SOP_Cleave::cookMySop(OP_Context &context)
              // center and rotate polys 
             for (i = prim->getVertexCount()-1; i >= 0; i--) {
 
-                ppt = prim->getVertex(i).getPt();
-                /*
-                ppt->getPos() -= pos;				    
-                ppt->getPos().multiply3(mat4);
-*/
+                ppt = prim->getVertex(i).getPt();		    
                 ppt->setPos(ppt->getPos() - pos);
-                UT_Vector4 temp_pos = ppt->getPos();
-                temp_pos.multiply3(mat4);
-                ppt->setPos(temp_pos);
+                UT_Vector4D cPos = ppt->getPos();
+				cPos.multiply3(mat4);
+				ppt->setPos(cPos);
+				
 
             }
 
@@ -412,7 +396,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
                 delete gqd;
 
-                // scratch_gdp->removeUnused(); NICHOLAS
+                scratch_gdp->destroyUnusedPoints();
                 scratch_gdp->uniquePoints();
 
                 // accumulate result
@@ -474,16 +458,8 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
         // Use the index that we were returned in the example above
         pos = ppt->getPos();
-        // pre 9.1 - rpos = (float *)ppt->getAttribData(cleave_rest_pos);
-		/*
-        rpos = (float *)ppt->castAttribData<float>(cleave_rest_pos);
-        ppt->getPos()(0) = rpos[0];
-        ppt->getPos()(1) = rpos[1];
-        ppt->getPos()(2) = rpos[2];
-		*/
-        ppt->setValue<float>(cleave_rest_pos,rpos[0],0);
-        ppt->setValue<float>(cleave_rest_pos,rpos[1],1);
-        ppt->setValue<float>(cleave_rest_pos,rpos[2],2);
+		UT_Vector3 vrpos = ppt->getValue<UT_Vector3>(cleave_rest_pos);
+		ppt->setPos(vrpos.x(),vrpos.y(),vrpos.z());
 
     }
 
