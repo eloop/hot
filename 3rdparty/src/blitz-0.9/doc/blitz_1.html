@@ -1,0 +1,1117 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Introduction</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Introduction">
+<META NAME="keywords" CONTENT="Blitz++: Introduction">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC1"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC2"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<A NAME="Introduction"></A>
+<H1> 1. Introduction </H1>
+<!--docid::SEC1::-->
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC2">1.1 About this document</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC3">1.2 Platform/compiler notes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Supported platforms</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC18">1.3 How to download Blitz++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Where to download Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC19">1.4 Installation and porting</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to install Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC23">1.5 Compiling with Blitz++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to compile a program that uses Blitz++</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC28">1.6 Licensing terms</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">License considerations</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC29">1.7 Mailing lists and support</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to get help?</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="about"></A>
+<HR SIZE="6">
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.1 About this document </H2>
+<!--docid::SEC2::-->
+<P>
+
+To use the Blitz++ library, you will need a compiler with near-ISO/ANSI C++
+syntax support (see the following section for possible compilers).
+Information on what platforms are supported is available from
+<A HREF="http://oonumerics.org/blitz/platforms/">http://oonumerics.org/blitz/platforms/</A>.  To download Blitz++, please
+go to the download page at <A HREF="http://oonumerics.org/blitz/download/">http://oonumerics.org/blitz/download/</A>.
+</P><P>
+
+If you need to do something that Blitz++ doesn't support, see a possible
+improvement, or notice an error in the documentation, please send a note to
+one of the Blitz++ mailing lists (described later).
+</P><P>
+
+<A NAME="platforms"></A>
+<HR SIZE="6">
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.2 Platform/compiler notes </H2>
+<!--docid::SEC3::-->
+<P>
+
+For up-to-date information on supported platforms, please consult
+the platforms area on the Blitz++ home page:
+</P><P>
+
+<A HREF="http://oonumerics.org/blitz/platforms/">http://oonumerics.org/blitz/platforms/</A>
+</P><P>
+
+The information in this document may be out of date.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.1 KAI C++ for Linux/Unix </H3>
+<!--docid::SEC4::-->
+<P>
+
+Blitz++ was developed and tested using KAI C++ under AIX.  It should (in
+theory) port to other KAI C++ platforms (Cray, SGI, HP, Sun, Linux, Compaq)
+without difficulty.  Since KAI C++ uses an EDG front end, other EDG
+front-ended compilers (e.g. Comeau) should be able to compile Blitz++.
+</P><P>
+
+Recommended compile flags are:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>+K3 -O2 --restrict --abstract_pointer --abstract_float -tused
+</pre></td></tr></table></P><P>
+
+Note that you cannot compile with <CODE>-tall</CODE> (this will generate lots of
+errors).
+</P><P>
+
+Under Linux, you may need the flag <CODE>-D__signed__=</CODE>.  You should omit
+<CODE>-tused</CODE> since this template instantiation model is not supported by
+<CODE>gcc</CODE>, which is used as the back-end compiler.
+</P><P>
+
+Please note that since the purchase of KAI by Intel several years ago, the 
+use of this compiler has been gradually phased out, with most of the KAI
+compiler technology being transferred into the Intel C/C++ compiler.  Thus,
+Blitz++ is no longer being routinely tested under <CODE>KCC</CODE>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC6"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.2 Intel C++ for x86 </H3>
+<!--docid::SEC5::-->
+<P>
+
+Blitz++ compiles under fairly recent versions of the Intel C++ compiler
+(version 7.1, 8.x or 9.0) for Linux platforms, as well as the comparable 
+plug-in compiler for Windows that can be used within the Microsoft 
+Visual Studio IDE.  We recommend use of the <CODE>-ansi</CODE> flag for compiler
+adherence to the ANSI C++ standard.  The <CODE>-strict_ansi</CODE> flag is not
+used, as this can lead to many compiler error messages originating from
+code in the GNU C++ standard library header files.
+</P><P>
+
+More information:
+</P><P>
+
+<A HREF="http://www.intel.com/software/products/compilers/clin">http://www.intel.com/software/products/compilers/clin</A>
+</P><P>
+
+<A HREF="http://www.intel.com/software/products/compilers/cwin">http://www.intel.com/software/products/compilers/cwin</A>
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC7"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.3 Microsoft VS.NET 2003 for Windows </H3>
+<!--docid::SEC6::-->
+<P>
+
+Blitz++ has been ported to the C++ compiler within the Microsoft VS.NET 2003
+compiler and IDE package.  We provide a zip archive containing an appropriate 
+configuration header file and project files for building the Blitz library
+and all of the testsuite codes.  Previous versions of the Microsoft C++
+compiler within Visual Studio do not have the required C++ features needed
+by Blitz++ and are not supported.  Blitz can be compiled under Visual Studio
+by using the Intel plug-in C++ compiler for Windows.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.4 gcc for Linux/Unix/Darwin </H3>
+<!--docid::SEC7::-->
+<P>
+
+GCC (<CODE>g++</CODE>) is a free <FONT SIZE="-1">GNU</FONT> C++ compiler.  It compiles Blitz++
+reliably on almost any platform running Linux or another Unix variant 
+(including the Darwin OS).  In fact, most Blitz++ development work is done 
+with <CODE>g++</CODE>.
+</P><P>
+
+Work has been done in the latest Blitz++ release to ensure compatibility
+with the gcc-4.x release, which contains some key changes in enforcement 
+of the C++ ANSI standard related to the use of anonymous enums.
+</P><P>
+
+gcc may be downloaded from <A HREF="http://www.gnu.org/software/gcc/gcc.html">http://www.gnu.org/software/gcc/gcc.html</A>.
+</P><P>
+
+If you are using gcc under Solaris, SunOS, or OSF/1, please see the
+<TT>`README.binutils'</TT> file included in the distribution.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC9"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.5 PathScale for x86_64 </H3>
+<!--docid::SEC8::-->
+<P>
+
+We have just added support for the PathScale pathCC compiler in blitz-0.9.
+This compiler is being provided on many of the newer Opteron x86_64 systems.
+We welcome feedback on support for this compiler.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC9"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC8"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC10"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.6 PGI for Linux x86 </H3>
+<!--docid::SEC9::-->
+<P>
+
+The Portland Group PGI compiler is supported on Linux x86 platforms, and 
+more recent versions of pgCC such as 5.x are capable of compiling blitz.
+However, performance is not particularly good and PGI support is not 
+being actively tested or maintained.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC10"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC9"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC11"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.7 Absoft for Mac OS X </H3>
+<!--docid::SEC10::-->
+<P>
+
+Absoft markets a variant of the IBM xlC compiler called <CODE>xlc++</CODE> that 
+has been ported to the Darwin operating system (Mac OS X).  We are providing
+support for compiling blitz using this compiler.  Although we have noted 
+and reported some bugs with this compiler, it is capable of producing fairly
+high quality optimized code for the Darwin platform.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC10"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC12"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.8 Metrowerks for Mac </H3>
+<!--docid::SEC11::-->
+<P>
+
+Metrowerks is sort-of supported; see the platforms web page and the mailing
+lists for more information.  Support for Metrowerks is no longer being 
+actively maintained.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.9 Compaq Alpha </H3>
+<!--docid::SEC12::-->
+<P>
+
+The Compaq C++ compiler version 6.x is supported, and we recommend use of
+the <CODE>-model ansi</CODE> flag in order to obtain standard C++ compiler behavior
+and proper name mangling.  We have inserted a workaround for the lack of
+standard ostream support for the <CODE>long double</CODE> type.  At this point,
+performance of blitz code under the cxx compiler is somewhat disappointing.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.10 IBM RS6000/IBM PowerPC </H3>
+<!--docid::SEC13::-->
+<P>
+
+The IBM Visual Age C++ compiler is supported as of version 6.x.  However,
+you may run into a variety of annoying compiler bugs that prevent certain 
+portions of the Blitz++ library code from compiling.  Therefore, it is 
+strongly recommended that you obtain xlC version 7.0.0.3 or later, in order
+to get all the necessary patches that IBM has produced in response to our 
+bug reports.  Also note that compile times can be fairly long with full
+optimization enabled.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.11 SGI MIPSpro </H3>
+<!--docid::SEC14::-->
+<P>
+
+The SGI MIPSpro-7.x version CC compiler is supported, although active testing
+is no longer being done.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.12 Sun SPARC </H3>
+<!--docid::SEC15::-->
+<P>
+
+As of version Sun Studio 10.x, the Sun CC compiler should be capable of
+compiling blitz.  However, no active support is being provided.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.13 Cray T3E/Cray T90/Cray C90/Cray J90 </H3>
+<!--docid::SEC16::-->
+<P>
+
+As of Version 0.2-alpha-02 of Blitz++, Version 3.0.0.0 of the Cray C++
+compiler is supported (well, tolerated anyway).  It seems to be based on an
+older version of the EDG front end, so some kludges are required.  It
+doesn't support partial ordering of member templates, so slicing arrays
+requires the workaround described in Section <A HREF="blitz_2.html#SEC55">2.4.4 Slicing</A>.  Portions
+of the standard library are missing, such as <CODE>&#60;limits&#62;</CODE>,
+<CODE>&#60;complex&#62;</CODE>, and <CODE>&#60;set&#62;</CODE>.  This means you won't be able to use
+complex numbers (well, not the ISO/ANSI C++ versions anyway), numeric
+inquiry functions, or fast traversal orders.
+</P><P>
+
+These compilation flags are recommended:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>-h instantiate=used
+</pre></td></tr></table></P><P>
+
+For optimization, you'll want:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>-O3 -h aggress
+</pre></td></tr></table></P><P>
+
+The ability of the Cray C++ compiler to optimize away temporary objects is
+disappointing.  It's not able to optimize away expression templates overhead
+or comma-delimited array initializers.  Please note that support for compiling
+Blitz++ under the Cray C++ compiler is no longer being actively maintained.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC5"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC3"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.2.14 Fujitsu </H3>
+<!--docid::SEC17::-->
+<P>
+
+This platform and compiler are no longer being actively supported.
+</P><P>
+
+<A NAME="download"></A>
+<HR SIZE="6">
+<A NAME="SEC18"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.3 How to download Blitz++ </H2>
+<!--docid::SEC18::-->
+<P>
+
+The Blitz++ project is now being served via SourceForge.
+To download the Blitz++ library, go to the blitz project web page, at
+<A HREF="http://sourceforge.net/projects/blitz">http://sourceforge.net/projects/blitz</A>.
+</P><P>
+
+More information about supported platforms and C++ compilers is available
+in this document or on the official Blitz++ home page, at
+<A HREF="http://oonumerics.org/blitz">http://oonumerics.org/blitz</A>.
+</P><P>
+
+<A NAME="install"></A>
+<HR SIZE="6">
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.4 Installation and porting </H2>
+<!--docid::SEC19::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.4.1 Installation </H3>
+<!--docid::SEC20::-->
+<P>
+
+<A NAME="IDX1"></A>
+<A NAME="IDX2"></A>
+<A NAME="IDX3"></A>
+</P><P>
+
+Blitz++ uses <FONT SIZE="-1">GNU</FONT> Autoconf, which handles rewriting Makefiles for
+various platforms and compilers.  It has greatly simplified installation and
+porting.  Many thanks to John W. Eaton and Brendan Kehoe for their help
+with this.
+</P><P>
+
+To install blitz, unpack the <TT>`blitz-VERSION.tar.gz'</TT> file (it will
+install into a subdirectory <TT>`blitz-VERSION'</TT>).  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[tveldhui@n2001:~] 32: ls -l blitz*.gz
+-rw-r--r--   1 tveldhui users      480953 Jun 23 15:20 blitz-0.5.tar.gz
+[tveldhui@n2001:~] 33: gunzip blitz-0.5.tar.gz 
+[tveldhui@n2001:~] 34: tar xvf blitz-0.5.tar
+blitz-0.5/CHANGELOG
+blitz-0.5/COPYING
+blitz-0.5/INSTALL
+blitz-0.5/Makefile.in
+blitz-0.5/README
+blitz-0.5/THANKS
+  .
+  .
+</pre></td></tr></table></P><P>
+
+Then go into the <TT>`blitz-VERSION'</TT> directory, and type:
+</P><P>
+
+<A NAME="IDX4"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>./configure CXX=[compiler]
+</pre></td></tr></table></P><P>
+
+where [compiler] is one of <CODE>xlc++</CODE>, <CODE>icpc</CODE>, <CODE>pathCC</CODE>, 
+<CODE>xlC</CODE>, <CODE>cxx</CODE>, <CODE>aCC</CODE>, <CODE>CC</CODE>, <CODE>g++</CODE>, <CODE>KCC</CODE>, 
+<CODE>pgCC</CODE> or <CODE>FCC</CODE>.  (If you do not choose a C++ compiler, the
+configure script will attempt to find an appropriate compiler for the
+current platform.)
+</P><P>
+
+By default, the configure script will use a particular set of options
+with each C++ compiler.  You can disable these default settings and then
+substitute your own preferred compiler options with the CXXFLAGS variable,
+using this syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>./configure CXX=g++ --disable-cxx-flags-preset CXXFLAGS="-ftemplate-depth-50"
+</pre></td></tr></table></P><P>
+
+If you are interested in benchmarking, you may want to use the option
+<CODE>--with-blas=...</CODE> to specify the path where the blas library is found.
+Run the configure script with the option <CODE>--help</CODE> to see all the 
+available options.
+</P><P>
+
+Once the configure script is done, you can do any of these things:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>make lib</CODE>
+<DD>Check the compiler and create <TT>`libblitz.a'</TT>.
+<P>
+
+<DT><CODE>make check-testsuite</CODE>
+<DD>Make the blitz library plus build and run the testsuite.
+<P>
+
+<DT><CODE>make check-examples</CODE>
+<DD>Make the blitz library plus build and run the examples.
+<P>
+
+<DT><CODE>make check-benchmarks</CODE>
+<DD>Make the blitz library plus build and run the benchmarks.
+<P>
+
+<DT><CODE>make all</CODE>
+<DD>Do all of the above.  This may take a <STRONG>long</STRONG> time.
+<P>
+
+<DT><CODE>make install</CODE>
+<DD>Build the blitz library and documentation and install, along with the
+blitz header files, in prefix directory.
+</DL>
+<P>
+
+Building the benchmark programs requires both a Fortran 77 and Fortran 90
+compiler.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.4.2 The Blitz++ directory tree </H3>
+<!--docid::SEC21::-->
+<P>
+
+The main Blitz++ directory contains these subdirectories:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>blitz</CODE>
+<DD>Blitz++ headers and source code files
+<P>
+
+<DT><CODE>random</CODE>
+<DD>Random number generators
+<P>
+
+<DT><CODE>src</CODE>
+<DD>Source code for <TT>`libblitz.a'</TT>
+<P>
+
+<DT><CODE>lib</CODE>
+<DD>Location of <TT>`libblitz.a'</TT>
+<P>
+
+<DT><CODE>doc</CODE>
+<DD>Documentation in HTML and PostScript
+<P>
+
+<DT><CODE>testsuite</CODE>
+<DD>Testsuite programs
+<P>
+
+<DT><CODE>examples</CODE>
+<DD>Example programs
+<P>
+
+<DT><CODE>benchmarks</CODE>
+<DD>Benchmark programs
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC19"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.4.3 Porting Blitz++ </H3>
+<!--docid::SEC22::-->
+<P>
+
+If you want to try porting Blitz++ to a new compiler or platform, I suggest
+the following approach:
+</P><P>
+
+<UL>
+<LI>First check the Blitz++ web page to make sure you have the latest
+snapshot, and that someone hasn't already ported blitz to your platform.
+<P>
+
+<LI>Install autoconf (from e.g. <A HREF="ftp://prep.ai.mit.edu/pub/gnu">ftp://prep.ai.mit.edu/pub/gnu</A>) if
+you don't have it already.
+<P>
+
+<LI>Run the configure script with CXX=[compiler].  This
+will exercise your compiler to see what language features it supports.  If
+it doesn't have member templates and enum computations, just give up.  You
+may need to set CXXFLAGS to use compiler options that enable some language
+features.
+<P>
+
+<LI>Once you know what compiler options are needed, you can make these
+the default settings for your C++ compiler.  Make a backup of 
+<TT>`m4/ac_cxx_flags_preset.m4'</TT>, and then edit the file to add an
+appropriate case for your compiler.  Invoke autoconf to regenerate the
+configure script.  Then try configure with your new preset flags.
+<P>
+
+</UL>
+<P>
+
+<A NAME="compiling"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.5 Compiling with Blitz++ </H2>
+<!--docid::SEC23::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.5.1 Header files </H3>
+<!--docid::SEC24::-->
+<P>
+
+Blitz++ follows an X-windows style convention for header files.  All headers
+are referred to with a prefix of <TT>`blitz'</TT>.  For example, to use the
+<CODE>Array&#60;T,N&#62;</CODE> class, one needs to include <CODE>&#60;blitz/array.h&#62;</CODE> instead
+of just <CODE>&#60;array.h&#62;</CODE>.  To make this work, the main Blitz++ directory
+must be in your include path.  For example, if Blitz++ was installed in
+<TT>`/software/Blitz++'</TT>, you will need to compile with <CODE>-I
+/software/Blitz++</CODE>.
+</P><P>
+
+If you have root privileges, you may want to put in a symbolic link from the
+standard include path (e.g. <TT>`/usr/include/blitz/'</TT>) to the <CODE>blitz</CODE>
+directory of the distribution.  This will allow you to omit the <CODE>-I
+...</CODE> option when compiling.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC26"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.5.2 Linking to the Blitz++ library </H3>
+<!--docid::SEC25::-->
+<P>
+
+The Blitz++ library file <TT>`libblitz.a'</TT> contains a few pieces of global
+data.  You should ensure that the <TT>`lib'</TT> subdirectory of the Blitz++
+distribution is in your library path (e.g.
+<CODE>-L/usr/local/blitz-0.5/lib</CODE>) and include <CODE>-lblitz</CODE> on your
+command line.  If you use math functions, you should also compile with
+<CODE>-lm</CODE>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.5.3 An example Makefile </H3>
+<!--docid::SEC26::-->
+<P>
+
+Here is a typical skeletal Makefile for compiling with Blitz++ under gcc:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre># Path where Blitz++ is installed
+BZDIR = /usr/local/blitz
+
+CXX = g++
+
+# Flags for optimized executables
+# CXXFLAGS = -O2 -I$(BZDIR) -ftemplate-depth-30
+
+# Flags for debugging
+CXXFLAGS = -ftemplate-depth-30 -g -DBZ_DEBUG -I$(BZDIR)
+
+LDFLAGS =
+LIBS = -L$(BZDIR)/lib -lblitz -lm
+
+TARGETS = myprogram1 myprogram2
+
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+    $(CXX) $(CXXFLAGS) -c $*.cpp
+
+$(TARGETS):
+    $(CXX) $(LDFLAGS) $@.o -o $@ $(LIBS)
+
+all:
+    $(TARGETS)
+
+myprogram1:      myprogram1.o
+myprogram2:      myprogram2.o
+
+clean:
+    -rm -f *.o $(TARGETS)
+</FONT></pre></td></tr></table></P><P>
+
+There are more example makefiles in the examples, testsuite, and benchmarks
+directories of the distribution.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC23"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.5.4 Explicit instantiation </H3>
+<!--docid::SEC27::-->
+<P>
+
+It is not possible to do explicit instantiation of Blitz++ arrays.  If you
+aren't familiar with explicit instantiation of templates, then this fact
+will never bother you.
+</P><P>
+
+The reason is that explicit instantiation results in all members of a class
+template being instantiated.  This is <STRONG>not</STRONG> the case for implicit
+instantiation, in which only required members are instantiated.  The
+<CODE>Array&#60;T,N&#62;</CODE> class contains members which are not valid for all types
+<CODE>T</CODE>: for example, the binary AND operation <CODE>&#38;=</CODE> is nonsensical if
+<CODE>T=float</CODE>.  If you attempt to explicitly instantiate an array class,
+e.g.
+</P><P>
+
+<CODE>template class Array&#60;float,3&#62;;</CODE>
+</P><P>
+
+then you will be rewarded with many compile errors, due to methods such as
+<CODE>&#38;=</CODE> which are nonsensical for <CODE>float</CODE>.
+</P><P>
+
+As some consolation, explicit instantiation would not be much help with
+Blitz++ arrays.  The typical use for explicit instantiation is to
+instantiate all the templates you need in one compilation unit, and turn off
+implicit instantiation in the others -- to avoid duplicate instantiations
+and reduce compile times.  This is only possible if you can predict ahead of
+time what needs instantiation.  Easy for simple templates, but impossible
+for classes like <CODE>Array</CODE>.  Almost every line of code you write using
+<CODE>Array</CODE> will cause a different set of things to be implicitly
+instantiated.
+</P><P>
+
+<A NAME="legal"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.6 Licensing terms </H2>
+<!--docid::SEC28::-->
+<P>
+
+The Blitz++ library is licensed under both the GPL and the more permissive
+"Blitz++ Artistic License".  Take your pick.  They are detailed in GPL
+and LICENSE, respectively.  The artistic license is more appropriate for
+commercial use, since it lacks the "viral" properties of the GPL.
+</P><P>
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</P><P>
+
+Copyright (C) 1996--2003 Free Software Foundation, Inc.
+</P><P>
+
+<A NAME="help"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC1"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.7 Mailing lists and support </H2>
+<!--docid::SEC29::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.7.1 How to get help </H3>
+<!--docid::SEC30::-->
+<P>
+
+The starting point for all bug reports, feature requests and support
+questions is the SourceForge Blitz++ project web page, at
+<A HREF="http://sourceforge.net/projects/blitz">http://sourceforge.net/projects/blitz</A>.  From this page, you can 
+click on the Support link to browse previous Blitz++ support requests
+or make your own request.
+</P><P>
+
+There is also a Lists link that provides access to and lets you search
+the blitz mailing list archives.  This will often turn up answers to your 
+question if it has been asked before.  Finally, if you continue to experience
+a problem with using Blitz++, there is a Bugs link that allows you to file
+a bug report and check the status of existing bug reports.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC32"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.7.2 How to subscribe to a mailing list </H3>
+<!--docid::SEC31::-->
+<P>
+
+The main mailing list for Blitz++ support questions and information is
+<A HREF="mailto:blitz-support@lists.sourceforge.net">blitz-support@lists.sourceforge.net</A>.  Anyone is free to post a 
+question to this list, although the list is moderated.  You can subscribe
+to the list via the Lists link on the SourceForge Blitz++ project page,
+<A HREF="http://sourceforge.net/projects/blitz">http://sourceforge.net/projects/blitz</A>.  Besides the main support list,
+there is also a <CODE>blitz-devel</CODE> list for comments or questions about future 
+development of Blitz++ and a <CODE>blitz-cvs</CODE> list that sends notification of 
+changes to the Blitz++ cvs repository.  These lists generally have far less
+traffic than the <CODE>blitz-support</CODE> list.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.7.3 blitz-devel </H3>
+<!--docid::SEC32::-->
+<P>
+
+Blitz++ is in open development: anyone can contribute features and code to
+the library.  If you are interested in helping out with coding or porting,
+you should start by subscribing to the <CODE>blitz-devel</CODE> mailing list.  
+</P><P>
+
+This list is also an appropriate place to send suggestions for features;
+just send email to <A HREF="mailto:blitz-devel@lists.sourceforge.net">blitz-devel@lists.sourceforge.net</A>.  We can't 
+implement it if you don't suggest it.
+</P><P>
+
+Archives of this list are available from the Blitz++ web site.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC33"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC32"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC29"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.7.4 blitz-support </H3>
+<!--docid::SEC33::-->
+<P>
+
+This mailing list is for posting and answering questions about using the
+Blitz++ library.  Anyone can post questions; anyone can answer.
+</P><P>
+
+    
+<A NAME="Arrays"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,1007 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Stencils</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Stencils">
+<META NAME="keywords" CONTENT="Blitz++: Stencils">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC104"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC103"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC105"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 4. Stencils </H1>
+<!--docid::SEC104::-->
+<P>
+
+<A NAME="IDX309"></A>
+<A NAME="IDX310"></A>
+</P><P>
+
+Blitz++ provides an implementation of stencil objects which is currently
+<STRONG>experimental</STRONG>.  This means that the exact details of how they are
+declared and used may change in future releases.  Use at your own risk.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC105"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC106"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.1 Motivation: a nicer notation for stencils </H2>
+<!--docid::SEC105::-->
+<P>
+
+Suppose we wanted to implement the 3-D acoustic wave equation using finite
+differencing.  Here is how a single iteration would look using subarray
+syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Range I(1,N-2), J(1,N-2), K(1,N-2);
+
+P3(I,J,K) = (2-6*c(I,J,K)) * P2(I,J,K)
+            + c(I,J,K)*(P2(I-1,J,K) + P2(I+1,J,K) + P2(I,J-1,K) + P2(I,J+1,K)
+            + P2(I,J,K-1) + P2(I,J,K+1)) - P1(I,J,K);
+</pre></td></tr></table></P><P>
+
+This syntax is a bit klunky.  With stencil objects, the implementation
+becomes:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL4(acoustic3D_stencil,P1,P2,P3,c)
+  P3 = 2 * P2 + c * Laplacian3D(P2) - P1;
+BZ_END_STENCIL
+
+  .
+  .
+
+applyStencil(acoustic3D_stencil(), P1, P2, P3, c);
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC106"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC105"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC107"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC107"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.2 Declaring stencil objects </H2>
+<!--docid::SEC106::-->
+<P>
+
+A stencil declaration may not be inside a function.  It can appear inside a
+class declaration (in which case the stencil object is a nested type).
+</P><P>
+
+Stencil objects are declared using the macros <CODE>BZ_DECLARE_STENCIL1</CODE>,
+<CODE>BZ_DECLARE_STENCIL2</CODE>, etc.  The number suffix is how many arrays are
+involved in the stencil (in the above example, 4 arrays-- P1, P2, P3, c -- are
+used, so the macro <CODE>BZ_DECLARE_STENCIL4</CODE> is invoked).
+</P><P>
+
+The first argument is a name for the stencil object.  Subsequent arguments
+are names for the arrays on which the stencil operates.
+</P><P>
+
+After the stencil declaration, the macro <CODE>BZ_END_STENCIL</CODE> must appear
+(or the macro <CODE>BZ_END_STENCIL_WITH_SHAPE</CODE>, described in the next
+section).
+</P><P>
+
+In between the two macros, you can have multiple assignment statements,
+if/else/elseif constructs, function calls, loops, etc.
+</P><P>
+
+Here are some simple examples:
+</P><P>
+
+<A NAME="IDX311"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL2(smooth2D,A,B)
+  A = (B(0,0) + B(0,1) + B(0,-1) + B(1,0) + B(-1,0)) / 5.0;
+BZ_END_STENCIL
+
+BZ_DECLARE_STENCIL4(acoustic2D,P1,P2,P3,c)
+  A = 2 * P2 + c * (-4 * P2(0,0) + P2(0,1) + P2(0,-1) + P2(1,0) + P2(-1,0))
+      - P1;
+BZ_END_STENCIL
+
+BZ_DECLARE_STENCIL8(prop2D,E1,E2,E3,M1,M2,M3,cE,cM)
+  E3 = 2 * E2 + cE * Laplacian2D(E2) - E1;
+  M3 = 2 * M2 + cM * Laplacian2D(M2) - M1;
+BZ_END_STENCIL
+
+BZ_DECLARE_STENCIL3(smooth2Db,A,B,c)
+  if ((c &#62; 0.0) &#38;&#38; (c &#60; 1.0))
+    A = c * (B(0,0) + B(0,1) + B(0,-1) + B(1,0) + B(-1,0)) / 5.0
+      + (1-c)*B;
+  else
+    A = 0;
+BZ_END_STENCIL
+</pre></td></tr></table></P><P>
+
+Currently, a stencil can take up to 11 array parameters.
+</P><P>
+
+You can use the notation <CODE>A(i,j,k)</CODE> to read the element at an offset
+<CODE>(i,j,k)</CODE> from the current element.  If you omit the parentheses
+(i.e. as in "<CODE>A</CODE>" then the current element is read.
+</P><P>
+
+You can invoke <EM>stencil operators</EM> which calculate finite differences
+and laplacians.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC107"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC106"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.3 Automatic determination of stencil extent </H2>
+<!--docid::SEC107::-->
+<P>
+
+In stencil declarations such as
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL2(smooth2D,A,B)
+  A = (B(0,0) + B(0,1) + B(0,-1) + B(1,0) + B(-1,0)) / 5.0;
+BZ_END_STENCIL
+</pre></td></tr></table></P><P>
+
+Blitz++ will try to automatically determine the spatial extent of the
+stencil.  This will usually work for stencils defined on integer or float
+arrays.  However, the mechanism does not work well for complex-valued
+arrays, or arrays of user-defined types.  If you get a peculiar error when
+you try to use a stencil, you probably need to tell Blitz++ the special
+extent of the stencil manually.
+</P><P>
+
+You do this by ending a stencil declaration with
+<CODE>BZ_END_STENCIL_WITH_SHAPE</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL2(smooth2D,A,B)
+  A = (B(0,0) + B(0,1) + B(0,-1) + B(1,0) + B(-1,0)) / 5.0;
+BZ_END_STENCIL_WITH_SHAPE(shape(-1,-1),shape(+1,+1))
+</pre></td></tr></table></P><P>
+
+The parameters of this macro are: a <CODE>TinyVector</CODE> (constructed by the
+<CODE>shape()</CODE> function) containing the lower bounds of the stencil offsets,
+and a <CODE>TinyVector</CODE> containing the upper bounds.  You can determine this
+by looking at the the terms in the stencil and finding the minimum and
+maximum value of each index:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>      A = (B(0,  0) 
+         + B(0, +1)
+         + B(0, -1)
+         + B(+1, 0)
+         + B(-1, 0)) / 5.0;
+           --------
+min indices  -1, -1
+max indices  +1, +1
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC108"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC107"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC109"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.4 Stencil operators </H2>
+<!--docid::SEC108::-->
+<P>
+
+This section lists all the stencil operators provided by Blitz++.  They
+assume that an array represents evenly spaced data points separated by a
+distance of <CODE>h</CODE>.  A 2nd-order accurate operator has error term 
+<EM>O(h^2)</EM>; a 4th-order accurate operator has error term <EM>O(h^4)</EM>.
+</P><P>
+
+All of the stencils have factors associated with them.  For example, the
+<CODE>central12</CODE> operator is a discrete first derivative which is 2nd-order
+accurate.  Its factor is 2h; this means that to get the first derivative of
+an array A, you need to use <CODE>central12(A,firstDim)</CODE><EM>/(2h)</EM>.
+Typically when designing stencils, one factors out all of the <EM>h</EM> terms
+for efficiency.
+</P><P>
+
+The factor terms always consist of an integer multiplier (often 1) and a
+power of <EM>h</EM>.  For ease of use, all of the operators listed below are
+provided in a second "normalized" version in which the integer multiplier
+is 1.  The normalized versions have an <CODE>n</CODE> appended to the name, for
+example <CODE>central12n</CODE> is the normalized version of <CODE>central12</CODE>, and
+has factor <EM>h</EM> instead of <EM>2h</EM>.
+</P><P>
+
+These operators are defined in <CODE>blitz/array/stencilops.h</CODE> if you wish
+to see the implementation.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC109"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC110"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.1 Central differences </H3>
+<!--docid::SEC109::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>central12(A,dimension)</CODE>
+<DD>1st derivative, 2nd order accurate.  Factor: <EM>2h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-1</td><td>0</td><td>1</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central22(A,dimension)</CODE>
+<DD>2nd derivative, 2nd order accurate.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-1</td><td>0</td><td>1</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000060"><font color="#ffffff">-2</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central32(A,dimension)</CODE>
+<DD>3rd derivative, 2nd order accurate.  Factor: <EM>2h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">2</font></td><td></td><td bgcolor="#000000"><font color="#ffffff">-2</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central42(A,dimension)</CODE>
+<DD>4th derivative, 2nd order accurate.  Factor: <EM>h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000060"><font color="#ffffff">6</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central14(A,dimension)</CODE>
+<DD>1st derivative, 4th order accurate.  Factor: <EM>12h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-8</font></td><td></td><td bgcolor="#000000"><font color="#ffffff">8</font></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central24(A,dimension)</CODE>
+<DD>2nd derivative, 4th order accurate.  Factor: <EM>12h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td bgcolor="#000060"><font color="#ffffff">-30</font></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central34(A,dimension)</CODE>
+<DD>3rd derivative, 4th order accurate.  Factor: <EM>8h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-8</font></td><td bgcolor="#000000"><font color="#ffffff">13</font></td><td></td><td bgcolor="#000000"><font color="#ffffff">-13</font></td><td bgcolor="#000000"><font color="#ffffff">8</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>central44(A,dimension)</CODE>
+<DD>4th derivative, 4th order accurate.  Factor: <EM>6h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">12</font></td><td bgcolor="#000000"><font color="#ffffff">-39</font></td><td bgcolor="#000060"><font color="#ffffff">56</font></td><td bgcolor="#000000"><font color="#ffffff">-39</font></td><td bgcolor="#000000"><font color="#ffffff">12</font></td></tr>
+</table>
+</DL>
+<P>
+
+Note that the above are available in normalized versions <CODE>central12n</CODE>,
+<CODE>central22n</CODE>, ..., <CODE>central44n</CODE> which have factors of <EM>h</EM>,
+<EM>h^2</EM>, <EM>h^3</EM>, or <EM>h^4</EM> as appropriate.  
+</P><P>
+
+These are available in multicomponent versions: for example,
+<CODE>central12(A,component,dimension)</CODE> gives the central12 operator for the
+specified component (Components are numbered 0, 1, ... N-1).  
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC110"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC109"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC111"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC111"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.2 Forward differences </H3>
+<!--docid::SEC110::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>forward11(A,dimension)</CODE>
+<DD>1st derivative, 1st order accurate.  Factor: <EM>h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward21(A,dimension)</CODE>
+<DD>2nd derivative, 1st order accurate.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-2</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward31(A,dimension)</CODE>
+<DD>3rd derivative, 1st order accurate.  Factor: <EM>h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">3</font></td><td bgcolor="#000000"><font color="#ffffff">-3</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward41(A,dimension)</CODE>
+<DD>4th derivative, 1st order accurate.  Factor: <EM>h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000000"><font color="#ffffff">6</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward12(A,dimension)</CODE>
+<DD>1st derivative, 2nd order accurate.  Factor: <EM>2h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">-3</font></td><td bgcolor="#000000"><font color="#ffffff">4</font></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward22(A,dimension)</CODE>
+<DD>2nd derivative, 2nd order accurate.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">2</font></td><td bgcolor="#000000"><font color="#ffffff">-5</font></td><td bgcolor="#000000"><font color="#ffffff">4</font></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward32(A,dimension)</CODE>
+<DD>3rd derivative, 2nd order accurate.  Factor: <EM>2h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">-5</font></td><td bgcolor="#000000"><font color="#ffffff">18</font></td><td bgcolor="#000000"><font color="#ffffff">-24</font></td><td bgcolor="#000000"><font color="#ffffff">14</font></td><td bgcolor="#000000"><font color="#ffffff">-3</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>forward42(A,dimension)</CODE>
+<DD>4th derivative, 2nd order accurate.  Factor: <EM>h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr><tr align=right><td></td><td bgcolor="#000060"><font color="#ffffff">3</font></td><td bgcolor="#000000"><font color="#ffffff">-14</font></td><td bgcolor="#000000"><font color="#ffffff">26</font></td><td bgcolor="#000000"><font color="#ffffff">-24</font></td><td bgcolor="#000000"><font color="#ffffff">11</font></td><td bgcolor="#000000"><font color="#ffffff">-2</font></td></tr>
+</table>
+</DL>
+<P>
+
+Note that the above are available in normalized versions <CODE>forward11n</CODE>,
+<CODE>forward21n</CODE>, ..., <CODE>forward42n</CODE> which have factors of <EM>h</EM>,
+<EM>h^2</EM>, <EM>h^3</EM>, or <EM>h^4</EM> as appropriate.  
+</P><P>
+
+These are available in multicomponent versions: for example,
+<CODE>forward11(A,component,dimension)</CODE> gives the forward11 operator for the
+specified component (Components are numbered 0, 1, ... N-1).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC111"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC110"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC112"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC112"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.3 Backward differences </H3>
+<!--docid::SEC111::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>backward11(A,dimension)</CODE>
+<DD>1st derivative, 1st order accurate.  Factor: <EM>h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000060"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward21(A,dimension)</CODE>
+<DD>2nd derivative, 1st order accurate.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-2</font></td><td bgcolor="#000060"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward31(A,dimension)</CODE>
+<DD>3rd derivative, 1st order accurate.  Factor: <EM>h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-3</td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">3</font></td><td bgcolor="#000000"><font color="#ffffff">-3</font></td><td bgcolor="#000060"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward41(A,dimension)</CODE>
+<DD>4th derivative, 1st order accurate.  Factor: <EM>h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-4</td><td>-3</td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000000"><font color="#ffffff">6</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000060"><font color="#ffffff">1</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward12(A,dimension)</CODE>
+<DD>1st derivative, 2nd order accurate.  Factor: <EM>2h</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000000"><font color="#ffffff">-4</font></td><td bgcolor="#000060"><font color="#ffffff">3</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward22(A,dimension)</CODE>
+<DD>2nd derivative, 2nd order accurate.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-3</td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">4</font></td><td bgcolor="#000000"><font color="#ffffff">-5</font></td><td bgcolor="#000060"><font color="#ffffff">2</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward32(A,dimension)</CODE>
+<DD>3rd derivative, 2nd order accurate.  Factor: <EM>2h^3</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-4</td><td>-3</td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">3</font></td><td bgcolor="#000000"><font color="#ffffff">-14</font></td><td bgcolor="#000000"><font color="#ffffff">24</font></td><td bgcolor="#000000"><font color="#ffffff">-18</font></td><td bgcolor="#000060"><font color="#ffffff">5</font></td></tr>
+</table>
+<P>
+
+<DT><CODE>backward42(A,dimension)</CODE>
+<DD>4th derivative, 2nd order accurate.  Factor: <EM>h^4</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-5</td><td>-4</td><td>-3</td><td>-2</td><td>-1</td><td>0</td></tr><tr align=right><td></td><td bgcolor="#000000"><font color="#ffffff">-2</font></td><td bgcolor="#000000"><font color="#ffffff">11</font></td><td bgcolor="#000000"><font color="#ffffff">-24</font></td><td bgcolor="#000000"><font color="#ffffff">26</font></td><td bgcolor="#000000"><font color="#ffffff">-14</font></td><td bgcolor="#000060"><font color="#ffffff">3</font></td></tr>
+</table>
+</DL>
+<P>
+
+Note that the above are available in normalized versions <CODE>backward11n</CODE>,
+<CODE>backward21n</CODE>, ..., <CODE>backward42n</CODE> which have factors of <EM>h</EM>,
+<EM>h^2</EM>, <EM>h^3</EM>, or <EM>h^4</EM> as appropriate.  
+</P><P>
+
+These are available in multicomponent versions: for example,
+<CODE>backward42(A,component,dimension)</CODE> gives the backward42 operator for
+the specified component (Components are numbered 0, 1, ... N-1).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC112"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC111"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC113"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC113"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.4 Laplacian (<EM>nabla ^2</EM>) operators </H3>
+<!--docid::SEC112::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>Laplacian2D(A)</CODE>
+<DD>2nd order accurate, 2-dimensional laplacian.  Factor: <EM>h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-1</td><td>0</td><td>1</td></tr><tr align=right><td>-1</td><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td></td></tr>
+<tr align=right><td>0</td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td bgcolor="#000060"><font color="#ffffff">-4</font></td><td bgcolor="#000000"><font color="#ffffff">1</font></td></tr>
+<tr align=right><td>1</td><td></td><td bgcolor="#000000"><font color="#ffffff">1</font></td><td></td></tr>
+</table>
+<P>
+
+<DT><CODE>Laplacian3D(A)</CODE>
+<DD>2nd order accurate, 3-dimensional laplacian.  Factor: <EM>h^2</EM>
+<P>
+
+<DT><CODE>Laplacian2D4(A)</CODE>
+<DD>4th order accurate, 2-dimensional laplacian.  Factor: <EM>12h^2</EM>
+<table cellpadding=2 rules=all>
+<tr align=right><td></td><td>-2</td><td>-1</td><td>0</td><td>1</td><td>2</td></tr><tr align=right><td>-2</td><td></td><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td></td><td></td></tr>
+<tr align=right><td>-1</td><td></td><td></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td></td><td></td></tr>
+<tr align=right><td>0</td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td bgcolor="#000060"><font color="#ffffff">-60</font></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td></tr>
+<tr align=right><td>1</td><td></td><td></td><td bgcolor="#000000"><font color="#ffffff">16</font></td><td></td><td></td></tr>
+<tr align=right><td>2</td><td></td><td></td><td bgcolor="#000000"><font color="#ffffff">-1</font></td><td></td><td></td></tr>
+</table>
+<P>
+
+<DT><CODE>Laplacian3D4(A)</CODE>
+<DD>4th order accurate, 3-dimensional laplacian.  Factor: <EM>12h^2</EM>
+</DL>
+<P>
+
+Note that the above are available in normalized versions
+<CODE>Laplacian2D4n</CODE>, <CODE>Laplacian3D4n</CODE> which have factors <EM>h^2</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC113"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC112"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC114"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC114"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.5 Gradient (<EM>nabla</EM>) operators </H3>
+<!--docid::SEC113::-->
+<P>
+
+These return <CODE>TinyVector</CODE>s of the appropriate numeric type and length:
+</P><P>
+
+<DL COMPACT>
+
+<DT><CODE>grad2D(A)</CODE>
+<DD>2nd order, 2-dimensional gradient (vector of first derivatives), generated
+using the central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>grad2D4(A)</CODE>
+<DD>4th order, 2-dimensional gradient, using central14 operator.  Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>grad3D(A)</CODE>
+<DD>2nd order, 3-dimensional gradient, using central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>grad3D4(A)</CODE>
+<DD>4th order, 3-dimensional gradient, using central14 operator.  Factor: <EM>12h</EM>
+</DL>
+<P>
+
+These are available in normalized versions <CODE>grad2Dn</CODE>, <CODE>grad2D4n</CODE>,
+<CODE>grad3Dn</CODE> and <CODE>grad3D4n</CODE> which have factors <EM>h</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC114"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC113"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC115"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC115"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.6 Jacobian operators </H3>
+<!--docid::SEC114::-->
+<P>
+
+The Jacobian operators are defined over 3D vector fields only (e.g.
+<CODE>Array&#60;TinyVector&#60;double,3&#62;,3&#62;</CODE>).  They return a
+<CODE>TinyMatrix&#60;T,3,3&#62;</CODE> where T is the numeric type of the vector field.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>Jacobian3D(A)</CODE>
+<DD>2nd order, 3-dimensional Jacobian using the central12 operator.  Factor:
+<EM>2h</EM>.
+<P>
+
+<DT><CODE>Jacobian3D4(A)</CODE>
+<DD>4th order, 3-dimensional Jacobian using the central14 operator.  Factor:
+<EM>12h</EM>.
+</DL>
+<P>
+
+These are also available in normalized versions <CODE>Jacobian3Dn</CODE> and
+<CODE>Jacobain3D4n</CODE> which have factors <EM>h</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC115"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC114"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC116"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.7 Grad-squared operators </H3>
+<!--docid::SEC115::-->
+<P>
+
+There are also grad-squared operators, which return <CODE>TinyVector</CODE>s of
+second derivatives:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>gradSqr2D(A)</CODE>
+<DD>2nd order, 2-dimensional grad-squared (vector of second derivatives),
+generated using the central22 operator.  Factor: <EM>h^2</EM>
+<P>
+
+<DT><CODE>gradSqr2D4(A)</CODE>
+<DD>4th order, 2-dimensional grad-squared, using central24 operator.  Factor:
+<EM>12h^2</EM>
+<P>
+
+<DT><CODE>gradSqr3D(A)</CODE>
+<DD>2nd order, 3-dimensional grad-squared, using the central22 operator.
+Factor: <EM>h^2</EM>
+<P>
+
+<DT><CODE>gradSqr3D4(A)</CODE>
+<DD>4th order, 3-dimensional grad-squared, using central24 operator.  Factor:
+<EM>12h^2</EM>
+</DL>
+<P>
+
+Note that the above are available in normalized versions <CODE>gradSqr2Dn</CODE>,
+<CODE>gradSqr2D4n</CODE>, <CODE>gradSqr3Dn</CODE>, <CODE>gradSqr3D4n</CODE> which have factors
+<EM>h^2</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC116"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC115"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC117"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC117"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.8 Curl (<EM>nabla times</EM>) operators </H3>
+<!--docid::SEC116::-->
+<P>
+
+These curl operators return scalar values:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>curl(Vx,Vy)</CODE>
+<DD>2nd order curl operator using the central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>curl4(Vx,Vy)</CODE>
+<DD>4th order curl operator using the central14 operator.  Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>curl2D(V)</CODE>
+<DD>2nd order curl operator on a 2D vector field (e.g.
+<CODE>Array&#60;TinyVector&#60;float,2&#62;,2&#62;</CODE>), using the central12 operator.  Factor:
+<EM>2h</EM>
+<P>
+
+<DT><CODE>curl2D4(V)</CODE>
+<DD>4th order curl operator on a 2D vector field, using the central12 operator.
+Factor: <EM>12h</EM>
+</DL>
+<P>
+
+Available in normalized forms <CODE>curln</CODE>, <CODE>curl4n</CODE>, <CODE>curl2Dn</CODE>,
+<CODE>curl2D4n</CODE>.
+</P><P>
+
+These curl operators return three-dimensional <CODE>TinyVector</CODE>s of the 
+appropriate numeric type:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>curl(Vx,Vy,Vz)</CODE>
+<DD>2nd order curl operator using the central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>curl4(Vx,Vy,Vz)</CODE>
+<DD>4th order curl operator using the central14 operator.  Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>curl(V)</CODE>
+<DD>2nd order curl operator on a 3D vector field (e.g.
+<CODE>Array&#60;TinyVector&#60;double,3&#62;,3&#62;</CODE>, using the central12 operator.  Factor:
+<EM>2h</EM>
+<P>
+
+<DT><CODE>curl4(V)</CODE>
+<DD>4th order curl operator on a 3D vector field, using the central14 operator.
+Factor: <EM>12h</EM>
+</DL>
+<P>
+
+Note that the above are available in normalized versions <CODE>curln</CODE> and
+<CODE>curl4n</CODE>, which have factors of <CODE>h</CODE>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC117"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC116"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC118"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.9 Divergence (<EM>nabla cdot</EM>) operators </H3>
+<!--docid::SEC117::-->
+<P>
+
+The divergence operators return a scalar value.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>div(Vx,Vy)</CODE>
+<DD>2nd order div operator using the central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>div4(Vx,Vy)</CODE>
+<DD>4th order div operator using the central14 operator.  Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>div(Vx,Vy,Vz)</CODE>
+<DD>2nd order div operator using the central12 operator.  Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>div4(Vx,Vy,Vz)</CODE>
+<DD>4th order div operator using the central14 operator.  Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>div2D(V)</CODE>
+<DD>2nd order div operator on a 2D vector field, using the central12 operator.
+Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>div2D4(V)</CODE>
+<DD>2nd order div operator on a 2D vector field, using the central14 operator.
+Factor: <EM>12h</EM>
+<P>
+
+<DT><CODE>div3D(V)</CODE>
+<DD>2nd order div operator on a 3D vector field, using the central12 operator.
+Factor: <EM>2h</EM>
+<P>
+
+<DT><CODE>div3D4(V)</CODE>
+<DD>2nd order div operator on a 3D vector field using the central14 operator.
+Factor: <EM>12h</EM>
+</DL>
+<P>
+
+These are available in normalized versions
+<CODE>divn</CODE>, <CODE>div4n</CODE>, <CODE>div2Dn</CODE>, <CODE>div2D4n</CODE>, <CODE>div3Dn</CODE>, and
+<CODE>div3D4n</CODE> which have factors of <EM>h</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC118"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC117"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC110"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC108"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.10 Mixed partial derivatives </H3>
+<!--docid::SEC118::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>mixed22(A,dim1,dim2)</CODE>
+<DD>2nd order accurate, 2nd mixed partial derivative.  Factor: <EM>4h^2</EM>
+<P>
+
+<DT><CODE>mixed24(A,dim1,dim2)</CODE>
+<DD>4th order accurate, 2nd mixed partial derivative.  Factor: <EM>144h^2</EM>
+</DL>
+<P>
+
+There are also normalized versions of the above, <CODE>mixed22n</CODE> and
+<CODE>mixed24n</CODE> which have factors <EM>h^2</EM>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC119"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC118"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC120"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC120"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.5 Declaring your own stencil operators </H2>
+<!--docid::SEC119::-->
+<P>
+
+You can declare your own stencil operators using the macro
+<CODE>BZ_DECLARE_STENCIL_OPERATOR1</CODE>.  For example, here is the declaration
+of <CODE>Laplacian2D</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL_OPERATOR1(Laplacian2D, A)
+    return -4*A(0,0) + A(-1,0) + A(1,0) + A(0,-1) + A(0,1);
+BZ_END_STENCIL_OPERATOR
+</pre></td></tr></table></P><P>
+
+To declare a stencil operator on 3 operands, use the macro
+<CODE>BZ_DECLARE_STENCIL_OPERATOR3</CODE>.  Here is the declaration of <CODE>div</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_STENCIL_OPERATOR3(div,vx,vy,vz)
+  return central12(vx,firstDim) + central12(vy,secondDim)
+    + central12(vz,thirdDim);
+BZ_END_STENCIL_OPERATOR
+</pre></td></tr></table></P><P>
+
+The macros aren't magical; they just declare an inline template function
+with the names and arguments you specify.  For example, the declaration of
+<CODE>div</CODE> could also be written
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>template&#60;class T&#62;                              
+inline typename T::T_numtype div(T&#38; vx, T&#38; vy, T&#38; vz)   
+{
+  return central12(vx,firstDim) + central12(vy,secondDim)
+                                + central12(vz,thirdDim);
+}
+</pre></td></tr></table></P><P>
+
+The template parameter <CODE>T</CODE> is an iterator type for arrays.
+</P><P>
+
+You are encouraged to use the macros when possible, because it is possible
+the implementation could be changed in the future.
+</P><P>
+
+To declare a difference operator, use this syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_DIFF(central12,A) {
+  return A.shift(1,dim) - A.shift(-1,dim);
+}
+</pre></td></tr></table></P><P>
+
+The method <CODE>shift(offset,dim)</CODE> retrieves the element at
+<CODE>offset</CODE> in dimension <CODE>dim</CODE>.
+</P><P>
+
+Stencil operator declarations cannot occur inside a function.  If
+declared inside a class, they are scoped by the class.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC120"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC119"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.6 Applying a stencil </H2>
+<!--docid::SEC120::-->
+<P>
+
+The syntax for applying a stencil is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>applyStencil(stencilname(),A,B,C...,F);
+</pre></td></tr></table></P><P>
+
+Where <CODE>stencilname</CODE> is the name of the stencil, and <CODE>A,B,C,...,F</CODE>
+are the arrays on which the stencil operates.
+</P><P>
+
+For examples, see <TT>`examples/stencil.cpp'</TT> and <TT>`examples/stencil2.cpp'</TT>.
+</P><P>
+
+Blitz++ interrogates the stencil object to find out how large its footprint
+is.  It only applies the stencil over the region of the arrays where it
+won't overrun the boundaries.
+</P><P>
+
+<A NAME="Customised Arrays"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

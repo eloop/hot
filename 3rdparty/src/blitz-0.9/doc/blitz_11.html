@@ -1,0 +1,397 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: FAQ</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: FAQ">
+<META NAME="keywords" CONTENT="Blitz++: FAQ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC161"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC160"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC162"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 11. Frequently Asked Questions </H1>
+<!--docid::SEC161::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC162"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC163"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 11.1 Questions about installation </H2>
+<!--docid::SEC162::-->
+<P>
+
+<A NAME="IDX415"></A>
+<A NAME="IDX416"></A>
+</P><P>
+
+<STRONG>* {I downloaded Blitz++, but when I try to gunzip it, I get</STRONG>
+"invalid compressed data--crc error"}
+</P><P>
+
+You forgot to set binary download mode in ftp.  Do so with
+the "binary" command.
+</P><P>
+
+<A NAME="IDX417"></A>
+</P><P>
+
+<STRONG>* {After accessing blitz from the cvs repository, the "autoreconf -fiv"</STRONG>
+command seems to fail mysteriously.}
+</P><P>
+
+The current blitz autoconf build system uses libtool to manage building
+either static or shared versions of the library.  Mac OS X systems have 
+their own version of libtool and libtoolize that conflict with the GNU 
+versions, so these have been renamed glibtool and glibtoolize.  You must
+set environment variables to indicate the right tools to use.  Try this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>export LIBTOOL=/usr/bin/glibtool
+export LIBTOOLIZE=/usr/bin/glibtoolize
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX418"></A>
+</P><P>
+
+<STRONG>* {The blitz configure script fails to find a valid Fortran compiler.</STRONG>
+Why the heck do I need a Fortran compiler for Blitz++ anyway?}
+</P><P>
+
+A Fortran compiler is only needed to compile the Fortran portions of the 
+blitz benchmark codes in the banchmarks subdirectory, which compare the
+speed of blitz code to that of raw Fortran 77 or Fortran 90 arrays.  Many
+Darwin systems do not come with a Fortran compiler installed by default,
+and it can be difficult to obtain a GNU Fortran compiler for Mac OS X that
+is completely compatible with the default C/C++ compiler.  Therefore, the
+blitz configure script now provides the option --disable-fortran, which 
+will skip over Fortran configuration.  This will render the benchmark codes
+unusable, but will allow you to build and install the blitz library.
+</P><P>
+
+<A NAME="IDX419"></A>
+</P><P>
+
+<STRONG>* {The linker complains about undefined references when compiling my</STRONG>
+blitz application code.}
+</P><P>
+
+Although almost all of blitz consists of inlined templated code provided
+in header files via <CODE>&#60;blitz/array.h&#62;</CODE>, there are a few static global
+objects whose definitions are provided in a compiled blitz library.  So
+always remember to include the appropriate -L flag and -lblitz on your 
+linker command line in order to link your code against the blitz library.
+</P><P>
+
+<A NAME="IDX420"></A>
+</P><P>
+
+<STRONG>* {The compiler complains that there is no match for the TinyVector</STRONG>
+unary or binary math operator I have invoked, even though I've included
+<CODE>&#60;blitz/tinyvec.h&#62;</CODE>.}
+</P><P>
+
+In versions prior to blitz 0.8, the <CODE>tinyvec.h</CODE> header automatically 
+included all of the blitz support for expressions involving TinyVectors.
+Because this code is intimately linked with the expression template support 
+for Vector, VectorPick and other Vector-like classes, this turns out to be a
+large amount of code.  The blitz Array class uses TinyVector to represent 
+Array shapes, and thus <CODE>array.h</CODE> must include <CODE>tinyvec.h</CODE>.  This 
+was creating a large amount of compile-time overhead, so it was decided 
+to separate the TinyVector expression template support and put this in a new
+header file <CODE>tinyvec-et.h</CODE>.  Therefore, your code must include 
+<CODE>&#60;blitz/tinyvec-et.h&#62;</CODE> explicitly if it uses expressions with TinyVectors.
+</P><P>
+
+<A NAME="IDX421"></A>
+</P><P>
+
+<STRONG>* {The compiler complains that there is no Array class, even though I've</STRONG>
+included <CODE>&#60;blitz.h&#62;</CODE>.}
+</P><P>
+
+You need to have the line:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>using namespace blitz;
+</pre></td></tr></table></P><P>
+
+after including <CODE>&#60;blitz.h&#62;</CODE>.
+</P><P>
+
+<A NAME="IDX422"></A>
+<A NAME="IDX423"></A>
+<A NAME="IDX424"></A>
+<A NAME="IDX425"></A>
+</P><P>
+
+<STRONG>* I can't use gcc on my elderly PC because it requires 45--150Mb
+to compile with Blitz++</STRONG>
+</P><P>
+
+Unfortunately this is true.  If this problem is ever fixed, it
+will be by the gcc developers, so my best suggestion is to post
+a bug report to the gcc-bugs list.  
+</P><P>
+
+<A NAME="IDX426"></A>
+</P><P>
+
+<STRONG>* {I am using gcc under Solaris, and I get errors about</STRONG>
+"relocation against external symbol"}
+</P><P>
+
+This problem can be fixed by installing the gnu linker and
+binutils.  Peter Nordlund found that by using  <CODE>gnu-binutils-2.9.1</CODE>,
+this problem disappeared.  You can read a detailed 
+discussion at
+<A HREF="http://oonumerics.org/blitz/support/blitz-support/archive/0029.html">http://oonumerics.org/blitz/support/blitz-support/archive/0029.html</A>.
+</P><P>
+
+<A NAME="IDX427"></A>
+</P><P>
+
+<STRONG>* {I am using gcc under Solaris, and the assembler gives</STRONG>
+me an error that a symbol is too long.}
+</P><P>
+
+This problem can also be fixed by installing the gnu linker and
+binutils.  See the above question.
+</P><P>
+
+<A NAME="IDX428"></A>
+</P><P>
+
+<STRONG>* DECcxx reports problems about "templates with C linkage"</STRONG>
+</P><P>
+
+This problem was caused by a problem in some versions of DECcxx's
+<TT>`math.h'</TT> header: XOPEN_SOURCE_EXTENDED was causing an
+<CODE>extern "C" { ... }</CODE> section to have no closing brace.
+There is a kludge which is included in recent versions of
+Blitz++.
+</P><P>
+
+<A NAME="IDX429"></A>
+</P><P>
+
+<STRONG>* {On some platforms (especially SGI) the testsuite program</STRONG>
+<CODE>minsumpow</CODE> fails with the error: <CODE>Template instantiation resulted
+in an unexpected function type of...</CODE>}
+</P><P>
+
+This is a known bug in the older versions of the EDG front end,
+which many C++ compilers use.  There is no known fix.
+Most of Blitz++ will work, but you won't be able to use
+some array reductions.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC163"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC162"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_12.html#SEC164"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 11.2 Questions about Blitz++ functionality </H2>
+<!--docid::SEC163::-->
+<P>
+
+<A NAME="IDX430"></A>
+<A NAME="IDX431"></A>
+<A NAME="IDX432"></A>
+<A NAME="IDX433"></A>
+</P><P>
+
+<STRONG>* For my problem, I need SVD, FFTs, QMRES, PLU, QR, ....</STRONG>
+</P><P>
+
+Blitz++ does not currently provide any of these.  However, there are
+numerous C++ and C packages out there which do, and it is easy to move data
+back and forth between Blitz++ and other libraries.  See these terms in the
+index: creating an array from pre-existing data, <CODE>data()</CODE>,
+<CODE>stride()</CODE>, <CODE>extent()</CODE>, <CODE>fortranArray</CODE>.  For a list of other
+numerical C++ libraries, see the Object Oriented Numerics Page at
+<A HREF="http://oonumerics.org/oon/">http://oonumerics.org/oon/</A>.
+</P><P>
+
+<A NAME="IDX434"></A>
+</P><P>
+
+<STRONG>* Can Blitz++ be interfaced with Python?</STRONG>
+</P><P>
+
+Phil Austin has done so successfully.  See a description of his setup in 
+<A HREF="http://oonumerics.org/blitz/support/blitz-support/archive/0053.html">http://oonumerics.org/blitz/support/blitz-support/archive/0053.html</A>.
+</P><P>
+
+<A NAME="IDX435"></A>
+Also see Harry Zuzan's Python/Blitz image processing example code
+at <A HREF="http://www.stat.duke.edu/~hz/blitz_py/index.html">http://www.stat.duke.edu/~hz/blitz_py/index.html</A>.
+</P><P>
+
+<A NAME="IDX436"></A>
+<A NAME="IDX437"></A>
+<A NAME="IDX438"></A>
+<A NAME="IDX439"></A>
+<A NAME="IDX440"></A>
+</P><P>
+
+<STRONG>* {If I try to allocate an array which is too big, my program just crashes</STRONG>
+or goes into an infinite loop.  Is there some way I can handle this more
+elegantly?}
+</P><P>
+
+Blitz++ uses <CODE>new</CODE> to allocate memory for arrays.  In theory, your
+compiler should be throwing a <CODE>bad_alloc</CODE> exception when you run out of
+memory.  If it does, you can use a <CODE>try/catch</CODE> block to handle the out of
+memory exception.  If your compiler does not throw <CODE>bad_alloc</CODE>, you can
+install your own new handler to handle out of memory.
+</P><P>
+
+Here is an excerpt from the ISO/ANSI C++ standard which describes the
+behaviour of <CODE>new</CODE>:
+</P><P>
+
+<UL>
+
+<LI>Executes a loop: Within the loop, the function first attempts to
+allocate the requested storage. Whether the attempt involves a call to the
+Standard C library function malloc is unspecified. 
+<P>
+
+<LI>Returns a pointer to the allocated storage if the attempt is
+successful. Otherwise, if the last argument to <CODE>set_new_handler()</CODE> was
+a null pointer, throw <CODE>bad_alloc</CODE>. 
+<P>
+
+<LI>Otherwise, the function calls the current <CODE>new_handler</CODE>
+(lib.new.handler). If the called function returns, the loop repeats. 
+<P>
+
+<LI>The loop terminates when an attempt to allocate the requested storage
+is successful or when a called new_handler function does not return. 
+<P>
+
+</UL>
+<P>
+
+You can use <CODE>set_new_handler</CODE> to create a new handler which
+will issue an error message or throw an exception.  For
+example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void my_new_handler()
+{
+cerr &#60;&#60; "Out of memory" &#60;&#60; endl;
+cerr.flush();
+abort();
+}
+
+...
+
+// First line in main():
+set_new_handler(my_new_handler);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX441"></A>
+<A NAME="IDX442"></A>
+</P><P>
+
+<STRONG>* {When I pass arrays by value, the function which receives</STRONG>
+them can modify the array data.  Why?}
+</P><P>
+
+It's a result of reference-counting. You have to think of array objects as
+being "handles" to underlying arrays. The function doesn't receive a copy of
+the array data, but rather a copy of the handle.  The alternative would be
+to copy the array data when passing by value, which would be grossly
+inefficient.
+</P><P>
+
+<A NAME="IDX443"></A>
+<A NAME="IDX444"></A>
+<A NAME="IDX445"></A>
+<A NAME="IDX446"></A>
+<A NAME="IDX447"></A>
+</P><P>
+
+<STRONG>* Why can't I use e.g. <CODE>A &#62;&#62; 3</CODE> to do bitshifting on arrays?</STRONG>
+</P><P>
+
+The operators <CODE>&#60;&#60;</CODE> and <CODE>&#62;&#62;</CODE> are used for input/ouput of arrays.
+It would cause problems with the expression templates implementation to also
+use them for bitshifting.  However, it is easy enough to define your own
+bitshifting function -- see <A HREF="blitz_3.html#SEC98">3.10 Declaring your own math functions on arrays</A>.
+</P><P>
+
+<A NAME="IDX448"></A>
+</P><P>
+
+<STRONG>* When I write <CODE>TinyMatrix * TinyVector</CODE> I get an error.</STRONG>
+</P><P>
+
+Try <CODE>product(d2,d1)</CODE>.  This works for matrix-matrix and matrix-vector
+products.
+</P><P>
+
+<A NAME="Keyword Index"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

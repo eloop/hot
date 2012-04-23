@@ -1,0 +1,3119 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Arrays</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Arrays">
+<META NAME="keywords" CONTENT="Blitz++: Arrays">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC34"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_1.html#SEC33"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 2. Arrays </H1>
+<!--docid::SEC34::-->
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC35">2.1 Getting started</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC40">2.2 Public types</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Public types declaration for Array</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC41">2.3 Constructors</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array constructors</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC51">2.4 Indexing, subarrays, and slicing</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to access the elements of an Array?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC55">2.4.4 Slicing</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The slicing machinery</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC59">2.5 Debug mode</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to debug a program that uses Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC60">2.6 Member functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array member functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC64">2.7 Global functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array global functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC65">2.8 Inputting and Outputting Arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Inputting and outputting Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The storage of Array</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Array intro"></A>
+<HR SIZE="6">
+<A NAME="SEC35"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC36"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.1 Getting started </H2>
+<!--docid::SEC35::-->
+<P>
+
+Currently, Blitz++ provides a single array class, called
+<CODE>Array&#60;T_numtype,N_rank&#62;</CODE>.  This array class provides a dynamically
+allocated N-dimensional array, with reference counting, arbitrary storage
+ordering, subarrays and slicing, flexible expression handling, and many
+other useful features.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.1.1 Template parameters </H3>
+<!--docid::SEC36::-->
+<P>
+
+The <CODE>Array</CODE> class takes two template parameters:
+</P><P>
+
+<UL>
+<LI><CODE>T_numtype</CODE>
+is the numeric type to be stored in the array.  <CODE>T_numtype</CODE> can be an
+integral type (<CODE>bool</CODE>, <CODE>char</CODE>, <CODE>unsigned char</CODE>, <CODE>short
+int</CODE>, <CODE>short unsigned int</CODE>, <CODE>int</CODE>, <CODE>unsigned int</CODE>,
+<CODE>long</CODE>, <CODE>unsigned long</CODE>), floating point type (<CODE>float</CODE>,
+<CODE>double</CODE>, <CODE>long double</CODE>), complex type (<CODE>complex&#60;float&#62;</CODE>,
+<CODE>complex&#60;double&#62;</CODE>, <CODE>complex&#60;long double&#62;</CODE>) or any user-defined
+type with appropriate numeric semantics.
+<P>
+
+<LI><CODE>N_rank</CODE>
+<A NAME="IDX5"></A>
+<A NAME="IDX6"></A>
+is the <STRONG>rank</STRONG> (or dimensionality) of the array.  This should be a
+positive integer. 
+<P>
+
+</UL>
+<P>
+
+To use the <CODE>Array</CODE> class, include the header <CODE>&#60;blitz/array.h&#62;</CODE> and
+use the namespace <CODE>blitz</CODE>:
+</P><P>
+
+<A NAME="IDX7"></A>
+<A NAME="IDX8"></A>
+<A NAME="IDX9"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+Array&#60;int,1&#62;    x;    // A one-dimensional array of int
+Array&#60;double,2&#62; y;    // A two-dimensional array of double
+.
+.
+Array&#60;complex&#60;float&#62;, 12&#62; z; // A twelve-dimensional array of complex&#60;float&#62;
+</pre></td></tr></table></P><P>
+
+When no constructor arguments are provided, the array is empty, and no
+memory is allocated.  To create an array which contains some data, provide
+the size of the array as constructor arguments:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;double,2&#62; y(4,4);   // A 4x4 array of double
+</pre></td></tr></table></P><P>
+
+The contents of a newly-created array are garbage.  To initialize
+the array, you can write:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>y = 0;
+</pre></td></tr></table></P><P>
+
+and all the elements of the array will be set to zero.  If the contents of
+the array are known, you can initialize it using a comma-delimited list of
+values.  For example, this code excerpt sets <CODE>y</CODE> equal to a 4x4
+identity matrix:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>y = 1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC38"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.1.2 Array types </H3>
+<!--docid::SEC37::-->
+<P>
+
+The <CODE>Array&#60;T,N&#62;</CODE> class supports a variety of arrays:
+</P><P>
+
+<UL>
+
+<A NAME="IDX10"></A>
+<LI>Arrays of scalar types, such as <CODE>Array&#60;int,1&#62;</CODE> and
+<CODE>Array&#60;float,3&#62;</CODE> 
+<P>
+
+<A NAME="IDX11"></A>
+<A NAME="IDX12"></A>
+<LI>Complex arrays, such as <CODE>Array&#60;complex&#60;float&#62;,2&#62;</CODE>
+<P>
+
+<A NAME="IDX13"></A>
+<A NAME="IDX14"></A>
+<A NAME="IDX15"></A>
+<A NAME="IDX16"></A>
+<A NAME="IDX17"></A>
+<A NAME="IDX18"></A>
+<A NAME="IDX19"></A>
+<A NAME="IDX20"></A>
+<LI>Arrays of user-defined types.  If you have a class called
+<CODE>Polynomial</CODE>, then <CODE>Array&#60;Polynomial,2&#62;</CODE> is an array of
+<CODE>Polynomial</CODE> objects.  
+<P>
+
+<A NAME="IDX21"></A>
+<A NAME="IDX22"></A>
+<A NAME="IDX23"></A>
+<LI>Nested homogeneous arrays using <CODE>TinyVector</CODE> and
+<CODE>TinyMatrix</CODE>, in which each element is a fixed-size vector or array.
+For example, <CODE>Array&#60;TinyVector&#60;float,3&#62;,3&#62;</CODE> is a three-dimensional
+vector field.
+<P>
+
+<LI>Nested heterogeneous arrays, such as <CODE>Array&#60;Array&#60;int,1&#62;,1&#62;</CODE>, in
+which each element is a variable-length array.
+</UL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.1.3 A simple example </H3>
+<!--docid::SEC38::-->
+<P>
+
+Here's an example program which creates two 3x3 arrays, initializes
+them, and adds them:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;float,2&#62; A(3,3), B(3,3), C(3,3);
+
+    A = 1, 0, 0,
+        2, 2, 2,
+        1, 0, 0;
+
+    B = 0, 0, 7,
+        0, 8, 0,
+        9, 9, 9;
+
+    C = A + B;
+
+    cout &#60;&#60; "A = " &#60;&#60; A &#60;&#60; endl
+         &#60;&#60; "B = " &#60;&#60; B &#60;&#60; endl
+         &#60;&#60; "C = " &#60;&#60; C &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+and the output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>A = 3 x 3
+[         1         0         0 
+          2         2         2 
+          1         0         0 ]
+
+B = 3 x 3
+[         0         0         7 
+          0         8         0 
+          9         9         9 ]
+
+C = 3 x 3
+[         1         0         7 
+          2        10         2 
+         10         9         9 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC35"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.1.4 Storage orders </H3>
+<!--docid::SEC39::-->
+<P>
+
+Blitz++ is very flexible about the way arrays are stored in memory.
+</P><P>
+
+The default storage format is row-major, C-style arrays whose indices start
+at zero.
+</P><P>
+
+Fortran-style arrays can also be created.  Fortran arrays are stored in
+column-major order, and have indices which start at one.  To create a
+Fortran-style array, use this syntax: <CODE>Array&#60;int,2&#62; A(3, 3,
+fortranArray);</CODE> The last parameter, <CODE>fortranArray</CODE>, tells the
+<CODE>Array</CODE> constructor to use a fortran-style array format.  
+</P><P>
+
+<CODE>fortranArray</CODE> is a global object which has an automatic conversion to
+type <CODE>GeneralArrayStorage&#60;N&#62;</CODE>.  <CODE>GeneralArrayStorage&#60;N&#62;</CODE>
+encapsulates information about how an array is laid out in memory.  By
+altering the contents of a <CODE>GeneralArrayStorage&#60;N&#62;</CODE> object, you can lay
+out your arrays any way you want: the dimensions can be ordered arbitrarily
+and stored in ascending or descending order, and the starting indices can be
+arbitrary.
+</P><P>
+
+Creating custom array storage formats is described in a later section
+(<A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A>).
+</P><P>
+
+<A NAME="Array types"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.2 Public types </H2>
+<!--docid::SEC40::-->
+<P>
+
+The <CODE>Array</CODE> class declares these public types:
+</P><P>
+
+<UL>
+
+<LI><CODE>T_numtype</CODE> is the element type stored in the array.  For
+example, the type <CODE>Array&#60;double,2&#62;::T_numtype</CODE> would be <CODE>double</CODE>.
+<P>
+
+<LI><CODE>T_index</CODE> is a vector index into the array.  The class
+<CODE>TinyVector</CODE> is used for this purpose.
+<P>
+
+<LI><CODE>T_array</CODE> is the array type itself
+(<CODE>Array&#60;T_numtype,N_rank&#62;</CODE>)
+<P>
+
+<LI><CODE>T_iterator</CODE> is an iterator type.  NB: this iterator is not
+yet fully implemented, and is NOT STL compatible at the present time.
+<P>
+
+</UL>
+<P>
+
+<A NAME="Array ctors"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.3 Constructors </H2>
+<!--docid::SEC41::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.1 Default constructor </H3>
+<!--docid::SEC42::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array();
+Array(GeneralArrayStorage&#60;N_rank&#62; storage)
+</pre></td></tr></table></P><P>
+
+The default constructor creates a C-style array of zero size.  Any attempt
+to access data in the array may result in a run-time error, because there
+isn't any data to access!
+</P><P>
+
+An optional argument specifies a storage order for the array.
+</P><P>
+
+Arrays created using the default constructor can subsequently be given data
+by the <CODE>resize()</CODE>, <CODE>resizeAndPreserve()</CODE>, or <CODE>reference()</CODE>
+member functions.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC42"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC44"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.2 Creating an array from an expression </H3>
+<!--docid::SEC43::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(expression...)
+</pre></td></tr></table></P><P>
+
+You may create an array from an array expression.  For example,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A(4,3), B(4,3);   // ...
+Array&#60;float,2&#62; C(A*2.0+B);
+</pre></td></tr></table></P><P>
+
+This is an explicit constructor (it will not be used to perform implicit
+type conversions).  The newly constructed array will have the same storage
+format as the arrays in the expression.  If arrays with different storage
+formats appear in the expression, an error will result.  (In this case, you
+must first construct the array, then assign the expression to it).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC45"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.3 Constructors which take extent parameters </H3>
+<!--docid::SEC44::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(int extent1);
+Array(int extent1, int extent2);
+Array(int extent1, int extent2, int extent3);
+...
+Array(int extent1, int extent2, int extent3, ..., int extent11)
+</pre></td></tr></table></P><P>
+
+These constructors take arguments which specify the size of the array to be
+constructed.  You should provide as many arguments as there are dimensions
+in the array.<A NAME="DOCF1" HREF="blitz_fot.html#FOOT1">(1)</A>
+</P><P>
+
+An optional last parameter specifies a storage format:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(int extent1, GeneralArrayStorage&#60;N_rank&#62; storage);
+Array(int extent1, int extent2, GeneralArrayStorage&#60;N_rank&#62; storage);
+...
+</pre></td></tr></table></P><P>
+
+For high-rank arrays, it may be convenient to use this constructor:
+<A NAME="IDX24"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(const TinyVector&#60;int, N_rank&#62;&#38; extent);
+Array(const TinyVector&#60;int, N_rank&#62;&#38; extent, 
+      GeneralArrayStorage&#60;N_rank&#62; storage);
+</pre></td></tr></table></P><P>
+
+The argument <CODE>extent</CODE> is a vector containing the extent (length) of the
+array in each dimension.  The optional second parameter indicates a storage
+format.  Note that you can construct <CODE>TinyVector&#60;int,N&#62;</CODE> objects on the
+fly with the <CODE>shape(i1,i2,...)</CODE> global function.  For example,
+<CODE>Array&#60;int,2&#62; A(shape(3,5))</CODE> will create a 3x5 array.
+</P><P>
+
+A similar constructor lets you provide both a vector of base index values
+(lbounds) and extents:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(const TinyVector&#60;int, N_rank&#62;&#38; lbound, 
+      const TinyVector&#60;int, N_rank&#62;&#38; extent);
+Array(const TinyVector&#60;int, N_rank&#62;&#38; lbound,
+      const TinyVector&#60;int, N_rank&#62;&#38; extent,
+      GeneralArrayStorage&#60;N_rank&#62; storage);
+</pre></td></tr></table></P><P>
+
+The argument <CODE>lbound</CODE> is a vector containing the base index value (or
+lbound) of the array in each dimension.  The argument <CODE>extent</CODE> is a
+vector containing the extent (length) of the array in each dimension.  The
+optional third parameter indicates a storage format.  As with the above
+constructor, you can use the <CODE>shape(i1,i2,...)</CODE> global function to
+create the <CODE>lbound</CODE> and <CODE>extent</CODE> parameters.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC46"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.4 Constructors with Range arguments </H3>
+<!--docid::SEC45::-->
+<P>
+
+These constructors allow arbitrary bases (starting indices) to be set:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(Range r1);
+Array(Range r1, Range r2);
+Array(Range r1, Range r2, Range r3);
+...
+Array(Range r1, Range r2, Range r3, ..., Range r11);
+</pre></td></tr></table></P><P>
+
+For example, this code:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A(Range(10,20), Range(20,30));
+</pre></td></tr></table></P><P>
+
+will create an 11x11 array whose indices are 10..20 and 20..30.  An optional
+last parameter provides a storage order:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(Range r1, GeneralArrayStorage&#60;N_rank&#62; storage);
+Array(Range r1, Range r2, GeneralArrayStorage&#60;N_rank&#62; storage);
+...
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC47"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.5 Referencing another array </H3>
+<!--docid::SEC46::-->
+<P>
+
+This constructor makes a shared view of another array's data:
+<A NAME="IDX25"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(Array&#60;T_numtype, N_rank&#62;&#38; array);
+</pre></td></tr></table></P><P>
+
+After this constructor is used, both <CODE>Array</CODE> objects refer to the
+<EM>same data</EM>.  Any changes made to one array will appear in the other
+array.  If you want to make a duplicate copy of an array, use the
+<CODE>copy()</CODE> member function.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.6 Constructing an array from an expression </H3>
+<!--docid::SEC47::-->
+<P>
+
+Arrays may be constructed from expressions, which are described in
+<A HREF="blitz_3.html#SEC81">3.1 Expression evaluation order</A>.  The syntax is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(...array expression...);
+</pre></td></tr></table></P><P>
+
+For example, this code creates an array B which contains the square roots of
+the elements in A:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A(N,N);   // ...
+Array&#60;float,2&#62; B(sqrt(A));
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC49"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.7 Creating an array from pre-existing data </H3>
+<!--docid::SEC48::-->
+<P>
+
+When creating an array using a pointer to already existing data, you have
+three choices for how Blitz++ will handle the data.  These choices are
+enumerated by the enum type <CODE>preexistingMemoryPolicy</CODE>:
+<A NAME="IDX26"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>enum preexistingMemoryPolicy { 
+  duplicateData, 
+  deleteDataWhenDone, 
+  neverDeleteData 
+};
+</pre></td></tr></table><A NAME="IDX27"></A>
+<A NAME="IDX28"></A>
+<A NAME="IDX29"></A>
+<A NAME="IDX30"></A>
+</P><P>
+
+If you choose <CODE>duplicateData</CODE>, Blitz++ will create an array object
+using a copy of the data you provide.  If you choose
+<CODE>deleteDataWhenDone</CODE>, Blitz++ will not create a copy of the data; and
+when no array objects refer to the data anymore, it will deallocate the data
+using <CODE>delete []</CODE>.  Note that to use <CODE>deleteDataWhenDone</CODE>, your
+array data must have been allocated using the C++ <CODE>new</CODE> operator -- for
+example, you cannot allocate array data using Fortran or <CODE>malloc</CODE>, then
+create a Blitz++ array from it using the <CODE>deleteDataWhenDone</CODE> flag.
+The third option is <CODE>neverDeleteData</CODE>, which means that Blitz++ will
+not never deallocate the array data.  This means it is your responsibility
+to determine when the array data is no longer needed, and deallocate it.
+You should use this option for memory which has not been allocated using the
+C++ <CODE>new</CODE> operator.
+</P><P>
+
+These constructors create array objects from pre-existing data:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(T_numtype* dataFirst, TinyVector&#60;int, N_rank&#62; shape,
+      preexistingMemoryPolicy deletePolicy);
+Array(T_numtype* dataFirst, TinyVector&#60;int, N_rank&#62; shape,
+      preexistingMemoryPolicy deletePolicy, 
+      GeneralArrayStorage&#60;N_rank&#62; storage);
+</pre></td></tr></table></P><P>
+
+The first argument is a pointer to the array data.  It should point to the
+element of the array which is stored first in memory.  The second argument
+indicates the shape of the array.  You can create this argument using the
+<CODE>shape()</CODE> function.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>double data[] = { 1, 2, 3, 4 };
+Array&#60;double,2&#62; A(data, shape(2,2), neverDeleteData);   // Make a 2x2 array
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX31"></A>
+</P><P>
+
+The <CODE>shape()</CODE> function takes N integer arguments and returns a
+<CODE>TinyVector&#60;int,N&#62;</CODE>.
+</P><P>
+
+By default, Blitz++ arrays are row-major.  If you want to work with data
+which is stored in column-major order (e.g. a Fortran array), use the second
+version of the constructor: 
+</P><P>
+
+<A NAME="IDX32"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;double,2&#62; B(data, shape(2,2), neverDeleteData,
+                  FortranArray&#60;2&#62;());
+</pre></td></tr></table></P><P>
+
+This is a tad awkward, so Blitz++ provides the global object
+<CODE>fortranArray</CODE> which will convert to an instance of
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;double,2&#62; B(data, shape(2,2), neverDeleteData, fortranArray);
+</pre></td></tr></table></P><P>
+
+Another version of this constructor allows you to pass an arbitrary
+vector of strides:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array(T_numtype* _bz_restrict dataFirst, TinyVector&#60;int, N_rank&#62; shape,
+      TinyVector&#60;int, N_rank&#62; stride, 
+      preexistingMemoryPolicy deletePolicy,
+      GeneralArrayStorage&#60;N_rank&#62; storage = GeneralArrayStorage&#60;N_rank&#62;())
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC50"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.8 Interlacing arrays </H3>
+<!--docid::SEC49::-->
+<P>
+
+For some platforms, it can be advantageous to store a set of arrays
+interlaced together in memory.  Blitz++ provides support for this through
+the routines <CODE>interlaceArrays()</CODE> and <CODE>allocateArrays()</CODE>.  An
+example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A, B;
+interlaceArrays(shape(10,10), A, B);
+</pre></td></tr></table></P><P>
+
+The first parameter of <CODE>interlaceArrays()</CODE> is the shape for the arrays
+(10x10).  The subsequent arguments are the set of arrays to be interlaced
+together.  Up to 11 arrays may be interlaced.  All arrays must store the
+same data type and be of the same rank.  In the above example, storage is
+allocated so that <CODE>A(0,0)</CODE> is followed immediately by <CODE>B(0,0)</CODE> in
+memory, which is folloed by <CODE>A(0,1)</CODE> and <CODE>B(0,1)</CODE>, and so on.
+</P><P>
+
+A related routine is <CODE>allocateArrays()</CODE>, which has identical syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A, B;
+allocateArrays(shape(10,10), A, B);
+</pre></td></tr></table></P><P>
+
+Unlike <CODE>interlaceArrays()</CODE>, which always interlaces the arrays, the
+routine <CODE>allocateArrays()</CODE> may or may not interlace them, depending on
+whether interlacing is considered advantageous for your platform.  If the
+tuning flag <CODE>BZ_INTERLACE_ARRAYS</CODE> is defined in
+<CODE>&#60;blitz/tuning.h&#62;</CODE>, then the arrays are interlaced.
+</P><P>
+
+Note that the performance effects of interlacing are unpredictable: in some
+situations it can be a benefit, and in most others it can slow your code
+down substantially.  You should only use <CODE>interlaceArrays()</CODE> after
+running some benchmarks to determine whether interlacing is beneficial for
+your particular algorithm and architecture.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.3.9 A note about reference counting </H3>
+<!--docid::SEC50::-->
+<P>
+
+Blitz++ arrays use reference counting.  When you create a new array, a
+memory block is allocated.  The <CODE>Array</CODE> object acts like a handle for
+this memory block.  A memory block can be shared among multiple <CODE>Array</CODE>
+objects -- for example, when you take subarrays and slices.  The memory
+block keeps track of how many <CODE>Array</CODE> objects are referring to it.
+When a memory block is orphaned -- when no <CODE>Array</CODE> objects are
+referring to it -- it automatically deletes itself and frees the allocated
+memory.
+</P><P>
+
+<A NAME="Array slicing"></A>
+<HR SIZE="6">
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC55"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.4 Indexing, subarrays, and slicing </H2>
+<!--docid::SEC51::-->
+<P>
+
+This section describes how to access the elements of an array.  There are
+three main ways:
+</P><P>
+
+<UL>
+
+<LI><STRONG>Indexing</STRONG> obtains a single element
+<P>
+
+<LI>Creating a <STRONG>subarray</STRONG> which refers to a smaller portion of
+an array 
+<P>
+
+<LI><STRONG>Slicing</STRONG> to produce a smaller-dimensional view of a portion
+of an array 
+<P>
+
+</UL>
+<P>
+
+Indexing, subarrays and slicing all use the overloaded parenthesis
+<CODE>operator()</CODE>.
+</P><P>
+
+As a running example, we'll consider the three dimensional array pictured
+below, which has index ranges (0..7, 0..7, 0..7).  Shaded portions of the
+array show regions which have been obtained by indexing, creating a
+subarray, and slicing.
+</P><P>
+
+<center>
+ <CENTER><IMG SRC="slice.gif" ALT="slice"></CENTER>
+</center>
+<center>
+ Examples of array indexing, subarrays, and slicing.
+</center>
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC52"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC53"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.1 Indexing </H3>
+<!--docid::SEC52::-->
+<P>
+
+There are two ways to get a single element from an array.  The simplest is
+to provide a set of integer operands to <CODE>operator()</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A(7,0,0) = 5;    
+cout &#60;&#60; "A(7,0,0) = " &#60;&#60; A(7,0,0) &#60;&#60; endl;
+</pre></td></tr></table></P><P>
+
+This version of indexing is available for arrays of rank one through eleven.
+If the array object isn't <CODE>const</CODE>, the return type of
+<CODE>operator()</CODE> is a reference; if the array object is <CODE>const</CODE>, the
+return type is a value.
+</P><P>
+
+You can also get an element by providing an operand of type
+<CODE>TinyVector&#60;int,N_rank&#62;</CODE> where <CODE>N_rank</CODE> is the rank of the array
+object:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TinyVector&#60;int,3&#62; index;
+index = 7, 0, 0;
+A(index) = 5;
+cout &#60;&#60; "A(7,0,0) = " &#60;&#60; A(index) &#60;&#60; endl;
+</pre></td></tr></table></P><P>
+
+This version of <CODE>operator()</CODE> is also available in a const-overloaded
+version.
+</P><P>
+
+It's possible to use fewer than <CODE>N_rank</CODE> indices.  However, missing
+indices are <STRONG>assumed to be zero</STRONG>, which will cause bounds errors if
+the valid index range does not include zero (e.g. Fortran arrays).  For this
+reason, and for code clarity, it's a bad idea to omit indices.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC53"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC52"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC54"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.2 Subarrays </H3>
+<!--docid::SEC53::-->
+<P>
+
+You can obtain a subarray by providing <CODE>Range</CODE> operands to
+<CODE>operator()</CODE>.  A <CODE>Range</CODE> object represents a set of regularly
+spaced index values.  For example,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,3&#62; B = A(Range(5,7), Range(5,7), Range(0,2));
+</pre></td></tr></table></P><P>
+
+The object B now refers to elements (5..7,5..7,0..2) of the array A.
+</P><P>
+
+The returned subarray is of type <CODE>Array&#60;T_numtype,N_rank&#62;</CODE>. This means
+that subarrays can be used wherever arrays can be: in expressions, as
+lvalues, etc.  Some examples:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// A three-dimensional stencil (used in solving PDEs)
+Range I(1,6), J(1,6), K(1,6);
+B = (A(I,J,K) + A(I+1,J,K) + A(I-1,J,K) + A(I,J+1,K)
+ + A(I,J-1,K) + A(I,J+1,K) + A(I,J,K+1) + A(I,J,K-1)) / 7.0;
+
+// Set a subarray of A to zero
+A(Range(5,7), Range(5,7), Range(5,7)) = 0.;
+</pre></td></tr></table></P><P>
+
+The bases of the subarray are equal to the bases of the original array:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; D(Range(1,5), Range(1,5));     // 1..5, 1..5
+Array&#60;int,2&#62; E = D(Range(2,3), Range(2,3)); // 1..2, 1..2
+</pre></td></tr></table></P><P>
+
+An array can be used on both sides of an expression only if the subarrays
+don't overlap.  If the arrays overlap, the result may depend on the order in
+which the array is traversed.  
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC54"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC53"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC55"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC55"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.3 RectDomain and StridedDomain </H3>
+<!--docid::SEC54::-->
+<P>
+
+The classes <CODE>RectDomain</CODE> and <CODE>StridedDomain</CODE>, defined in
+<CODE>blitz/domain.h</CODE>, offer a dimension-independent notation for subarrays.
+</P><P>
+
+<CODE>RectDomain</CODE> and <CODE>StridedDomain</CODE> can be thought of as a
+<CODE>TinyVector&#60;Range,N&#62;</CODE>.  Both have a vector of lower- and upper-bounds;
+<CODE>StridedDomain</CODE> has a stride vector.  For example, the subarray:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; B = A(Range(4,7), Range(8,11));  // 4..7, 8..11
+</pre></td></tr></table></P><P>
+
+could be obtained using <CODE>RectDomain</CODE> this way:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TinyVector&#60;int,2&#62; lowerBounds(4, 8);
+TinyVector&#60;int,2&#62; upperBounds(7, 11);
+RectDomain&#60;2&#62; subdomain(lowerBounds, upperBounds);
+
+Array&#60;int,2&#62; B = A(subdomain);
+</pre></td></tr></table></P><P>
+
+Here are the prototypes of <CODE>RectDomain</CODE> and <CODE>StridedDomain</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>template&#60;int N_rank&#62;
+class RectDomain {
+
+public:
+    RectDomain(const TinyVector&#60;int,N_rank&#62;&#38; lbound,
+        const TinyVector&#60;int,N_rank&#62;&#38; ubound);
+
+    const TinyVector&#60;int,N_rank&#62;&#38; lbound() const;
+    int lbound(int i) const;
+    const TinyVector&#60;int,N_rank&#62;&#38; ubound() const;
+    int ubound(int i) const;
+    Range operator[](int rank) const;
+    void shrink(int amount);
+    void shrink(int dim, int amount);
+    void expand(int amount);
+    void expand(int dim, int amount);
+};
+
+template&#60;int N_rank&#62;
+class StridedDomain {
+
+public:
+    StridedDomain(const TinyVector&#60;int,N_rank&#62;&#38; lbound,
+        const TinyVector&#60;int,N_rank&#62;&#38; ubound,
+        const TinyVector&#60;int,N_rank&#62;&#38; stride);
+
+    const TinyVector&#60;int,N_rank&#62;&#38; lbound() const;
+    int lbound(int i) const;
+    const TinyVector&#60;int,N_rank&#62;&#38; ubound() const;
+    int ubound(int i) const;
+    const TinyVector&#60;int,N_rank&#62;&#38; stride() const;
+    int stride(int i) const;
+    Range operator[](int rank) const;
+    void shrink(int amount);
+    void shrink(int dim, int amount);
+    void expand(int amount);
+    void expand(int dim, int amount);
+};
+</pre></td></tr></table></P><P>
+
+<A NAME="Slicing combo"></A>
+<HR SIZE="6">
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC59"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.4 Slicing </H3>
+<!--docid::SEC55::-->
+<P>
+
+A combination of integer and Range operands produces a <STRONG>slice</STRONG>.  Each
+integer operand reduces the rank of the array by one.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; F = A(Range::all(), 2, Range::all());
+Array&#60;int,1&#62; G = A(2,            7, Range::all());
+</pre></td></tr></table></P><P>
+
+Range and integer operands can be used in any combination, for arrays
+up to rank 11.
+</P><P>
+
+<STRONG>Note:</STRONG> Using a combination of integer and Range operands requires a
+newer language feature (partial ordering of member templates) which not all
+compilers support.  If your compiler does provide this feature,
+<CODE>BZ_PARTIAL_ORDERING</CODE> will be defined in <CODE>&#60;blitz/config.h&#62;</CODE>.  If
+not, you can use this workaround:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,3&#62; F = A(Range::all(), Range(2,2), Range::all());
+Array&#60;int,3&#62; G = A(Range(2,2),   Range(7,7), Range::all());
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC56"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC55"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC57"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC57"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.5 More about Range objects </H3>
+<!--docid::SEC56::-->
+<P>
+
+A <CODE>Range</CODE> object represents an ordered set of uniformly spaced
+integers.  Here are some examples of using Range objects to obtain
+subarrays:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;int,1&#62; A(7);
+    A = 0, 1, 2, 3, 4, 5, 6;
+
+    cout &#60;&#60; A(Range::all())  &#60;&#60; endl          // [ 0 1 2 3 4 5 6 ]
+         &#60;&#60; A(Range(3,5))    &#60;&#60; endl          // [ 3 4 5 ]
+         &#60;&#60; A(Range(3,toEnd)) &#60;&#60; endl         // [ 3 4 5 6 ]
+         &#60;&#60; A(Range(fromStart,3)) &#60;&#60; endl     // [ 0 1 2 3 ]
+         &#60;&#60; A(Range(1,5,2)) &#60;&#60; endl           // [ 1 3 5 ]
+         &#60;&#60; A(Range(5,1,-2)) &#60;&#60; endl          // [ 5 3 1 ]
+         &#60;&#60; A(Range(fromStart,toEnd,2)) &#60;&#60; endl;    // [ 0 2 4 6 ]
+
+    return 0;
+}
+</FONT></pre></td></tr></table></P><P>
+
+The optional third constructor argument specifies a stride.  For example,
+<CODE>Range(1,5,2)</CODE> refers to elements [1 3 5].  Strides can also be
+negative: <CODE>Range(5,1,-2)</CODE> refers to elements [5 3 1].
+</P><P>
+
+Note that if you use the same Range frequently, you can just construct one
+object and use it multiple times.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Range all = Range::all();
+A(0,all,all) = A(N-1,all,all);
+A(all,0,all) = A(all,N-1,all);
+A(all,all,0) = A(all,all,N-1);
+</pre></td></tr></table></P><P>
+
+Here's an example of using strides with a two-dimensional
+array:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;int,2&#62; A(8,8);
+    A = 0;
+
+    Array&#60;int,2&#62; B = A(Range(1,7,3), Range(1,5,2));
+    B = 1;
+
+    cout &#60;&#60; "A = " &#60;&#60; A &#60;&#60; endl;
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+Here's an illustration of the <CODE>B</CODE> subarray:
+</P><P>
+
+<center>
+ <CENTER><IMG SRC="strideslice.gif" ALT="strideslice"></CENTER>
+</center>
+<center>
+ Using strides to create non-contiguous subarrays.
+</center>
+</P><P>
+
+And the program output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>A = 8 x 8
+[         0         0         0         0         0         0         0 
+          0 
+          0         1         0         1         0         1         0 
+          0 
+          0         0         0         0         0         0         0 
+          0 
+          0         0         0         0         0         0         0 
+          0 
+          0         1         0         1         0         1         0 
+          0 
+          0         0         0         0         0         0         0 
+          0 
+          0         0         0         0         0         0         0 
+          0 
+          0         1         0         1         0         1         0 
+          0 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC58"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.6 A note about assignment </H3>
+<!--docid::SEC57::-->
+<P>
+
+The assignment operator (<CODE>=</CODE>) always results in the expression on the
+right-hand side (rhs) being <EM>copied</EM> to the lhs (i.e. the data on the
+lhs is overwritten with the result from the rhs).  This is different from
+some array packages in which the assignment operator makes the lhs a
+reference (or alias) to the rhs.  To further confuse the issue, the copy
+constructor for arrays <EM>does</EM> have reference semantics.  Here's an
+example which should clarify things:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,1&#62; A(5), B(10);
+A = B(Range(0,4));               // Statement 1
+Array&#60;int,1&#62; C = B(Range(0,4));  // Statement 2
+</pre></td></tr></table></P><P>
+
+Statement 1 results in a portion of <CODE>B</CODE>'s data being copied into
+<CODE>A</CODE>.  After Statement 1, both <CODE>A</CODE> and <CODE>B</CODE> have their own
+(nonoverlapping) blocks of data.  Contrast this behaviour with that of
+Statement 2, which is <STRONG>not</STRONG> an assignment (it uses the copy
+constructor).  After Statement 2 is executed, the array <CODE>C</CODE> is a
+reference (or alias) to <CODE>B</CODE>'s data.
+</P><P>
+
+So to summarize: If you want to copy the rhs, use an assignment operator.
+If you want to reference (or alias) the rhs, use the copy constructor (or
+alternately, the <CODE>reference()</CODE> member function in <A HREF="blitz_2.html#SEC60">2.6 Member functions</A>).
+</P><P>
+
+<STRONG>Very important:</STRONG> whenever you have an assignment operator (<CODE>=</CODE>,
+<CODE>+=</CODE>, <CODE>-=</CODE>, etc.) the lhs <STRONG>must</STRONG> have the same shape as the
+<STRONG>rhs</STRONG>.  If you want the array on the left hand side to be resized to
+the proper shape, you must do so by calling the <CODE>resize</CODE> method, for
+example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A.resize(B.shape());    // Make A the same size as B
+A = B;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC58"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC57"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC59"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.4.7 An example </H3>
+<!--docid::SEC58::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;int,2&#62; A(6,6), B(3,3);
+  
+    // Set the upper left quadrant of A to 5 
+    A(Range(0,2), Range(0,2)) = 5; 
+
+    // Set the upper right quadrant of A to an identity matrix
+    B = 1, 0, 0,
+        0, 1, 0,
+        0, 0, 1;
+    A(Range(0,2), Range(3,5)) = B;
+
+    // Set the fourth row to 1
+    A(3, Range::all()) = 1;
+
+    // Set the last two rows to 0
+    A(Range(4, Range::toEnd), Range::all()) = 0;
+
+    // Set the bottom right element to 8
+    A(5,5) = 8;
+
+    cout &#60;&#60; "A = " &#60;&#60; A &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+The output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>A = 6 x 6
+[         5         5         5         1         0         0 
+          5         5         5         0         1         0 
+          5         5         5         0         0         1 
+          1         1         1         1         1         1 
+          0         0         0         0         0         0 
+          0         0         0         0         0         8 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+<A NAME="Array debug"></A>
+<HR SIZE="6">
+<A NAME="SEC59"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC58"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC60"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC60"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.5 Debug mode </H2>
+<!--docid::SEC59::-->
+<P>
+
+The Blitz++ library has a debugging mode which is enabled by defining the
+preprocessor symbol <CODE>BZ_DEBUG</CODE>.  For most compilers, the command line
+argument <CODE>-DBZ_DEBUG</CODE> should work.
+</P><P>
+
+In debugging mode, your programs will run <EM>very slowly</EM>.  This is
+because Blitz++ is doing lots of precondition checking and bounds checking.
+When it detects something fishy, it will likely halt your program and
+display an error message.
+</P><P>
+
+For example, this program attempts to access an element of a 4x4 array which
+doesn't exist:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;complex&#60;float&#62;, 2&#62; Z(4,4);
+
+    Z = complex&#60;float&#62;(0.0, 1.0);
+
+    Z(4,4) = complex&#60;float&#62;(1.0, 0.0);
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+When compiled with <CODE>-DBZ_DEBUG</CODE>, the out of bounds indices are detected
+and an error message results:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>[Blitz++] Precondition failure: Module ../../blitz/array-impl.h line 1282
+Array index out of range: (4, 4)
+Lower bounds: 2 [          0         0 ]
+Length:       2 [          4         4 ]
+
+debug: ../../blitz/array-impl.h:1282: bool blitz::Array&#60;T, 
+N&#62;::assertInRange(int, int) const [with P_numtype = std::complex&#60;float&#62;, int 
+N_rank = 2]: Assertion `0' failed.
+</FONT></pre></td></tr></table></P><P>
+
+Precondition failures send their error messages to the standard error stream
+(<CODE>cerr</CODE>).  After displaying the error message, <CODE>assert(0)</CODE> is
+invoked.  
+</P><P>
+
+<A NAME="Array members"></A>
+<HR SIZE="6">
+<A NAME="SEC60"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC59"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC61"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.6 Member functions </H2>
+<!--docid::SEC60::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC61"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC60"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC62"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC60"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC63"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.6.1 A note about dimension parameters </H3>
+<!--docid::SEC61::-->
+<P>
+
+Several of the member functions take a <EM>dimension parameter</EM> which is
+an integer in the range 0 .. <CODE>N_rank</CODE>-1.  For example, the method
+<CODE>extent(int n)</CODE> returns the extent (or length) of the array in
+dimension <CODE>n</CODE>.  
+</P><P>
+
+These parameters are problematic:
+</P><P>
+
+<UL>
+
+<LI>They make the code cryptic.  Someone unfamiliar with the
+<CODE>reverse()</CODE> member function won't stand a chance of understanding what
+<CODE>A.reverse(2)</CODE> does.
+<P>
+
+<LI>Some users are used to dimensions being 1 .. <CODE>N_rank</CODE>, rather
+than 0 .. <CODE>N_rank</CODE>-1.  This makes dimension numbers inherently
+error-prone.  Even though I'm a experienced C/C++ programmer, I <EM>still</EM>
+want to think of the first dimension as 1 -- it doesn't make sense to talk
+about the "zeroth" dimension.
+<P>
+
+</UL>
+<P>
+
+As a solution to this problem, Blitz++ provides a series of symbolic
+constants which you can use to refer to dimensions:
+</P><P>
+
+<A NAME="IDX33"></A>
+<A NAME="IDX34"></A>
+<A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const int firstDim    = 0;
+const int secondDim   = 1;
+const int thirdDim    = 2;
+   .
+   .
+const int eleventhDim = 10;
+</pre></td></tr></table></P><P>
+
+These symbols should be used in place of the numerals 0, 1, ... <CODE>N_rank</CODE>-1.
+For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A.reverse(thirdDim);
+</pre></td></tr></table></P><P>
+
+This code is clearer: you can see that the parameter refers to a dimension,
+and it isn't much of a leap to realize that it's reversing the element
+ordering in the third dimension.
+</P><P>
+
+If you find <CODE>firstDim</CODE>, <CODE>secondDim</CODE>, ... aesthetically unpleasing,
+there are equivalent symbols <CODE>firstRank</CODE>, <CODE>secondRank</CODE>,
+<CODE>thirdRank</CODE>, ..., <CODE>eleventhRank</CODE>.
+</P><P>
+
+<A NAME="IDX37"></A>
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC62"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC61"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC63"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Why stop at eleven? </H4>
+<!--docid::SEC62::-->
+<P>
+
+The symbols had to stop somewhere, and eleven seemed an appropriate place to
+stop.  Besides, if you're working in more than eleven dimensions your code
+is going to be confusing no matter what help Blitz++ provides.
+</P><P>
+
+<A NAME="IDX38"></A>
+<HR SIZE="6">
+<A NAME="SEC63"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC62"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC60"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.6.2 Member function descriptions </H3>
+<!--docid::SEC63::-->
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const TinyVector&#60;int, N_rank&#62;&#38;    base() const;
+int                               base(int dimension) const;
+</pre></td></tr></table><P>
+
+The <EM>base</EM> of a dimension is the first valid index value.  A typical
+C-style array will have base of zero; a Fortran-style array will have base
+of one.  The base can be different for each dimension, but only if you
+deliberately use a Range-argument constructor or design a custom storage
+ordering.
+</P><P>
+
+The first version returns a reference to the vector of base values.
+The second version returns the base for just one dimension; it's
+equivalent to the <CODE>lbound()</CODE> member function.  See the
+note on dimension parameters such as <CODE>firstDim</CODE> above.
+</P><P>
+
+<A NAME="IDX39"></A>
+<A NAME="IDX40"></A>
+<A NAME="IDX41"></A>
+<A NAME="IDX42"></A>
+<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;::iterator              begin();
+Array&#60;T,N&#62;::const_iterator        begin() const;
+</pre></td></tr></table></P><P>
+
+These functions return STL-style forward and input iterators, respectively,
+positioned at the first element of the array.  Note that the array data is
+traversed in memory order (i.e. by rows for C-style arrays, and by columns
+for Fortran-style arrays).  The <CODE>Array&#60;T,N&#62;::const_iterator</CODE> has these
+methods:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const_iterator(const Array&#60;T,N&#62;&#38;);
+T operator*() const;
+const T* [restrict] operator-&#62;() const;
+const_iterator&#38; operator++();
+void operator++(int);
+bool operator==(const const_iterator&#60;T,N&#62;&#38;) const;
+bool operator!=(const const_iterator&#60;T,N&#62;&#38;) const;
+const TinyVector&#60;int,N&#62;&#38; position() const;
+</pre></td></tr></table></P><P>
+
+Note that postfix ++ returns void (this is not STL-compliant, but is done
+for efficiency).  The method <CODE>position()</CODE> returns a vector containing
+current index positions of the iterator.  The <CODE>Array&#60;T,N&#62;::iterator</CODE>
+has the same methods as <CODE>const_iterator</CODE>, with these exceptions:
+<CODE>iterator&#38; operator++(); T&#38; operator*(); T* [restrict] operator-&#62;();</CODE>
+The <CODE>iterator</CODE> type may be used to modify array elements.  To obtain
+iterator positioned at the end of the array, use the <CODE>end()</CODE> methods.
+</P><P>
+
+<A NAME="IDX45"></A>
+<A NAME="IDX46"></A>
+<A NAME="IDX47"></A>
+<A NAME="IDX48"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               cols() const;
+int                               columns() const;
+</pre></td></tr></table></P><P>
+
+Both of these functions return the extent of the array in the
+second dimension.  Equivalent to <CODE>extent(secondDim)</CODE>.
+See also <CODE>rows()</CODE> and <CODE>depth()</CODE>.
+</P><P>
+
+<A NAME="IDX49"></A>
+<A NAME="IDX50"></A>
+<A NAME="IDX51"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T_numtype, N_rank&#62;          copy() const;
+</pre></td></tr></table></P><P>
+
+This method creates a copy of the array's data, using the same storage
+ordering as the current array.  The returned array is guaranteed to be
+stored contiguously in memory, and to be the only object referring to its
+memory block (i.e. the data isn't shared with any other array object).
+</P><P>
+
+<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
+<A NAME="IDX55"></A>
+<A NAME="IDX56"></A>
+<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const T_numtype* [restrict]       data() const;
+      T_numtype* [restrict]       data();
+const T_numtype* [restrict]       dataZero() const;
+      T_numtype* [restrict]       dataZero();
+const T_numtype* [restrict]       dataFirst() const;
+      T_numtype* [restrict]       dataFirst();
+</pre></td></tr></table></P><P>
+
+These member functions all return pointers to the array data.  The NCEG
+<CODE>restrict</CODE> qualifier is used only if your compiler supports it.  If
+you're working with the default storage order (C-style arrays with base
+zero), you'll only need to use <CODE>data()</CODE>.  Otherwise, things get
+complicated:
+</P><P>
+
+<CODE>data()</CODE> returns a pointer to the element whose indices are equal to
+the array base.  With a C-style array, this means the element (0,0,...,0);
+with a Fortran-style array, this means the element (1,1,...,1).  If <CODE>A</CODE>
+is an array object, <CODE>A.data()</CODE> is equivalent to (&#38;A(A.base(firstDim),
+A.base(secondDim), ...)).  If any of the dimensions are stored in reverse
+order, <CODE>data()</CODE> will not refer to the element which comes first in
+memory.
+</P><P>
+
+<CODE>dataZero()</CODE> returns a pointer to the element (0,0,...,0), even if such
+an element does not exist in the array.  What's the point of having such a
+pointer?  Say you want to access the element (i,j,k).  If you add to the
+pointer the dot product of (i,j,k) with the stride vector
+(<CODE>A.stride()</CODE>), you get a pointer to the element (i,j,k).
+</P><P>
+
+<CODE>dataFirst()</CODE> returns a pointer to the element of the array which comes
+first in memory.  Note however, that under some circumstances (e.g.
+subarrays), the data will not be stored contiguously in memory.  You have to
+be very careful when meddling directly with an array's data.
+</P><P>
+
+Other relevant functions are: <CODE>isStorageContiguous()</CODE> and
+<CODE>zeroOffset()</CODE>.
+</P><P>
+
+<A NAME="IDX59"></A>
+<A NAME="IDX60"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               depth() const;
+</pre></td></tr></table></P><P>
+
+Returns the extent of the array in the third dimension.  This function is
+equivalent to <CODE>extent(thirdDim)</CODE>.  See also <CODE>rows()</CODE> and
+<CODE>columns()</CODE>.
+</P><P>
+
+<A NAME="IDX61"></A>
+<A NAME="IDX62"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               dimensions() const;
+</pre></td></tr></table></P><P>
+
+Returns the number of dimensions (rank) of the array.  The return value is
+the second template parameter (<CODE>N_rank</CODE>) of the <CODE>Array</CODE> object.
+Same as <CODE>rank()</CODE>.
+</P><P>
+
+<A NAME="IDX63"></A>
+<A NAME="IDX64"></A>
+<A NAME="IDX65"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>RectDomain&#60;N_rank&#62;                domain() const;
+</pre></td></tr></table></P><P>
+
+Returns the domain of the array.  The domain consists of a vector of lower
+bounds and a vector of upper bounds for the indices.  NEEDS_WORK-- need a
+section to explain methods of <CODE>RectDomain&#60;N&#62;</CODE>.
+</P><P>
+
+<A NAME="IDX66"></A>
+<A NAME="IDX67"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;::iterator              end();
+Array&#60;T,N&#62;::const_iterator        end() const;
+</pre></td></tr></table></P><P>
+
+Returns STL-style forward and input iterators (respectively) for the array,
+positioned at the end of the array.
+</P><P>
+
+<A NAME="IDX68"></A>
+<A NAME="IDX69"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               extent(int dimension) const;
+</pre></td></tr></table></P><P>
+
+The first version the extent (length) of the array in the specified
+dimension.  See the note about dimension parameters such as <CODE>firstDim</CODE>
+in the previous section.
+</P><P>
+
+<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T_numtype2,N_rank&#62;          extractComponent(T_numtype2,
+                                  int componentNumber, int numComponents);
+</pre></td></tr></table></P><P>
+
+This method returns an array view of a single component of a multicomponent
+array.  In a multicomponent array, each element is a tuple of fixed size.
+The components are numbered 0, 1, ..., <CODE>numComponents-1</CODE>.  Example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;TinyVector&#60;int,3&#62;,2&#62; A(128,128);  // A 128x128 array of int[3]
+
+Array&#60;int,2&#62; B = A.extractComponent(int(), 1, 3);
+</pre></td></tr></table></P><P>
+
+Now the B array refers to the 2nd component of every element in A.  Note:
+for complex arrays, special global functions <CODE>real(A)</CODE> and
+<CODE>imag(A)</CODE> are provided to obtain real and imaginary components of an
+array.  See the <STRONG>Global Functions</STRONG> section.
+</P><P>
+
+<A NAME="IDX73"></A>
+<A NAME="IDX74"></A>
+<A NAME="IDX75"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              free();
+</pre></td></tr></table></P><P>
+
+This method resizes an array to zero size.  If the array data is not being
+shared with another array object, then it is freed.
+</P><P>
+
+<A NAME="IDX76"></A>
+<A NAME="IDX77"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bool                              isMajorRank(int dimension) const;
+</pre></td></tr></table></P><P>
+
+Returns true if the dimension has the largest stride.  For C-style arrays
+(the default), the first dimension always has the largest stride.  For
+Fortran-style arrays, the last dimension has the largest stride.  See also
+<CODE>isMinorRank()</CODE> below and the note about dimension parameters such as
+<CODE>firstDim</CODE> in the previous section.
+</P><P>
+
+<A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bool                              isMinorRank(int dimension) const;
+</pre></td></tr></table></P><P>
+
+Returns true if the dimension <EM>does not</EM> have the largest stride.  See
+also <CODE>isMajorRank()</CODE>.
+</P><P>
+
+<A NAME="IDX80"></A>
+<A NAME="IDX81"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bool                              isRankStoredAscending(int dimension) const;
+</pre></td></tr></table></P><P>
+
+Returns true if the dimension is stored in ascending order in memory.  This
+is the default.  It will only return false if you have reversed a dimension
+using <CODE>reverse()</CODE> or have created a custom storage order with a
+descending dimension.
+</P><P>
+
+<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bool                              isStorageContiguous() const;
+</pre></td></tr></table></P><P>
+
+Returns true if the array data is stored contiguously in memory.  If you
+slice the array or work on subarrays, there can be skips -- the array data
+is interspersed with other data not part of the array.  See also the various
+<CODE>data..()</CODE> functions.  If you need to ensure that the storage is
+contiguous, try <CODE>reference(copy())</CODE>.
+</P><P>
+
+<A NAME="IDX84"></A>
+<A NAME="IDX85"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               lbound(int dimension) const;
+TinyVector&#60;int,N_rank&#62;            lbound() const;
+</pre></td></tr></table></P><P>
+
+The first version returns the lower bound of the valid index range for a
+dimension.  The second version returns a vector of lower bounds for all
+dimensions.  The lower bound is the first valid index value.  If you're
+using a C-style array (the default), the lbound will be zero; Fortran-style
+arrays have lbound equal to one.  The lbound can be different for each
+dimension, but only if you deliberately set them that way using a Range
+constructor or a custom storage ordering.  This function is equivalent to
+<CODE>base(dimension)</CODE>.  See the note about dimension parameters such as
+<CODE>firstDim</CODE> in the previous section.
+</P><P>
+
+<A NAME="IDX86"></A>
+<A NAME="IDX87"></A>
+<A NAME="IDX88"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              makeUnique();
+</pre></td></tr></table></P><P>
+
+If the array's data is being shared with another Blitz++ array object, this
+member function creates a copy so the array object has a unique view of the
+data.  
+</P><P>
+
+<A NAME="IDX89"></A>
+<A NAME="IDX90"></A>
+<A NAME="IDX91"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               numElements() const;
+</pre></td></tr></table></P><P>
+
+Returns the total number of elements in the array, calculated by taking the
+product of the extent in each dimension.  Same as <CODE>size()</CODE>.
+</P><P>
+
+<A NAME="IDX92"></A>
+<A NAME="IDX93"></A>
+<A NAME="IDX94"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const TinyVector&#60;int, N_rank&#62;&#38;    ordering() const;
+int                               ordering(int storageRankIndex) const;
+</pre></td></tr></table></P><P>
+
+These member functions return information about how the data is ordered in
+memory.  The first version returns the complete ordering vector; the second
+version returns a single element from the ordering vector.  The argument for
+the second version must be in the range 0 .. <CODE>N_rank</CODE>-1.  The ordering
+vector is a list of dimensions in increasing order of stride;
+<CODE>ordering(0)</CODE> will return the dimension number with the smallest
+stride, and <CODE>ordering(N_rank-1)</CODE> will return the dimension number with
+largest stride.  For a C-style array, the ordering vector contains the
+elements (<CODE>N_rank</CODE>-1, <CODE>N_rank</CODE>-2, ..., 0).  For a Fortran-style
+array, the ordering vector is (0, 1, ..., <CODE>N_rank</CODE>-1).  See also the
+description of custom storage orders in section <A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A>.
+</P><P>
+
+<A NAME="IDX95"></A>
+<A NAME="IDX96"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               rank() const;
+</pre></td></tr></table></P><P>
+
+Returns the rank (number of dimensions) of the array.  The return value is
+equal to <CODE>N_rank</CODE>.  Equivalent to <CODE>dimensions()</CODE>.
+</P><P>
+
+<A NAME="IDX97"></A>
+<A NAME="IDX98"></A>
+<A NAME="IDX99"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              reference(Array&#60;T_numtype,N_rank&#62;&#38; A);
+</pre></td></tr></table></P><P>
+
+This causes the array to adopt another array's data as its own.  After this
+member function is used, the array object and the array <CODE>A</CODE> are
+indistinguishable -- they have identical sizes, index ranges, and data.  The
+data is shared between the two arrays.
+</P><P>
+
+<A NAME="IDX100"></A>
+<A NAME="IDX101"></A>
+<A NAME="IDX102"></A>
+<A NAME="IDX103"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              reindexSelf(const TinyVector&#60;int,N_rank&#62;&#38;);
+Array&#60;T,N&#62;                        reindex(const TinyVector&#60;int,N_rank&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+These methods reindex an array to use a new base vector.  The first version
+reindexes the array, and the second just returns a reindexed view of the
+array, leaving the original array unmodified.
+</P><P>
+
+<A NAME="IDX104"></A>
+<A NAME="IDX105"></A>
+<A NAME="IDX106"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              resize(int extent1, ...);
+void                              resize(const TinyVector&#60;int,N_rank&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+These functions resize an array to the specified size.  If the array is
+already the size specified, then no memory is allocated.  After resizing,
+the contents of the array are garbage.  See also <CODE>resizeAndPreserve()</CODE>.
+</P><P>
+
+<A NAME="IDX107"></A>
+<A NAME="IDX108"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              resizeAndPreserve(int extent1, ...);
+void                              resizeAndPreserve(const TinyVector&#60;int,N_rank&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+These functions resize an array to the specified size.  If the array is
+already the size specified, then no change occurs (the array is not
+reallocated and copied).  The contents of the array are preserved whenever
+possible; if the new array size is smaller, then some data will be lost.
+Any new elements created by resizing the array are left uninitialized.
+</P><P>
+
+<A NAME="IDX109"></A>
+<A NAME="IDX110"></A>
+<A NAME="IDX111"></A>
+<A NAME="IDX112"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;                        reverse(int dimension);
+void                              reverseSelf(int dimension);
+</pre></td></tr></table></P><P>
+
+This method reverses the array in the specified dimension.  For example, if
+<CODE>reverse(firstDim)</CODE> is invoked on a 2-dimensional array, then the
+ordering of rows in the array will be reversed; <CODE>reverse(secondDim)</CODE>
+would reverse the order of the columns.  Note that this is implemented by
+twiddling the strides of the array, and doesn't cause any data copying.  The
+first version returns a reversed "view" of the array data; the second
+version applies the reversal to the array itself.
+</P><P>
+
+<A NAME="IDX113"></A>
+<A NAME="IDX114"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               rows() const;
+</pre></td></tr></table></P><P>
+
+Returns the extent (length) of the array in the first dimension.  This
+function is equivalent to <CODE>extent(firstDim)</CODE>.  See also
+<CODE>columns()</CODE>, and <CODE>depth()</CODE>.
+</P><P>
+
+<A NAME="IDX115"></A>
+<A NAME="IDX116"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               size() const;
+</pre></td></tr></table></P><P>
+
+Returns the total number of elements in the array, calculated by taking the
+product of the extent in each dimension.  Same as <CODE>numElements()</CODE>.
+</P><P>
+
+<A NAME="IDX117"></A>
+<A NAME="IDX118"></A>
+<A NAME="IDX119"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const TinyVector&#60;int, N_rank&#62;&#38;    shape() const;
+</pre></td></tr></table></P><P>
+
+Returns the vector of extents (lengths) of the array.
+</P><P>
+
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
+<A NAME="IDX122"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>const TinyVector&#60;int, N_rank&#62;&#38;    stride() const;
+int                               stride(int dimension) const;
+</pre></td></tr></table></P><P>
+
+The first version returns the stride vector; the second version returns the
+stride associated with a dimension.  A stride is the distance between
+pointers to two array elements which are adjacent in a dimension.  For
+example, <CODE>A.stride(firstDim)</CODE> is equal to <CODE>&#38;A(1,0,0) - &#38;A(0,0,0)</CODE>.
+The stride for the second dimension, <CODE>A.stride(secondDim)</CODE>, is equal to
+<CODE>&#38;A(0,1,0) - &#38;A(0,0,0)</CODE>, and so on.  For more information about
+strides, see the description of custom storage formats in Section
+<A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A>.  See also the description of parameters like
+<CODE>firstDim</CODE> and <CODE>secondDim</CODE> in the previous section.
+</P><P>
+
+<A NAME="IDX123"></A>
+<A NAME="IDX124"></A>
+<A NAME="IDX125"></A>
+<A NAME="IDX126"></A>
+<A NAME="IDX127"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;                        transpose(int dimension1, 
+                                            int dimension2, ...);
+void                              transposeSelf(int dimension1, 
+                                                int dimension2, ...);
+</pre></td></tr></table></P><P>
+
+These methods permute the dimensions of the array.  The dimensions of the
+array are reordered so that the first dimension is <CODE>dimension1</CODE>, the
+second is <CODE>dimension2</CODE>, and so on.  The arguments should be a
+permutation of the symbols <CODE>firstDim, secondDim, ...</CODE>.  Note that this
+is implemented by twiddling the strides of the array, and doesn't cause any
+data copying.  The first version returns a transposed "view" of the array
+data; the second version transposes the array itself.
+</P><P>
+
+<A NAME="IDX128"></A>
+<A NAME="IDX129"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               ubound(int dimension) const;
+TinyVector&#60;int,N_rank&#62;            ubound() const;
+</pre></td></tr></table></P><P>
+
+The first version returns the upper bound of the valid index range for a
+dimension.  The second version returns a vector of upper bounds for all
+dimensions.  The upper bound is the last valid index value.  If you're using
+a C-style array (the default), the ubound will be equal to the
+<CODE>extent(dimension)-1</CODE>.  Fortran-style arrays will have ubound equal to
+<CODE>extent(dimension)</CODE>.  The ubound can be different for each dimension.
+The return value of <CODE>ubound(dimension)</CODE> will always be equal to
+<CODE>lbound(dimension)+extent(dimension)-1</CODE>.  See the note about
+dimension parameters such as <CODE>firstDim</CODE> in the previous section.
+</P><P>
+
+<A NAME="IDX130"></A>
+<A NAME="IDX131"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int                               zeroOffset() const;
+</pre></td></tr></table></P><P>
+
+This function has to do with the storage of arrays in memory.  You may want
+to refer to the description of the <CODE>data..()</CODE> member functions and of
+custom storage orders in Section <A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A> for
+clarification.  The return value of <CODE>zeroOffset()</CODE> is the distance from
+the first element in the array to the (possibly nonexistant) element
+<CODE>(0,0,...,0)</CODE>.  In this context, "first element" returns to the element
+<CODE>(base(firstDim),base(secondDim),...)</CODE>.
+</P><P>
+
+<A NAME="Array globals"></A>
+<HR SIZE="6">
+<A NAME="SEC64"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC63"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC65"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC65"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.7 Global functions </H2>
+<!--docid::SEC64::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              allocateArrays(TinyVector&#60;int,N&#62;&#38; shape,
+                                                 Array&#60;T,N&#62;&#38; A, 
+                                                 Array&#60;T,N&#62;&#38; B, ...);
+</pre></td></tr></table><A NAME="IDX132"></A>
+</P><P>
+
+This function will allocate interlaced arrays, but only if interlacing is
+desirable for your architecture.  This is controlled by the
+<CODE>BZ_INTERLACE_ARRAYS</CODE> flag in <TT>`blitz/tuning.h'</TT>.  You can provide up to
+11 arrays as parameters.  Any views currently associated with the array
+objects are lost.  Here is a typical use:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A, B, C;
+allocateArrays(shape(64,64),A,B,C);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX133"></A>
+<A NAME="IDX134"></A>
+</P><P>
+
+If array interlacing is enabled, then the arrays are stored in memory like
+this:  <CODE>A(0,0)</CODE>, <CODE>B(0,0)</CODE>, <CODE>C(0,0)</CODE>, <CODE>A(0,1)</CODE>,
+<CODE>B(0,1)</CODE>, ...  If interlacing is disabled, then the arrays are
+allocated in the normal fashion: each array has its own block of memory.
+Once interlaced arrays are allocated, they can be used just like regular
+arrays.
+</P><P>
+
+<A NAME="IDX135"></A>
+<A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;blitz/array/convolve.h&#62;
+Array&#60;T,1&#62;                        convolve(const Array&#60;T,1&#62;&#38; B, 
+                                           const Array&#60;T,1&#62;&#38; C);
+</pre></td></tr></table></P><P>
+
+This function computes the 1-D convolution of the arrays B and C:
+A[i] = sum(B[j] * C[i-j], j)
+If the array <EM>B</EM> has domain <EM>b_l \ldots b_h</EM>, and array <EM>C</EM>
+has domain <EM>c_l \ldots c_h</EM>, then the resulting array has domain
+<EM>a_l \ldots a_h</EM>, with <EM>l = b_l + c_l</EM> and <EM>a_h = b_h + c_h</EM>.
+</P><P>
+
+A new array is allocated to contain the result.  To avoid copying the result
+array, you should use it as a constructor argument.  For example:
+<CODE>Array&#60;float,1&#62; A = convolve(B,C);</CODE> The convolution is computed in the
+spatial domain.  Frequency-domain transforms are not used.  If you are
+convolving two large arrays, then this will be slower than using a Fourier
+transform.
+</P><P>
+
+<A NAME="IDX138"></A>
+<A NAME="IDX139"></A>
+</P><P>
+
+Note that if you need a cross-correlation, you can use the convolve function
+with one of the arrays reversed.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,1&#62; A = convolve(B,C.reverse());
+</pre></td></tr></table></P><P>
+
+Autocorrelation can be performed using the same approach.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              cycleArrays(Array&#60;T,N&#62;&#38; A, Array&#60;T,N&#62;&#38; B);
+void                              cycleArrays(Array&#60;T,N&#62;&#38; A, Array&#60;T,N&#62;&#38; B, 
+                                              Array&#60;T,N&#62;&#38; C);
+void                              cycleArrays(Array&#60;T,N&#62;&#38; A, Array&#60;T,N&#62;&#38; B, 
+                                              Array&#60;T,N&#62;&#38; C, Array&#60;T,N&#62;&#38; D);
+void                              cycleArrays(Array&#60;T,N&#62;&#38; A, Array&#60;T,N&#62;&#38; B, 
+                                              Array&#60;T,N&#62;&#38; C, Array&#60;T,N&#62;&#38; D, 
+                                              Array&#60;T,N&#62;&#38; E);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX140"></A>
+<A NAME="IDX141"></A>
+</P><P>
+
+These routines are useful for time-stepping PDEs.  They take a set of arrays
+such as [<CODE>A,B,C,D</CODE>] and cyclically rotate them to [<CODE>B,C,D,A</CODE>];
+i.e.  the <CODE>A</CODE> array then refers to what was <CODE>B</CODE>'s data, the
+<CODE>B</CODE> array refers to what was <CODE>C</CODE>'s data, and the <CODE>D</CODE> array
+refers to what was <CODE>A</CODE>'s data.  These functions operate in constant
+time, since only the handles change (i.e. no data is copied; only pointers
+change).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                         find(Array&#60;TinyVector&#60;int,Expr::rank&#62;,1&#62;&#38; indices,
+                                  const _bz_ArrayExpr&#60;Expr&#62;&#38; expr);
+void                         find(Array&#60;TinyVector&#60;int,N&#62;,1&#62;&#38; indices,
+                                  const Array&#60;bool,N&#62;&#38; exprVals);
+</pre></td></tr></table></P><P>
+
+This is an analogue to the Matlab <CODE>find()</CODE> method, which takes a
+boolean array expression or an array of bools and returns a 1d array
+of indices for all locations where the array or expression is true.
+</P><P>
+
+<A NAME="IDX142"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;                        imag(Array&#60;complex&#60;T&#62;,N&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+This method returns a view of the imaginary portion of the array.
+</P><P>
+
+<A NAME="IDX143"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              interlaceArrays(TinyVector&#60;int,N&#62;&#38; shape,
+                                                  Array&#60;T,N&#62;&#38; A, 
+                                                  Array&#60;T,N&#62;&#38; B, ...);
+</pre></td></tr></table></P><P>
+
+This function is similar to <CODE>allocateArrays()</CODE> above, except that the
+arrays are <STRONG>always</STRONG> interlaced, regardless of the setting of the
+<CODE>BZ_INTERLACE_ARRAYS</CODE> flag.
+</P><P>
+
+<A NAME="IDX144"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;T,N&#62;                        real(Array&#60;complex&#60;T&#62;,N&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+This method returns a view of the real portion of the array.
+</P><P>
+
+<A NAME="IDX145"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TinyVector&#60;int,1&#62;                 shape(int L);
+TinyVector&#60;int,2&#62;                 shape(int L, int M);
+TinyVector&#60;int,3&#62;                 shape(int L, int M, int N);
+TinyVector&#60;int,4&#62;                 shape(int L, int M, int N, int O);
+... [up to 11 dimensions]
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX146"></A>
+</P><P>
+
+These functions may be used to create shape parameters.  They package the
+set of integer arguments as a <CODE>TinyVector</CODE> of appropriate length.  For
+an example use, see <CODE>allocateArrays()</CODE> above.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void                              swap(Array&#60;T,N&#62;&#38; A, Array&#60;T,N&#62;&#38; B);
+</pre></td></tr></table></P><P>
+
+This function swaps the storage of two arrays, just like the <CODE>std::swap()</CODE>
+function does for STL container types.  This is a synonym for the 
+two-argument version of <CODE>cycleArrays()</CODE> above.
+</P><P>
+
+<A NAME="IDX147"></A>
+</P><P>
+
+<A NAME="Array I/O"></A>
+<HR SIZE="6">
+<A NAME="SEC65"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC64"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC66"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.8 Inputting and Outputting Arrays </H2>
+<!--docid::SEC65::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC66"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC65"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC67"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC65"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.8.1 Output formatting </H3>
+<!--docid::SEC66::-->
+<P>
+
+<A NAME="IDX148"></A>
+<A NAME="IDX149"></A>
+<A NAME="IDX150"></A>
+<A NAME="IDX151"></A>
+<A NAME="IDX152"></A>
+<A NAME="IDX153"></A>
+<A NAME="IDX154"></A>
+<A NAME="IDX155"></A>
+</P><P>
+
+The current version of Blitz++ includes rudimentary output formatting for
+arrays.  Here's an example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;int,2&#62; A(4,5,FortranArray&#60;2&#62;());
+    firstIndex i;
+    secondIndex j;
+    A = 10*i + j;
+
+    cout &#60;&#60; "A = " &#60;&#60; A &#60;&#60; endl;
+
+    Array&#60;float,1&#62; B(20);
+    B = exp(-i/100.);
+    
+    cout &#60;&#60; "B = " &#60;&#60; endl &#60;&#60; B &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+And the output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>A = 4 x 5
+[        11        12        13        14        15 
+         21        22        23        24        25 
+         31        32        33        34        35 
+         41        42        43        44        45 ]
+
+B = 
+20
+ [         1   0.99005  0.980199  0.970446  0.960789  0.951229  0.941765 
+   0.932394  0.923116  0.913931  0.904837  0.895834   0.88692  0.878095 
+   0.869358  0.860708  0.852144  0.843665   0.83527  0.826959  ]
+</FONT></pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC67"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC66"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC65"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.8.2 Inputting arrays </H3>
+<!--docid::SEC67::-->
+<P>
+
+<A NAME="IDX156"></A>
+<A NAME="IDX157"></A>
+<A NAME="IDX158"></A>
+<A NAME="IDX159"></A>
+</P><P>
+
+Arrays may be restored from an istream using the <CODE>&#62;&#62;</CODE> operator.
+<STRONG>Note:</STRONG> you must know the dimensionality of the array being restored
+from the stream.  The <CODE>&#62;&#62;</CODE> operator expects an array in the same input
+format as generated by the <CODE>&#60;&#60;</CODE> operator, namely:
+</P><P>
+
+<A NAME="IDX160"></A>
+</P><P>
+
+<UL>
+
+<LI>The size of the array, for example "32" for a 1-dimensional array of
+32 elements, "12 x 64 x 128" for a 3-dimensional array of size 12x64x128.
+<P>
+
+<LI>The symbol <CODE>'['</CODE> indicating the start of the array data
+<P>
+
+<LI>The array elements, listed in memory storage order
+<P>
+
+<LI>The symbol <CODE>']'</CODE> indicating the end of the array data
+<P>
+
+</UL>
+<P>
+
+The operator prototype is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>template&#60;class T, int N&#62;
+istream&#38; operator&#62;&#62;(istream&#38;, Array&#60;T,N&#62;&#38;);
+</pre></td></tr></table></P><P>
+
+Here is an example of saving and restoring arrays from files.  You can find
+this example in the Blitz++ distribution as <TT>`examples/io.cpp'</TT>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+#ifdef BZ_HAVE_STD
+	#include &#60;fstream&#62;
+#else
+	#include &#60;fstream.h&#62;
+#endif
+
+BZ_USING_NAMESPACE(blitz)
+
+const char* filename = "io.data";
+
+void write_arrays()
+{
+    ofstream ofs(filename);
+    if (ofs.bad())
+    {
+        cerr &#60;&#60; "Unable to write to file: " &#60;&#60; filename &#60;&#60; endl;
+        exit(1);
+    }
+
+    Array&#60;float,3&#62; A(3,4,5);
+    A = 111 + tensor::i + 10 * tensor::j + 100 * tensor::k;
+    ofs &#60;&#60; A &#60;&#60; endl;
+
+    Array&#60;float,2&#62; B(3,4);
+    B = 11 + tensor::i + 10 * tensor::j;
+    ofs &#60;&#60; B &#60;&#60; endl;
+
+    Array&#60;float,1&#62; C(4);
+    C = 1 + tensor::i;
+    ofs &#60;&#60; C &#60;&#60; endl;
+}
+
+int main()
+{
+    write_arrays();
+
+    ifstream ifs(filename);
+    if (ifs.bad())
+    {
+        cerr &#60;&#60; "Unable to open file: " &#60;&#60; filename &#60;&#60; endl;
+        exit(1);
+    }
+
+    Array&#60;float,3&#62; A;
+    Array&#60;float,2&#62; B;
+    Array&#60;float,1&#62; C;
+
+    ifs &#62;&#62; A &#62;&#62; B &#62;&#62; C;
+
+    cout &#60;&#60; "Arrays restored from file: " &#60;&#60; A &#60;&#60; B &#60;&#60; C &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+<STRONG>Note:</STRONG> The storage order and starting indices are not restored from
+the input stream.  If you are restoring (for example) a Fortran-style array,
+you must create a Fortran-style array, and then restore it.  For example,
+this code restores a Fortran-style array from the standard input stream:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; B(fortranArray);
+cin &#62;&#62; B;
+</pre></td></tr></table></P><P>
+
+<A NAME="Array storage"></A>
+<HR SIZE="6">
+<A NAME="SEC68"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC67"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC69"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.9 Array storage orders </H2>
+<!--docid::SEC68::-->
+<P>
+
+Blitz++ is very flexible about the way arrays are stored in memory.
+Starting indices can be 0, 1, or arbitrary numbers; arrays can be stored in
+row major, column major or an order based on any permutation of the
+dimensions; each dimension can be stored in either ascending or descending
+order.  An N dimensional array can be stored in <EM>N! 2^N</EM> possible ways.
+</P><P>
+
+Before getting into the messy details, a review of array storage formats is
+useful.  If you're already familiar with strides and bases, you might
+want to skip on to the next section.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC69"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC70"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC72"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.9.1 Fortran and C-style arrays </H3>
+<!--docid::SEC69::-->
+<P>
+
+Suppose we want to store this two-dimensional array in memory:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[ 1 2 3 ]
+[ 4 5 6 ]
+[ 7 8 9 ]
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC70"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC69"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC71"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Row major vs. column major </H4>
+<!--docid::SEC70::-->
+<P>
+
+To lay the array out in memory, it's necessary to map the indices (i,j) into
+a one-dimensional block.  Here are two ways the array might appear in
+memory:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[ 1 2 3 4 5 6 7 8 9 ]
+[ 1 4 7 2 5 8 3 6 9 ]
+</pre></td></tr></table></P><P>
+
+The first order corresponds to a C or C++ style array, and is called
+<EM>row-major ordering</EM>: the data is stored first by row, and then by
+column.  The second order corresponds to a Fortran style array, and is
+called <EM>column-major ordering</EM>: the data is stored first by column, and
+then by row.
+</P><P>
+
+The simplest way of mapping the indices (i,j) into one-dimensional memory is
+to take a linear combination.<A NAME="DOCF2" HREF="blitz_fot.html#FOOT2">(2)</A>  Here's the appropriate linear combination for row
+major ordering:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset = 3*i + 1*j
+</pre></td></tr></table></P><P>
+
+And for column major ordering:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset = 1*i + 3*j
+</pre></td></tr></table></P><P>
+
+The coefficients of the (i,j) indices are called <EM>strides</EM>.  For a row
+major storage of this array, the <EM>row stride</EM> is 3 -- you have to skip
+three memory locations to move down a row.  The <EM>column stride</EM> is 1 --
+you move one memory location to move to the next column.  This is also known
+as <EM>unit stride</EM>.  For column major ordering, the row and column
+strides are 1 and 3, respectively.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC71"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC70"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC72"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Bases </H4>
+<!--docid::SEC71::-->
+<P>
+
+To throw another complication into this scheme, C-style arrays have indices
+which start at zero, and Fortran-style arrays have indices which start at
+one.  The first valid index value is called the <EM>base</EM>.  To account for
+a non-zero base, it's necessary to include an offset term in addition to the
+linear combination.  Here's the mapping for a C-style array with i=0..3 and
+j=0..3:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset =  0 + 3*i + 1*j
+</pre></td></tr></table></P><P>
+
+No offset is necessary since the indices start at zero for C-style arrays.
+For a Fortran-style array with i=1..4 and j=1..4, the mapping would be:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset = -4 + 3*i + 1*j
+</pre></td></tr></table></P><P>
+
+By default, Blitz++ creates arrays in the C-style storage format (base zero,
+row major ordering).  To create a Fortran-style array, you can use this
+syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A(3, 3, FortranArray&#60;2&#62;());
+</pre></td></tr></table></P><P>
+
+The third parameter, <CODE>FortranArray&#60;2&#62;()</CODE>, tells the <CODE>Array</CODE>
+constructor to use a storage format appropriate for two-dimensional Fortran
+arrays (base one, column major ordering).
+</P><P>
+
+A similar object, <CODE>ColumnMajor&#60;N&#62;</CODE>, tells the <CODE>Array</CODE> constructor
+to use column major ordering, with base zero:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; B(3, 3, ColumnMajor&#60;2&#62;());
+</pre></td></tr></table></P><P>
+
+This creates a 3x3 array with indices i=0..2 and j=0..2.
+</P><P>
+
+In addition to supporting the 0 and 1 conventions for C and Fortran-style
+arrays, Blitz++ allows you to choose arbitrary bases, possibly different for
+each dimension.  For example, this declaration creates an array whose
+indices have ranges i=5..8 and j=2..5:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A(Range(5,8), Range(2,5));
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC72"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC71"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC73"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC79"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC79"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.9.2 Creating custom storage orders </H3>
+<!--docid::SEC72::-->
+<P>
+
+<A NAME="IDX161"></A>
+<A NAME="IDX162"></A>
+</P><P>
+
+All <CODE>Array</CODE> constructors take an optional parameter of type
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>.  This parameter encapsulates a complete
+description of the storage format.  If you want a storage format other than
+C or Fortran-style, you have two choices:
+</P><P>
+
+<UL>
+
+<LI>You can create an object of type
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>, customize the storage format, and use
+the object as a argument for the <CODE>Array</CODE> constructor.
+<P>
+
+<LI>You can create your own storage format object which inherits from
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>.  This is useful if you will be using the
+storage format many times.  This approach (inheriting from
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>) was used to create the
+<CODE>FortranArray&#60;N_rank&#62;</CODE> objects.  If you want to take this approach, you
+can use the declaration of <CODE>FortranArray&#60;N_rank&#62;</CODE> in
+<CODE>&#60;blitz/array.h&#62;</CODE> as a guide.
+<P>
+
+</UL>
+<P>
+
+The next sections describe how to modify a
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE> object to suit your needs.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC73"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC72"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC74"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> In higher dimensions </H4>
+<!--docid::SEC73::-->
+<P>
+
+In more than two dimensions, the choice of storage order becomes more
+complicated.  Suppose we had a 3x3x3 array.  To map the indices (i,j,k) into
+memory, we might choose one of these mappings:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset = 9*i + 3*j + 1*k
+memory offset = 1*i + 3*j + 9*k
+</pre></td></tr></table></P><P>
+
+The first corresponds to a C-style array, and the second to a Fortran-style
+array.  But there are other choices; we can permute the strides (1,3,9) any
+which way:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>memory offset = 1*i + 9*j + 3*k
+memory offset = 3*i + 1*j + 9*k
+memory offset = 3*i + 9*j + 1*k
+memory offset = 9*i + 1*j + 3*k
+</pre></td></tr></table></P><P>
+
+For an N dimensional array, there are N! such permutations.  Blitz++ allows
+you to select any permutation of the dimensions as a storage order.  First
+you need to create an object of type <CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>GeneralArrayStorage&#60;3&#62; storage;
+</pre></td></tr></table></P><P>
+
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE> contains a vector called <CODE>ordering</CODE>
+which controls the order in which dimensions are stored in memory.  The
+<CODE>ordering</CODE> vector will contain a permutation of the numbers 0, 1, ...,
+N_rank-1.  Since some people are used to the first dimension being 1 rather
+than 0, a set of symbols (firstDim, secondDim, ..., eleventhDim) are
+provided which make the code more legible.  
+</P><P>
+
+The <CODE>ordering</CODE> vector lists the dimensions in increasing order of
+stride.  You can access this vector using the member function
+<CODE>ordering()</CODE>.  A C-style array, the default, would have:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>storage.ordering() = thirdDim, secondDim, firstDim;
+</pre></td></tr></table></P><P>
+
+meaning that the third index (k) is associated with the smallest stride, and
+the first index (i) is associated with the largest stride.  A Fortran-style
+array would have:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>storage.ordering() = firstDim, secondDim, thirdDim;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC74"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC73"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC75"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Reversed dimensions </H4>
+<!--docid::SEC74::-->
+<P>
+
+To add yet another wrinkle, there are some applications where the rows or
+columns need to be stored in reverse order.<A NAME="DOCF3" HREF="blitz_fot.html#FOOT3">(3)</A>
+</P><P>
+
+Blitz++ allows you to store each dimension in either ascending or descending
+order.  By default, arrays are always stored in ascending order.  The
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE> object contains a vector called
+<CODE>ascendingFlag</CODE> which indicates whether each dimension is stored
+ascending (<CODE>true</CODE>) or descending (<CODE>false</CODE>).  To alter the contents
+of this vector, use the <CODE>ascendingFlag()</CODE> method:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Store the third dimension in descending order
+storage.ascendingFlag() = true, true, false;
+
+// Store all the dimensions in descending order
+storage.ascendingFlag() = false, false, false;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC75"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC74"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC76"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Setting the base vector </H4>
+<!--docid::SEC75::-->
+<P>
+
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE> also has a <CODE>base</CODE> vector which
+contains the base index value for each dimension.  By default, the base
+vector is set to zero.  <CODE>FortranArray&#60;N_rank&#62;</CODE> sets the base vector to
+one.  
+</P><P>
+
+To set your own set of bases, you have two choices:
+</P><P>
+
+<UL>
+
+<LI>You can modify the <CODE>base</CODE> vector inside the
+<CODE>GeneralArrayStorage&#60;N_rank&#62;</CODE> object.  The method <CODE>base()</CODE> returns
+a mutable reference to the <CODE>base</CODE> vector which you can use to set the
+bases.
+<P>
+
+<LI>You can provide a set of <CODE>Range</CODE> arguments to the
+<CODE>Array</CODE> constructor.
+<P>
+
+</UL>
+<P>
+
+Here are some examples of the first approach:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Set all bases equal to 5
+storage.base() = 5;    
+
+// Set the bases to [ 1 0 1 ]
+storage.base() = 1, 0, 1;
+</pre></td></tr></table></P><P>
+
+And of the second approach:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Have bases of 5, but otherwise C-style storage
+Array&#60;int,3&#62; A(Range(5,7), Range(5,7), Range(5,7));
+
+// Have bases of [ 1 0 1 ] and use a custom storage
+Array&#60;int,3&#62; B(Range(1,4), Range(0,3), Range(1,4), storage);
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC76"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC75"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC77"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Working simultaneously with different storage orders </H4>
+<!--docid::SEC76::-->
+<P>
+
+Once you have created an array object, you will probably never have to worry
+about its storage order.  Blitz++ should handle arrays of different storage
+orders transparently.  It's possible to mix arrays of different storage
+orders in one expression, and still get the correct result.
+</P><P>
+
+Note however, that mixing different storage orders in an expression may
+incur a performance penalty, since Blitz++ will have to pay more attention
+to differences in indexing than it normally would.
+</P><P>
+
+You may not mix arrays with different domains in the same expression.  For
+example, adding a base zero to a base one array is a no-no.  The reason for
+this restriction is that certain expressions become ambiguous, for example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,1&#62; A(Range(0,5)), B(Range(1,6));
+A=0;
+B=0;
+using namespace blitz::tensor;
+int result = sum(A+B+i);
+</pre></td></tr></table></P><P>
+
+Should the index <CODE>i</CODE> take its domain from array <CODE>A</CODE> or array
+<CODE>B</CODE>?  To avoid such ambiguities, users are forbidden from mixing arrays
+with different domains in an expression. 
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC77"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC76"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC78"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Debug dumps of storage order information </H4>
+<!--docid::SEC77::-->
+    
+In debug mode (<CODE>-DBZ_DEBUG</CODE>), class <CODE>Array</CODE> provides a member
+function <CODE>dumpStructureInformation()</CODE> which displays information about
+the array storage:
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,4&#62; A(3,7,8,2,FortranArray&#60;4&#62;());
+A.dumpStructureInformation(cerr);
+</pre></td></tr></table></P><P>
+
+The optional argument is an <CODE>ostream</CODE> to dump information to.  It
+defaults to <CODE>cout</CODE>.  Here's the output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>Dump of Array&#60;f, 4&#62;:
+ordering_      = 4 [          0         1         2         3 ]
+ascendingFlag_ = 4 [          1         1         1         1 ]
+base_          = 4 [          1         1         1         1 ]
+length_        = 4 [          3         7         8         2 ]
+stride_        = 4 [          1         3        21       168 ]
+zeroOffset_    = -193
+numElements()  = 336
+isStorageContiguous() = 1
+</FONT></pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC78"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC77"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC79"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A note about storage orders and initialization </H4>
+<!--docid::SEC78::-->
+<P>
+
+When initializing arrays with comma delimited lists, note that the array is
+filled in storage order: from the first memory location to the last memory
+location.  This won't cause any problems if you stick with C-style arrays,
+but it can be confusing for Fortran-style arrays:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A(3, 3, FortranArray&#60;2&#62;());
+A = 1, 2, 3,
+    4, 5, 6,
+    7, 8, 9;
+cout &#60;&#60; A &#60;&#60; endl;
+</pre></td></tr></table></P><P>
+
+The output from this code excerpt will be:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A = 3 x 3
+         1         4         7 
+         2         5         8
+         3         6         9
+</pre></td></tr></table></P><P>
+
+This is because Fortran-style arrays are stored in column
+major order.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC79"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC78"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC68"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 2.9.3 Storage orders example </H3>
+<!--docid::SEC79::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+BZ_USING_NAMESPACE(blitz)
+
+int main()
+{
+    // 3x3 C-style row major storage, base zero
+    Array&#60;int,2&#62; A(3, 3);
+
+    // 3x3 column major storage, base zero
+    Array&#60;int,2&#62; B(3, 3, ColumnMajorArray&#60;2&#62;());
+
+    // A custom storage format: 
+    // Indices have range 0..3, 0..3
+    // Column major ordering
+    // Rows are stored ascending, columns stored descending
+    GeneralArrayStorage&#60;2&#62; storage;
+    storage.ordering() = firstRank, secondRank;
+    storage.base() = 0, 0;
+    storage.ascendingFlag() = true, false;
+
+    Array&#60;int,2&#62; C(3, 3, storage);
+
+    // Set each array equal to
+    // [ 1 2 3 ]
+    // [ 4 5 6 ]
+    // [ 7 8 9 ]
+
+    A = 1, 2, 3,
+        4, 5, 6, 
+        7, 8, 9;
+
+    cout &#60;&#60; "A = " &#60;&#60; A &#60;&#60; endl;
+
+    // Comma-delimited lists initialize in memory-storage order only.
+    // Hence we list the values in column-major order to initialize B:
+
+    B = 1, 4, 7, 2, 5, 8, 3, 6, 9;
+
+    cout &#60;&#60; "B = " &#60;&#60; B &#60;&#60; endl;
+
+    // Array C is stored in column major, plus the columns are stored
+    // in descending order!
+
+    C = 3, 6, 9, 2, 5, 8, 1, 4, 7;
+
+    cout &#60;&#60; "C = " &#60;&#60; C &#60;&#60; endl;
+
+    Array&#60;int,2&#62; D(3,3);
+    D = A + B + C;
+
+#ifdef BZ_DEBUG
+    A.dumpStructureInformation();
+    B.dumpStructureInformation();
+    C.dumpStructureInformation();
+    D.dumpStructureInformation();
+#endif
+
+    cout &#60;&#60; "D = " &#60;&#60; D &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+And the output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>A = 3 x 3
+[         1         2         3 
+          4         5         6 
+          7         8         9 ]
+
+B = 3 x 3
+[         1         2         3 
+          4         5         6 
+          7         8         9 ]
+
+C = 3 x 3
+[         1         2         3 
+          4         5         6 
+          7         8         9 ]
+
+Dump of Array&#60;i, 2&#62;:
+ordering_      = 2 [          1         0 ]
+ascendingFlag_ = 2 [          1         1 ]
+base_          = 2 [          0         0 ]
+length_        = 2 [          3         3 ]
+stride_        = 2 [          3         1 ]
+zeroOffset_    = 0
+numElements()  = 9
+isStorageContiguous() = 1
+Dump of Array&#60;i, 2&#62;:
+ordering_      = 2 [          0         1 ]
+ascendingFlag_ = 2 [          1         1 ]
+base_          = 2 [          0         0 ]
+length_        = 2 [          3         3 ]
+stride_        = 2 [          1         3 ]
+zeroOffset_    = 0
+numElements()  = 9
+isStorageContiguous() = 1
+Dump of Array&#60;i, 2&#62;:
+ordering_      = 2 [          0         1 ]
+ascendingFlag_ = 2 [          1         0 ]
+base_          = 2 [          0         0 ]
+length_        = 2 [          3         3 ]
+stride_        = 2 [          1        -3 ]
+zeroOffset_    = 6
+numElements()  = 9
+isStorageContiguous() = 1
+Dump of Array&#60;i, 2&#62;:
+ordering_      = 2 [          1         0 ]
+ascendingFlag_ = 2 [          1         1 ]
+base_          = 2 [          0         0 ]
+length_        = 2 [          3         3 ]
+stride_        = 2 [          3         1 ]
+zeroOffset_    = 0
+numElements()  = 9
+isStorageContiguous() = 1
+D = 3 x 3
+[         3         6         9 
+         12        15        18 
+         21        24        27 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+<A NAME="Array Expressions"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

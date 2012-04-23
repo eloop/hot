@@ -1,0 +1,622 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Random Number Generators</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Random Number Generators">
+<META NAME="keywords" CONTENT="Blitz++: Random Number Generators">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC142"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_8.html#SEC141"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC143"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 9. Random Number Generators </H1>
+<!--docid::SEC142::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC143"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC144"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.1 Overview </H2>
+<!--docid::SEC143::-->
+<P>
+
+These are the basic random number generators (RNGs):
+</P><P>
+
+<A NAME="IDX339"></A>
+<A NAME="IDX340"></A>
+<A NAME="IDX341"></A>
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>Uniform</CODE>
+<DD>Uniform reals on [0,1)
+<P>
+
+<DT><CODE>Normal</CODE>
+<DD>Normal with specified mean and variance
+<P>
+
+<DT><CODE>Exponential</CODE>
+<DD>Exponential with specified mean
+<P>
+
+<DT><CODE>DiscreteUniform</CODE>
+<DD>Integers uniformly distributed over a specified range.
+<P>
+
+<DT><CODE>Beta</CODE>
+<DD>Beta distribution
+<P>
+
+<DT><CODE>Gamma</CODE>
+<DD>Gamma distribution
+<P>
+
+<DT><CODE>F</CODE>
+<DD>F distribution
+</DL>
+<P>
+
+To use these generators, you need to include some subset of these headers:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;random/uniform.h&#62;
+#include &#60;random/normal.h&#62;
+#include &#60;random/exponential.h&#62;
+#include &#60;random/discrete-uniform.h&#62;
+#include &#60;random/beta.h&#62;
+#include &#60;random/gamma.h&#62;
+#include &#60;random/chisquare.h&#62;
+#include &#60;random/F.h&#62;
+
+using namespace ranlib;
+</pre></td></tr></table></P><P>
+
+All the generators are inside the namespace <STRONG>ranlib</STRONG>, 
+<A NAME="IDX342"></A>
+so a <STRONG>using namespace ranlib</STRONG> directive is required (alternately, you
+can write e.g. <CODE>ranlib::Uniform&#60;&#62;</CODE>).
+</P><P>
+
+These generators are all class templates.  The first template parameter is
+the number type you want to generate: float, double or long double for
+continuous distributions, and integer for discrete distributions.  This
+parameter defaults to <CODE>float</CODE> for continuous distributions,
+and <CODE>unsigned int</CODE> for discrete distributions.
+</P><P>
+
+The constructors are:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Uniform();
+Normal(T mean, T standardDeviation);
+Exponential(T mean);
+DiscreteUniform(T n);   // range is 0 .. n-1
+Beta(T a, T b);
+Gamma(T mean);
+ChiSquare(T df);
+F(T dfn, T dfd);
+</pre></td></tr></table></P><P>
+
+where <CODE>T</CODE> is the first template parameter (<CODE>float</CODE>, <CODE>double</CODE>,
+or <CODE>long double</CODE>).  To obtain a random number, use the method
+<CODE>random()</CODE>.  Here is an example of constructing and using a
+<CODE>Normal</CODE> generator:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;random/normal.h&#62;
+
+using namespace ranlib;
+
+void foo()
+{
+    Normal&#60;double&#62; normalGen;
+    double x = normalGen.random();    // x is a normal random number
+}
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC144"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC143"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC145"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC145"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.2 Note: Parallel random number generators </H2>
+<!--docid::SEC144::-->
+<P>
+
+The generators which Blitz++ provides are not suitable for parallel
+programs.  If you need parallel RNGs, you may find
+<A HREF="http://www.ncsa.uiuc.edu/Apps/SPRNG">http://www.ncsa.uiuc.edu/Apps/SPRNG</A> useful.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC145"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC144"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC146"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC146"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.3 Seeding a random number generator </H2>
+<!--docid::SEC145::-->
+<P>
+
+<A NAME="IDX343"></A>
+</P><P>
+
+You may seed a random number generator using the member function
+<CODE>seed(unsigned int)</CODE>.  
+<A NAME="IDX344"></A>
+By default, all random
+number generators share the same underlying integer random number generator.
+So seeding one generator will seed them all.  (Note: you can create
+generators with their own internal state; see the sections below).  You
+should generally only seed a random number generator once, at the beginning
+of a program run.  
+</P><P>
+
+Here is an example of seeding with the system clock:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;random/uniform.h&#62;
+#include &#60;time.h&#62;
+
+using namespace ranlib;
+
+int main()
+{
+    // At start of program, seed with the system time so we get
+    // a different stream of random numbers each run.
+    Uniform&#60;float&#62; x;
+    x.seed((unsigned int)time(0));
+
+    // Rest of program
+    ...
+}
+</pre></td></tr></table></P><P>
+
+Note: you may be tempted to seed the random number generator from a static
+initializer.  <STRONG>Don't do it!</STRONG>  Due to an oddity of C++, there is no
+guarantee on the order of static initialization when templates are involved.
+Hence, you may seed the RNG before its constructor is invoked, in which case
+your program will crash.  If you don't know what a static initializer is,
+don't worry -- you're safe!
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC146"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC145"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC147"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.4 Detailed description of RNGs </H2>
+<!--docid::SEC146::-->
+<P>
+
+<A NAME="IDX345"></A>
+</P><P>
+
+There are really two types of RNGs:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>Integer</CODE>
+<DD>RNGs provide uniformly distributed, unsigned 32 bit integers.
+<A NAME="IDX346"></A>
+<A NAME="IDX347"></A>
+<P>
+
+<DT><CODE>RNGs</CODE>
+<DD>use Integer RNGs to provide other kinds of random numbers. 
+</DL>
+<P>
+
+By default, the Integer RNG used is a faithful adaptation of the Mersenne
+Twister <CODE>MT19937</CODE> @cindex MersenneTwister due to Matsumoto and
+Nishimura (see <CITE>ACM Transactions on Modeling and Computer Simulation,
+Vol. 8, No. 1, January 1998, pp 3-30</CITE>,
+<A HREF="http://www.math.keio.ac.jp/~matumoto/emt.html">http://www.math.keio.ac.jp/~matumoto/emt.html</A>,
+<A HREF="http://www.acm.org/pubs/citations/journals/tomacs/1998-8-1/p3-matsumoto/">http://www.acm.org/pubs/citations/journals/tomacs/1998-8-1/p3-matsumoto/</A>).
+This generator has a period of 
+<EM>2^{19937</EM>-1}
+2^(19937)-1
+, passed several stringent
+statistical tests (including the
+<A HREF="http://stat.fsu.edu/~geo/diehard.html">http://stat.fsu.edu/~geo/diehard.html</A> tests), and has speed
+comparable to other modern generators.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC147"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC146"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC148"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC148"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.5 Template parameters </H2>
+<!--docid::SEC147::-->
+<P>
+
+RNGs take three template parameters, all of which have default values.
+Using the <CODE>Uniform</CODE> RNG as an example, the template parameters of
+<CODE>Uniform&#60;T, IRNG, stateTag&#62;</CODE> are:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>T</CODE>
+<DD>is the type of random number to generate (one of <CODE>float</CODE>,
+<CODE>double</CODE>, or <CODE>long double</CODE> for continuous distributions; an
+integer type for discrete distributions).  Note that generating double and
+long double RNGs takes longer, because filling the entire mantissa with
+random bits requires several random integers.  The default parameter for
+most generators is <CODE>float</CODE>.
+<P>
+
+<DT><CODE>IRNG</CODE>
+<DD>is the underlying Integer RNG to use.  The default is MersenneTwister.
+<P>
+
+<DT><CODE>stateTag</CODE>
+<DD><A NAME="IDX348"></A>
+is either <CODE>sharedState</CODE> or <CODE>independentState</CODE>.  If
+<CODE>sharedState</CODE>, the IRNG is shared with other generators.  If
+<CODE>independentState</CODE>, the RNG contains its own IRNG.  The default is
+sharedState.  
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC148"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC147"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.6 Member functions </H2>
+<!--docid::SEC148::-->
+<P>
+
+<A NAME="IDX349"></A>
+</P><P>
+
+RNGs have these methods:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>T random();
+</pre></td></tr></table><A NAME="IDX350"></A>
+Returns a random number.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void seed(unsigned int);
+</pre></td></tr></table><A NAME="IDX351"></A>
+Seeds the underlying IRNG.  See above for an example of seeding
+with the system timer.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC149"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC148"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC150"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC142"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.7 Detailed listing of RNGs </H2>
+<!--docid::SEC149::-->
+<P>
+
+To save space in the below list, template parameters have been omitted and
+only constructors are listed.  The notation [a,b] means an interval which
+includes the endpoints a and b; (a,b) is an interval which does not include
+the endpoints.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC150"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC151"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.1 <TT>`random/uniform.h'</TT> </H3>
+<!--docid::SEC150::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Uniform&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX352"></A>
+Continuous uniform distribution on [0,1). 
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>UniformClosedOpen&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX353"></A>
+Continuous uniform distribution on [0,1).  Same as <CODE>Uniform&#60;&#62;</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>UniformClosed&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX354"></A>
+Continuous uniform distribution on [0,1].
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>UniformOpen&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX355"></A>
+Continuous uniform distribution on (0,1).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>UniformOpenClosed&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX356"></A>
+Continuous uniform distribution on (0,1].
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC151"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC150"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC152"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC152"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.2 <TT>`random/normal.h'</TT> </H3>
+<!--docid::SEC151::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>NormalUnit&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX357"></A>
+Continuous normal distribution with mean 0 and variance 1.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Normal&#60;&#62;(T mean, T standardDeviation)
+</pre></td></tr></table><A NAME="IDX358"></A>
+Continuous normal distribution with specified mean and standard 
+deviation.  
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC152"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC151"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC153"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC153"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.3 <TT>`random/exponential.h'</TT> </H3>
+<!--docid::SEC152::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>ExponentialUnit&#60;&#62;()
+</pre></td></tr></table><A NAME="IDX359"></A>
+Continuous exponential distribution with mean 1.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Exponential&#60;&#62;(T mean)
+</pre></td></tr></table><A NAME="IDX360"></A>
+Continuous exponential distribution with specified mean.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC153"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC152"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC154"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC154"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.4 <TT>`random/beta.h'</TT> </H3>
+<!--docid::SEC153::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Beta&#60;&#62;(T a, T b)
+</pre></td></tr></table><A NAME="IDX361"></A>
+Beta distribution with parameters a and b.  The mean of the distribution is
+<EM>a/(a+b)</EM> and its variance is <EM>ab/((a+b)^2(a+b+1))</EM>.  Use the
+method <CODE>setParameters(T a, T b)</CODE> to change the parameters.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC154"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC153"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC155"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC155"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.5 <TT>`random/chisquare.h'</TT> </H3>
+<!--docid::SEC154::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>ChiSquare&#60;&#62;(T df)
+</pre></td></tr></table><A NAME="IDX362"></A>
+<EM>\chi^2</EM> distribution with <CODE>df</CODE> degrees of freedom.  The parameter
+df must be positive.  Use the method <CODE>setDF(T df)</CODE> to change the
+degrees of freedom.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC155"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC154"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC156"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC156"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.6 <TT>`random/gamma.h'</TT> </H3>
+<!--docid::SEC155::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Gamma&#60;&#62;(T mean)
+</pre></td></tr></table><A NAME="IDX363"></A>
+Gamma distribution with specified mean.  The mean must
+be positive.  Use the method <CODE>setMean(T mean)</CODE> to
+change the mean.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC156"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC155"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC157"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC157"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.7 <TT>`random/F.h'</TT> </H3>
+<!--docid::SEC156::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>F&#60;&#62;(T numeratorDF, T denominatorDF)
+</pre></td></tr></table><A NAME="IDX364"></A>
+F distribution with numerator and denominator degrees
+of freedom specified.  Both these parameters must be
+positive.  Use <CODE>setDF(T dfn, T dfd)</CODE> to change the
+degrees of freedom. 
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC157"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC156"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC149"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 9.7.8 <TT>`random/discrete-uniform.h'</TT> </H3>
+<!--docid::SEC157::-->
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>DiscreteUniform&#60;&#62;(T n)
+</pre></td></tr></table><A NAME="IDX365"></A>
+Discrete uniform distribution over <EM>0, 1, \ldots, n-1</EM>.
+</P><P>
+
+<A NAME="Numeric properties"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

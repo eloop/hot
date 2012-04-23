@@ -1,0 +1,368 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Numeric properties</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Numeric properties">
+<META NAME="keywords" CONTENT="Blitz++: Numeric properties">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC158"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_9.html#SEC157"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC159"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 10. Numeric properties </H1>
+<!--docid::SEC158::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC159"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC160"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.1 Introduction </H2>
+<!--docid::SEC159::-->
+<P>
+
+<A NAME="IDX366"></A>
+</P><P>
+
+Blitz++ provides a set of functions to access numeric properties of
+intrinsic types.  They are provided as an alternative to the somewhat klunky
+<CODE>numeric_limits&#60;T&#62;::yadda_yadda</CODE> syntax provided by the ISO/ANSI C++
+standard.  Where a similar Fortran 90 function exists, the same name has
+been used.
+</P><P>
+
+The argument in all cases is a dummy of the appropriate type.
+</P><P>
+
+All functions described in this section assume that <CODE>numeric_limits&#60;T&#62;</CODE>
+has been specialized for the appropriate case.  If not, the results are not
+useful.  The standard requires that <CODE>numeric_limits&#60;T&#62;</CODE> be specialized
+for all the intrinsic numeric types (float, double, int, bool, unsigned int,
+etc.).
+</P><P>
+
+<A NAME="IDX367"></A>
+</P><P>
+
+To use these functions, you must first include the header
+<CODE>&#60;blitz/numinquire.h&#62;</CODE>.  Also, note that these functions may be
+unavailable if your compiler is non-ANSI compliant.  If the preprocessor
+symbol <CODE>BZ_HAVE_NUMERIC_LIMITS</CODE> is false, then these functions are
+unavailable.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC160"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC159"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.2 Function descriptions </H2>
+<!--docid::SEC160::-->
+<P>
+
+<DL COMPACT>
+<DT><CODE>T     denorm_min(T) throw;</CODE>
+<DD><A NAME="IDX368"></A>
+Minimum positive denormalized value.  Available for floating-point
+types only. 
+<P>
+
+<DT><CODE>int   digits(T);</CODE>
+<DD><A NAME="IDX369"></A>
+The number of radix digits (read: bits) in the mantissa.  Also works for
+integer types.  The official definition is "number of radix digits that can
+be represented without change". 
+<P>
+
+<DT><CODE>int   digits10(T);</CODE>
+<DD><A NAME="IDX370"></A>
+The number of base-10 digits that can be represented without
+change. 
+<P>
+
+<DT><CODE>T     epsilon(T);</CODE>
+<DD><A NAME="IDX371"></A>
+The smallest amount which can be added to 1 to produce a result which is not
+1.  Floating-point types only.
+<P>
+
+<DT><CODE>bool  has_denorm(T);</CODE>
+<DD><A NAME="IDX372"></A>
+<A NAME="IDX373"></A>
+True if the representation allows denormalized values (floating-point
+only).
+<P>
+
+<DT><CODE>bool  has_denorm_loss(T);</CODE>
+<DD><A NAME="IDX374"></A>
+<A NAME="IDX375"></A>
+True if a loss of precision is detected as a denormalization loss, rather
+than as an inexact result (floating-point only). 
+<P>
+
+<DT><CODE>bool  has_infinity(T);</CODE>
+<DD><A NAME="IDX376"></A>
+<A NAME="IDX377"></A>
+True if there is a special representation for the value "infinity".  If
+true, the representation can be obtained by calling <CODE>infinity(T)</CODE>.
+<P>
+
+<DT><CODE>bool  has_quiet_NaN(T);</CODE>
+<DD><A NAME="IDX378"></A>
+<A NAME="IDX379"></A>
+True if there is a special representation for a quiet (non-signalling) Not A
+Number (<CODE>NaN</CODE>).  If so, use the function <CODE>quiet_NaN(T)</CODE> to obtain it. 
+<P>
+
+<DT><CODE>bool  has_signaling_NaN(T);</CODE>
+<DD><A NAME="IDX380"></A>
+<A NAME="IDX381"></A>
+True if there is a special representation for a signalling Not A Number
+(<CODE>NaN</CODE>).  If so, use the function <CODE>signalling_NaN(T)</CODE> to obtain it. 
+<P>
+
+<DT><CODE>bool  has_signalling_NaN(T);</CODE>
+<DD><A NAME="IDX382"></A>
+Same as <CODE>has_signaling_NaN()</CODE>.
+<P>
+
+<DT><CODE>T     huge(T) throw;</CODE>
+<DD><A NAME="IDX383"></A>
+<A NAME="IDX384"></A>
+Returns the maximum finite representable value.  Equivalent to
+<CODE>CHAR_MAX</CODE>, <CODE>SHRT_MAX</CODE>, <CODE>FLT_MAX</CODE>, etc.  For floating types
+with denormalization, the maximum positive <STRONG>normalized</STRONG> value is
+returned.  
+<P>
+
+<DT><CODE>T     infinity(T) throw;</CODE>
+<DD><A NAME="IDX385"></A>
+Returns the representation of positive infinity, if available.  Note that
+you should check availability with <CODE>has_infinity(T)</CODE> before calling
+this function. 
+<P>
+
+<DT><CODE>bool  is_bounded(T);</CODE>
+<DD><A NAME="IDX386"></A>
+True if the set of values represented by the type is finite.  All built-in
+types are bounded.  (This function was provided so that e.g. arbitrary
+precision types could be distinguished).
+<P>
+
+<DT><CODE>bool  is_exact(T);</CODE>
+<DD><A NAME="IDX387"></A>
+True if the representation is exact.  All integer types are exact;
+floating-point types generally aren't.  A rational arithmetic type could be
+exact. 
+<P>
+
+<DT><CODE>bool  is_iec559(T);</CODE>
+<DD><A NAME="IDX388"></A>
+<A NAME="IDX389"></A>
+True if the type conforms to the IEC 559 standard.  IEC is the International
+Electrotechnical Commission.  Note that IEC 559 is the same as IEEE 754.
+Only relevant for floating types.
+<P>
+
+<DT><CODE>bool  is_integer(T);</CODE>
+<DD><A NAME="IDX390"></A>
+True if the type is integer.  
+<P>
+
+<DT><CODE>bool  is_modulo(T);</CODE>
+<DD><A NAME="IDX391"></A>
+True if the type is modulo.  Integer types are usually modulo: if you add
+two integers, they might wrap around and give you a small result.  (Some
+special kinds of integers don't wrap around, but stop at an upper or lower
+bound; this is called saturating arithmetic).  This is false for floating
+types.  
+<P>
+
+<DT><CODE>bool  is_signed(T);</CODE>
+<DD><A NAME="IDX392"></A>
+<A NAME="IDX393"></A>
+True if the type is signed (i.e. can handle both positive and negative
+values).  
+<P>
+
+<DT><CODE>int   max_exponent(T);</CODE>
+<DD><A NAME="IDX394"></A>
+The maximum exponent (<CODE>Max_exp</CODE>) is the maximum positive integer such
+that the radix (read: 2) raised to the power <CODE>Max_exp-1</CODE> is a
+representable, finite floating point number.  Floating types only. 
+<P>
+
+<DT><CODE>int   max_exponent10(T);</CODE>
+<DD><A NAME="IDX395"></A>
+The maximum base-10 exponent (<CODE>Max_exp10</CODE>) is the maximum positive
+integer such that 10 raised to the power <CODE>Max_exp10</CODE> is a
+representable, finite floating point number.  Floating types only. 
+<P>
+
+<DT><CODE>int   min_exponent(T);</CODE>
+<DD><A NAME="IDX396"></A>
+The minimum exponent (<CODE>Min_exp</CODE>) is the minimum negative integer such
+that the radix (read: 2) raised to the power <CODE>Min_exp-1</CODE> is a
+<STRONG>normalized</STRONG> floating point number.  Floating types only. 
+<P>
+
+<DT><CODE>int   min_exponent10(T);</CODE>
+<DD><A NAME="IDX397"></A>
+The minimum base-10 exponent (<CODE>Min_exp10</CODE>) is the minimum negative integer
+such that 10 raised to the power <CODE>Min_exp10</CODE> is in the range of
+<STRONG>normalized</STRONG> floating point numbers. 
+<P>
+
+<DT><CODE>T     neghuge(T);</CODE>
+<DD><A NAME="IDX398"></A>
+<A NAME="IDX399"></A>
+This returns the maximally negative value for a type.  For integers, this is
+the same as min().  For floating-point types, it is <CODE>-huge(T())</CODE>.
+<P>
+
+<DT><CODE>T     one(T);</CODE>
+<DD><A NAME="IDX400"></A>
+Returns a representation for "1"  
+<P>
+
+<DT><CODE>int   precision(T);</CODE>
+<DD><A NAME="IDX401"></A>
+Same as <CODE>digits10()</CODE>. 
+<P>
+
+<DT><CODE>T     quiet_NaN(T) throw;</CODE>
+<DD><A NAME="IDX402"></A>
+<A NAME="IDX403"></A>
+Returns the representation for a quiet (non-signalling) Not A Number
+(<CODE>NaN</CODE>), if available.  You should check availability using the
+<CODE>has_quiet_NaN(T)</CODE> function first.  
+<P>
+
+<DT><CODE>int   radix(T);</CODE>
+<DD><A NAME="IDX404"></A>
+For floating-point types, this returns the radix (base) of the exponent.
+For integers, it specifies the base of the representation.
+<P>
+
+<DT><CODE>Range range(T);</CODE>
+<DD><A NAME="IDX405"></A>
+Returns <CODE>Range(min_exponent10(T()), max_exponent10(T()))</CODE>, i.e.  the
+range of representable base-10 exponents.  
+<P>
+
+<DT><CODE>T     round_error(T) throw;</CODE>
+<DD><A NAME="IDX406"></A>
+Returns a measure of the maximum rounding error for floating-point types.
+This will typically be <CODE>0.5</CODE>. 
+<P>
+
+<DT><CODE>std::float_round_style round_style(T);</CODE>
+<DD><A NAME="IDX407"></A>
+Returns the current rounding style for floating-point arithmetic.  The
+possibilities are: <CODE>round_indeterminate</CODE> (i.e. don't have a clue),
+<CODE>round_toward_zero</CODE>, <CODE>round_to_nearest</CODE> (round to nearest
+representable value), <CODE>round_toward_infinity</CODE> (round toward positive
+infinity), and <CODE>round_neg_infinity</CODE> (round toward negative infinity).  
+<P>
+
+<DT><CODE>T     signaling_NaN(T) throw;</CODE>
+<DD><A NAME="IDX408"></A>
+Returns the representation for a signalling Not A Number (<CODE>NaN</CODE>), if
+available.  You should check availability by calling
+<CODE>has_signalling_NaN(T)</CODE> first.  
+<P>
+
+<DT><CODE>T     signalling_NaN(T) throw;</CODE>
+<DD><A NAME="IDX409"></A>
+Same as <CODE>signaling_NaN()</CODE>.
+<P>
+
+<DT><CODE>T     tiny(T);</CODE>
+<DD><A NAME="IDX410"></A>
+<A NAME="IDX411"></A>
+For integer types, this returns the minimum finite value, which may be
+negative.  For floating types, it returns the minimum positive value.  For
+floating types with denormalization, the function returns the minimum
+positive <STRONG>normalized</STRONG> value.  
+<P>
+
+<DT><CODE>T     tinyness_before(T);</CODE>
+<DD><A NAME="IDX412"></A>
+True if tinyness is detected before rounding.  Other than this description,
+I don't have a clue what this means; anyone have a copy of IEC 559/IEEE 754
+floating around? 
+<P>
+
+<DT><CODE>T     traps(T);</CODE>
+<DD><A NAME="IDX413"></A>
+True if trapping is implemented for this type. 
+<P>
+
+<DT><CODE>T     zero(T);</CODE>
+<DD><A NAME="IDX414"></A>
+Returns a representation for zero. 
+</DL>
+<P>
+
+<A NAME="FAQ"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_10.html#SEC158"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_11.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

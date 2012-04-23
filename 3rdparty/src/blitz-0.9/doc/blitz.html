@@ -1,0 +1,122 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Blitz++</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Blitz++">
+<META NAME="keywords" CONTENT="Blitz++: Blitz++">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC_Top"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>Blitz++</H1></P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC1">1. Introduction</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC34">2. Arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The Array class</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC80">3. Array Expressions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_4.html#SEC104">4. Stencils</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_5.html#SEC121">5. Multicomponent, complex, and user type arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Multicomponent, complex, and user type Arrays</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_6.html#SEC127">6. Indirection</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Indirect adressing</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_7.html#SEC131">7. TinyVector</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The TinyVector class</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_8.html#SEC140">8. Parallel Computing with Blitz++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Parallel Computing</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_9.html#SEC142">9. Random Number Generators</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_10.html#SEC158">10. Numeric properties</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Numeric properties functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_11.html#SEC161">11. Frequently Asked Questions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Frequently Asked Questions, with answers</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_12.html#SEC164">Blitz Keyword Index</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Keyword Index</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_13.html#SEC165">Concept Index</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+
+<br>
+&nbsp;--&nbsp;The&nbsp;Detailed&nbsp;Node&nbsp;Listing&nbsp;---
+<br>
+
+<br>
+General&nbsp;considerations
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC2">1.1 About this document</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC3">1.2 Platform/compiler notes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Supported platforms</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC18">1.3 How to download Blitz++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Where to download Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC19">1.4 Installation and porting</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to install Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC23">1.5 Compiling with Blitz++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to compile a program that uses Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC28">1.6 Licensing terms</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">License considerations</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_1.html#SEC29">1.7 Mailing lists and support</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to get help?</TD></TR>
+</TABLE>
+
+<br>
+The&nbsp;Blitz++&nbsp;Array&nbsp;class
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC35">2.1 Getting started</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC40">2.2 Public types</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Public types declaration for Array</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC41">2.3 Constructors</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array constructors</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC51">2.4 Indexing, subarrays, and slicing</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to access the elements of an Array?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC55">2.4.4 Slicing</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The slicing machinery</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC59">2.5 Debug mode</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to debug a program that uses Blitz++?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC60">2.6 Member functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array member functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC64">2.7 Global functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array global functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC65">2.8 Inputting and Outputting Arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Inputting and outputting Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_2.html#SEC68">2.9 Array storage orders</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The storage of Array</TD></TR>
+</TABLE>
+
+<br>
+Writing&nbsp;code&nbsp;with&nbsp;the&nbsp;Blitz++&nbsp;Array&nbsp;class
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC81">3.1 Expression evaluation order</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Creating expressions with Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC88">3.6 Index placeholders</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array indices functionality</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC92">3.8 Single-argument math functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Single-argument math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC95">3.9 Two-argument math functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Two-argument math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC98">3.10 Declaring your own math functions on arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Creating your math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC103">3.15 where statements</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The where statement</TD></TR>
+</TABLE>
+
+<br>
+More&nbsp;feaures&nbsp;of&nbsp;the&nbsp;Array&nbsp;class
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_5.html#SEC122">5.1 Multicomponent and complex arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Multicomponent Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_5.html#SEC126">5.2 Creating arrays of a user type</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array's of your own type</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

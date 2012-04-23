@@ -1,0 +1,20 @@
+/.cvsignore/1.6/Wed Dec 17 11:07:29 2003//
+/Makefile.am/1.15/Thu Oct  6 23:33:54 2005//
+/arroperands.h/1.5/Wed Mar 25 07:39:26 2009//
+/arroptuple.h/1.2/Mon Jan  6 14:42:17 2003//
+/bzfstream.h/1.6/Thu Mar 26 16:31:17 2009//
+/genarrbops.cpp/1.8/Thu Mar 26 16:31:18 2009//
+/genarruops.cpp/1.5/Thu Mar 26 16:31:18 2009//
+/genmatbops.cpp/1.8/Thu Mar 26 16:31:18 2009//
+/genmathfunc.cpp/1.17/Thu Mar 26 16:31:18 2009//
+/genmatuops.cpp/1.7/Thu Mar 26 16:31:18 2009//
+/genpromote.cpp/1.6/Thu Mar 26 16:31:18 2009//
+/genvecbfn.cpp/1.3/Thu Mar 26 16:31:18 2009//
+/genvecbops.cpp/1.7/Thu Mar 26 16:31:18 2009//
+/genvecuops.cpp/1.11/Thu Mar 26 16:34:06 2009//
+/genvecwhere.cpp/1.4/Thu Mar 26 16:31:18 2009//
+/operands.h/1.6/Wed Mar 25 07:39:26 2009//
+/operands2.h/1.4/Wed Mar 25 07:39:26 2009//
+/optuple.h/1.2/Mon Jan  6 14:42:18 2003//
+/optuple2.h/1.2/Mon Jan  6 14:42:19 2003//
+D

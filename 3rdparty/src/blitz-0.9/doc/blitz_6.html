@@ -1,0 +1,389 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Indirection</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Indirection">
+<META NAME="keywords" CONTENT="Blitz++: Indirection">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC127"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC128"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 6. Indirection </H1>
+<!--docid::SEC127::-->
+<P>
+
+<A NAME="IDX319"></A>
+<A NAME="IDX320"></A>
+</P><P>
+
+<STRONG>Indirection</STRONG> is the ability to modify or access an array at a set of
+selected index values.  Blitz++ provides several forms of indirection: 
+</P><P>
+
+<UL>
+
+<LI><STRONG>Using a list of array positions</STRONG>: this approach is useful
+if you need to modify an array at a set of scattered points.
+<P>
+
+<LI><STRONG>Cartesian-product indirection</STRONG>: as an example, for a
+two-dimensional array you might have a list <CODE>I</CODE> of rows and a list
+<CODE>J</CODE> of columns, and you want to modify the array at all (i,j) positions
+where i is in <CODE>I</CODE> and j is in <CODE>J</CODE>.  This is a <STRONG>cartesian
+product</STRONG> of the index sets <CODE>I</CODE> and <CODE>J</CODE>.
+<P>
+
+<LI><STRONG>Over a set of strips</STRONG>: for efficiency, you can represent an
+arbitrarily-shaped subset of an array as a list of one-dimensional strips.
+This is a useful way of handling <STRONG>Regions Of Interest</STRONG> (ROIs).
+<P>
+
+</UL>
+<P>
+
+<center>
+ <CENTER><IMG SRC="indirect.gif" ALT="indirect"></CENTER>
+</center>
+<center>
+ Three styles of indirection. <A NAME="DOCF4" HREF="blitz_fot.html#FOOT4">(4)</A>
+</center>
+</P><P>
+
+<A NAME="IDX321"></A>
+</P><P>
+
+In all cases, Blitz++ expects a Standard Template Library container.  Some
+useful STL containers are <CODE>list&#60;&#62;</CODE>, <CODE>vector&#60;&#62;</CODE>, <CODE>deque&#60;&#62;</CODE> and
+<CODE>set&#60;&#62;</CODE>.  Documentation of these classes is often provided with your
+compiler, or see also the good documentation at
+<A HREF="http://www.sgi.com/Technology/STL/">http://www.sgi.com/Technology/STL/</A>.  STL containers are used because
+they are widely available and provide easier manipulation of "sets" than
+Blitz++ arrays.  For example, you can easily expand and merge sets which are
+stored in STL containers; doing this is not so easy with Blitz++ arrays,
+which are designed for numerical work.
+</P><P>
+
+STL containers are generally included by writing
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;list&#62;   // for list&#60;&#62;
+#include &#60;vector&#62; // for vector&#60;&#62;
+#include &#60;deque&#62;  // for deque&#60;&#62;
+#include &#60;set&#62;    // for set&#60;&#62;
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX322"></A>
+</P><P>
+
+The <CODE>[]</CODE> operator is overloaded on arrays so that the syntax
+<CODE>array[container]</CODE> provides an indirect view of the array.  So far,
+this indirect view may only be used as an lvalue (i.e. on the left-hand side
+of an assignment statement).
+</P><P>
+
+The examples in the next sections are available in the Blitz++ distribution
+in <TT>`&#60;examples/indirect.cpp&#62;'</TT>.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC128"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC129"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.1 Indirection using lists of array positions </H2>
+<!--docid::SEC128::-->
+<P>
+
+<A NAME="IDX323"></A>
+<A NAME="IDX324"></A>
+</P><P>
+
+The simplest kind of indirection uses a list of points.  For one-dimensional
+arrays, you can just use an STL container of integers.  Example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  Array&#60;int,1&#62; A(5), B(5);
+  A = 0;
+  B = 1, 2, 3, 4, 5;
+
+  vector&#60;int&#62; I;
+  I.push_back(2);
+  I.push_back(4);
+  I.push_back(1);
+
+  A[I] = B;
+</pre></td></tr></table></P><P>
+
+After this code, the array A contains <CODE>[ 0 2 3 0 5 ]</CODE>.
+</P><P>
+
+Note that arrays on the right-hand-side of the assignment must have the same
+shape as the array on the left-hand-side (before indirection).  In the
+statement <CODE>A[I] = B</CODE>, A and B must have the same shape, not I and B.
+</P><P>
+
+For multidimensional arrays, you can use an STL container of
+<CODE>TinyVector&#60;int,N_rank&#62;</CODE> objects.  Example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  Array&#60;int,2&#62; A(4,4), B(4,4);
+  A = 0;
+  B = 10*tensor::i + tensor::j;
+
+  typedef TinyVector&#60;int,2&#62; coord;
+
+  list&#60;coord&#62; I;
+  I.push_back(coord(1,1));
+  I.push_back(coord(2,2));
+
+  A[I] = B;
+</pre></td></tr></table></P><P>
+
+After this code, the array A contains:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  0   0   0   0
+  0  11   0   0
+  0   0  22   0
+  0   0   0   0
+</pre></td></tr></table></P><P>
+
+(The <CODE>tensor::i</CODE> notation is explained in the section on index
+placeholders <A HREF="blitz_3.html#SEC88">3.6 Index placeholders</A>).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC129"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC128"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC130"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC130"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.2 Cartesian-product indirection </H2>
+<!--docid::SEC129::-->
+<P>
+
+<A NAME="IDX325"></A>
+<A NAME="IDX326"></A>
+</P><P>
+
+The Cartesian product of the sets I, J and K is the set of (i,j,k) tuples
+for which i is in I, j is in J, and k is in K.  
+</P><P>
+
+Blitz++ implements cartesian-product indirection using an <STRONG>adaptor</STRONG>
+which takes a set of STL containers and iterates through their Cartesian
+product.  Note that the cartesian product is never explicitly created.  You
+create the Cartesian-product adaptor by calling the function:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>template&#60;class T_container&#62;
+indexSet(T_container&#38; c1, T_container&#38; c2, ...)
+</pre></td></tr></table></P><P>
+
+The returned adaptor can then be used in the <CODE>[]</CODE> operator of an array
+object.
+</P><P>
+
+Here is a two-dimensional example:
+</P><P>
+
+<A NAME="IDX327"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  Array&#60;int,2&#62; A(6,6), B(6,6);
+  A = 0;
+  B = 10*tensor::i + tensor::j;
+
+  vector&#60;int&#62; I, J;
+  I.push_back(1);
+  I.push_back(2);
+  I.push_back(4);
+
+  J.push_back(0);
+  J.push_back(2);
+  J.push_back(5);
+
+  A[indexSet(I,J)] = B;
+</pre></td></tr></table></P><P>
+
+After this code, the A array contains:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre> 0   0   0   0   0   0
+10   0  12   0   0  15
+20   0  22   0   0  25
+ 0   0   0   0   0   0
+40   0  42   0   0  45
+ 0   0   0   0   0   0
+</pre></td></tr></table></P><P>
+
+All the containers used in a cartesian product must be the same type (e.g.
+all <CODE>vector&#60;int&#62;</CODE> or all <CODE>set&#60;TinyVector&#60;int,2&#62; &#62;</CODE>), but they may
+be different sizes.  Singleton containers (containers containing a single
+value) are fine.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC130"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC129"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.3 Indirection with lists of strips </H2>
+<!--docid::SEC130::-->
+<P>
+
+<A NAME="IDX328"></A>
+<A NAME="IDX329"></A>
+</P><P>
+
+You can also do indirection with a container of one-dimensional
+<STRONG>strips</STRONG>.  This is useful when you want to manipulate some
+arbitrarily-shaped, well-connected subdomain of an array.  By representing
+the subdomain as a list of strips, you allow Blitz++ to operate on vectors,
+rather than scattered points; this is much more efficient.
+</P><P>
+
+<A NAME="IDX330"></A>
+</P><P>
+
+Strips are represented by objects of type <CODE>RectDomain&#60;N&#62;</CODE>, where
+<CODE>N</CODE> is the dimensionality of the array.  The <CODE>RectDomain&#60;N&#62;</CODE> class
+can be used to represent any rectangular subdomain, but for indirection it
+is only used to represent strips.
+</P><P>
+
+You create a strip by using this function:
+</P><P>
+
+<A NAME="IDX331"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>RectDomain&#60;N&#62; strip(TinyVector&#60;int,N&#62; start,
+                    int stripDimension, int ubound);
+</pre></td></tr></table></P><P>
+
+The <CODE>start</CODE> parameter is where the strip starts; <CODE>stripDimension</CODE>
+is the dimension in which the strip runs; <CODE>ubound</CODE> is the last index
+value for the strip.  For example, to create a 2-dimensional strip from
+(2,5) to (2,9), one would write:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TinyVector&#60;int,2&#62; start(2,5);
+RectDomain&#60;2&#62; myStrip = strip(start,secondDim,9);
+</pre></td></tr></table></P><P>
+
+Here is a more substantial example which creates a list of strips
+representing a circle subset of an array:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  const int N = 7;
+  Array&#60;int,2&#62; A(N,N), B(N,N);
+  typedef TinyVector&#60;int,2&#62; coord;
+
+  A = 0;
+  B = 1;
+
+  double centre_i = (N-1)/2.0;
+  double centre_j = (N-1)/2.0;
+  double radius = 0.8 * N/2.0;
+
+  // circle will contain a list of strips which represent a circular
+  // subdomain.
+
+  list&#60;RectDomain&#60;2&#62; &#62; circle;
+  for (int i=0; i &#60; N; ++i)
+  {
+    double jdist2 = pow2(radius) - pow2(i-centre_i);
+    if (jdist2 &#60; 0.0)
+      continue;
+
+    int jdist = int(sqrt(jdist2));
+    coord startPos(i, int(centre_j - jdist));
+    circle.push_back(strip(startPos, secondDim, int(centre_j + jdist)));
+  }
+
+  // Set only those points in the circle subdomain to 1
+  A[circle] = B;
+</pre></td></tr></table></P><P>
+
+After this code, the A array contains:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  0  0  0  0  0  0  0
+  0  0  1  1  1  0  0
+  0  1  1  1  1  1  0
+  0  1  1  1  1  1  0
+  0  1  1  1  1  1  0
+  0  0  1  1  1  0  0
+  0  0  0  0  0  0  0
+</pre></td></tr></table></P><P>
+
+<A NAME="TinyVector"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_7.html#SEC131"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,2036 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Array Expressions</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Array Expressions">
+<META NAME="keywords" CONTENT="Blitz++: Array Expressions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC80"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_2.html#SEC79"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC81"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. Array Expressions </H1>
+<!--docid::SEC80::-->
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC81">3.1 Expression evaluation order</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Creating expressions with Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC88">3.6 Index placeholders</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array indices functionality</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC92">3.8 Single-argument math functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Single-argument math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC95">3.9 Two-argument math functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Two-argument math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC98">3.10 Declaring your own math functions on arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Creating your math functions on Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_3.html#SEC103">3.15 where statements</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The where statement</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="IDX163"></A>
+<A NAME="IDX164"></A>
+<A NAME="IDX165"></A>
+<A NAME="IDX166"></A>
+<A NAME="IDX167"></A>
+</P><P>
+
+Array expressions in Blitz++ are implemented using the <EM>expression
+templates</EM> technique.  Unless otherwise noted, expression evaluation will
+never generate temporaries or multiple loops; an expression such as
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,1&#62; A, B, C, D;    // ...
+
+A = B + C + D;
+</pre></td></tr></table></P><P>
+
+will result in code similar to
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (int i=A.lbound(firstDim); i &#60;= A.ubound(firstDim); ++i)
+    A[i] = B[i] + C[i] + D[i];
+</pre></td></tr></table></P><P>
+
+<A NAME="Array expressions"></A>
+<HR SIZE="6">
+<A NAME="SEC81"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 Expression evaluation order </H2>
+<!--docid::SEC81::-->
+<P>
+
+A commonly asked question about Blitz++ is what order it uses to evaluate
+array expressions.  For example, in code such as
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A(Range(2,10)) = A(Range(1,9))
+</pre></td></tr></table></P><P>
+
+does the expression get evaluated at indices 1, 2, ..., 9 or at 9, 8, ...,
+1?  This makes a big difference to the result: in one case, the array will
+be shifted to the right by one element; in the other case, most of the array
+elements will be set to the value in <CODE>A(1)</CODE>.
+</P><P>
+
+Blitz always selects the traversal order it thinks will be fastest.  For 1D
+arrays, this means it will go from beginning to the end of the array in
+memory (see notes below).  For multidimensional arrays, it will do one of
+two things:
+</P><P>
+
+<UL>
+
+<LI>try to go through the destination array in the order it is laid out
+in memory (i.e.  row-major for row-major arrays, column-major for
+column-major arrays).
+<P>
+
+<LI>if the expression is a stencil, Blitz will do tiling to improve cache
+use.  Under some circumstances blitz will even use a traversal based on a
+hilbert curve (a fractal) for 3D arrays.  
+<P>
+
+</UL>
+<P>
+
+Because the traversal order is not always predictable, it is safest to put
+the result in a new array if you are doing a stencil-style expression.
+Blitz guarantees this will always work correctly.  If you try to put the
+result in one of the operands, you have to guess correctly which traversal
+order blitz will choose.  This is easy for the 1D case, but hard for the
+multidimensional case.
+</P><P>
+
+Some special notes about 1D array traversals:
+</P><P>
+
+<UL>
+
+<LI>if your array is stored in reverse order, i.e. because of a
+A.reverse(firstDim) or funny storage order, blitz will go through the array
+from end to beginning in array coordinates, but from beginning to end in
+memory locations.
+<P>
+
+<LI>many compilers/architecture combinations are equally fast at reverse
+order.  But blitz has a specialized version for stride = +1, and it would be
+wasteful to also specialize for the case stride = -1.  So 1D arrays are
+traversed from beginning to end (in memory storage order).
+<P>
+
+</UL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC82"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC81"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC83"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC83"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 Expression operands </H2>
+<!--docid::SEC82::-->
+<P>
+
+An expression can contain any mix of these operands:
+</P><P>
+
+<UL>
+<LI>An array of any type, so long as it is of the same rank.
+Expressions which contain a mixture of array types are handled through the
+type promotion mechanism described below.
+<P>
+
+<LI>Scalars of type <CODE>int</CODE>, <CODE>float</CODE>, <CODE>double</CODE>,
+<CODE>long double</CODE>, or <CODE>complex&#60;T&#62;</CODE>
+<P>
+
+<LI>Index placeholders, described below
+<P>
+
+<LI>Other expressions (e.g. <CODE>A+(B+C)</CODE>)
+</UL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC83"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC84"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC86"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC86"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 Array operands </H2>
+<!--docid::SEC83::-->
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC84"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC83"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC85"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> Using subarrays in an expression </H3>
+<!--docid::SEC84::-->
+<P>
+
+<A NAME="IDX168"></A>
+</P><P>
+
+Subarrays may be used in an expression.  For example, this code example
+performs a 5-point average on a two-dimensional array:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A(64,64), B(64,64);   // ...
+Range I(1,62), J(1,62);
+
+A(I,J) = (B(I,J) + B(I+1,J) + B(I-1,J) 
+                 + B(I,J+1) + B(I,J-1)) / 5;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC85"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC84"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC86"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> Mixing arrays with different storage formats </H3>
+<!--docid::SEC85::-->
+<P>
+
+<A NAME="IDX169"></A>
+</P><P>
+
+Arrays with different storage formats (for example, C-style and
+Fortran-style) can be mixed in the same expression.  Blitz++ will handle the
+different storage formats automatically.  However:
+</P><P>
+
+<UL>
+
+<LI>Evaluation may be slower, since a different traversal order may be
+used.
+<P>
+
+<LI>If you are using index placeholders (see below) or reductions in
+the expression, you may <STRONG>not</STRONG> mix array objects with different
+starting bases.  
+<P>
+
+</UL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC86"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC85"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC87"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC87"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.4 Expression operators </H2>
+<!--docid::SEC86::-->
+<P>
+
+These binary operators are supported:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>+ - * / % &#62; &#60; &#62;= &#60;= == != &#38;&#38; || ^ &#38; | 
+</pre></td></tr></table></P><P>
+
+Note: operator <CODE>&#60;&#60;</CODE> and <CODE>&#62;&#62;</CODE> are reserved for use in input/output.
+If you need a bit-shift operation on arrays, you may define one yourself;
+see <A HREF="blitz_3.html#SEC98">3.10 Declaring your own math functions on arrays</A>.
+</P><P>
+
+These unary operators are supported:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>- ~ !
+</pre></td></tr></table></P><P>
+
+The operators <CODE>&#62; &#60; &#62;= &#60;= == != &#38;&#38; || !</CODE> result in a bool-valued
+expression.
+</P><P>
+
+<A NAME="IDX170"></A>
+All operators are applied <EM>elementwise</EM>.
+</P><P>
+
+<A NAME="IDX171"></A>
+You can only use operators which are well-defined for the number type stored
+in the arrays.  For example, bitwise XOR (<CODE>^</CODE>) is meaningful for
+integers, so this code is all right:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,3&#62; A, B, C;   // ...
+A = B ^ C;
+</pre></td></tr></table></P><P>
+
+Bitwise XOR is <EM>not</EM> meaningful on floating point types, so this code
+will generate a compiler error:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,1&#62; A, B, C;   // ...
+C = B ^ C;
+</pre></td></tr></table></P><P>
+
+Here's the compiler error generated by KAI C++ for the above code:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"../../blitz/ops.h", line 85: error: expression must have integral or enum type
+  BZ_DEFINE_OP(BitwiseXor,^);
+  ^
+          detected during:
+            instantiation of "blitz::BitwiseXor&#60;float, float&#62;::T_numtype
+                      blitz::BitwiseXor&#60;float, float&#62;::apply(float, float)" at
+                      line 210 of "../../blitz/arrayexpr.h"
+            instantiation of ...
+                     .
+                     .
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX172"></A>
+If you are creating arrays using a type you have created yourself, you will
+need to overload whatever operators you want to use on arrays.  For example,
+if I create a class <CODE>Polynomial</CODE>, and want to write code such as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;Polynomial,2&#62; A, B, C;   // ...
+C = A * B;
+</pre></td></tr></table></P><P>
+
+I would have to provide <CODE>operator*</CODE> for <CODE>Polynomial</CODE> by
+implementing
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Polynomial Polynomial::operator*(Polynomial);)
+</pre></td></tr></table></P><P>
+
+or
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Polynomial operator*(Polynomial, Polynomial);)
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC87"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC86"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC88"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC88"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.5 Assignment operators </H2>
+<!--docid::SEC87::-->
+<P>
+
+<A NAME="IDX173"></A>
+These assignment operators are supported:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>= += -= *= /= %= ^= &#38;= |= &#62;&#62;= &#60;&#60;=
+</pre></td></tr></table></P><P>
+
+An array object should appear on the left side of the operator.  The right
+side can be:
+</P><P>
+
+<UL>
+
+<LI>A constant (or literal) of type <CODE>T_numtype</CODE>
+<P>
+
+<LI>An array of appropriate rank, possibly of a different numeric type
+<P>
+
+<LI>An array expression, with appropriate rank and shape
+<P>
+
+</UL>
+<P>
+
+<A NAME="Index placeholders"></A>
+<HR SIZE="6">
+<A NAME="SEC88"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC87"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC89"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC89"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.6 Index placeholders </H2>
+<!--docid::SEC88::-->
+<P>
+
+Blitz++ provides objects called <EM>index placeholders</EM> which represent
+array indices.  They can be used directly in expressions.
+</P><P>
+
+There is a distinct index placeholder type associated with each dimension of
+an array.  The types are called <CODE>firstIndex</CODE>, <CODE>secondIndex</CODE>,
+<CODE>thirdIndex</CODE>, ..., <CODE>tenthIndex</CODE>, <CODE>eleventhIndex</CODE>.
+<A NAME="IDX174"></A>
+<A NAME="IDX175"></A>
+<A NAME="IDX176"></A>
+<A NAME="IDX177"></A>
+Here's an example of using an index placeholder:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,1&#62; A(10);
+firstIndex i;
+A = i;
+</pre></td></tr></table></P><P>
+
+This generates code which is similar to:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (int i=0; i &#60; A.length(); ++i)
+    A(i) = i;
+</pre></td></tr></table></P><P>
+
+Here's an example which fills an array with a sampled sine wave:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,1&#62; A(16);
+firstIndex i;
+
+A = sin(2 * M_PI * i / 16.);
+</pre></td></tr></table></P><P>
+
+If your destination array has rank greater than 1, you may use
+multiple index placeholders:
+</P><P>
+
+<A NAME="IDX178"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Fill a two-dimensional array with a radially
+// symmetric, decaying sinusoid
+
+// Create the array
+int N = 64;           
+Array&#60;float,2&#62; F(N,N);
+
+// Some parameters
+float midpoint = (N-1)/2.;
+int cycles = 3;
+float omega = 2.0 * M_PI * cycles / double(N);
+float tau = - 10.0 / N;
+
+// Index placeholders
+firstIndex i;
+secondIndex j;
+
+// Fill the array
+F = cos(omega * sqrt(pow2(i-midpoint) + pow2(j-midpoint)))
+    * exp(tau * sqrt(pow2(i-midpoint) + pow2(j-midpoint)));
+</pre></td></tr></table></P><P>
+
+Here's a plot of the resulting array:
+</P><P>
+
+<center>
+ <CENTER><IMG SRC="sinsoid.gif" ALT="sinsoid"></CENTER>
+</center>
+<center>
+ Array filled using an index placeholder expression.
+</center>
+</P><P>
+
+You can use index placeholder expressions in up to 11 dimensions.
+Here's a three dimensional example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Fill a three-dimensional array with a Gaussian function
+Array&#60;float,3&#62; A(16,16,16);
+firstIndex i;
+secondIndex j;
+thirdIndex k;
+float midpoint = 15/2.;
+float c = - 1/3.0;
+A = exp(c * (sqr(i-midpoint) + sqr(j-midpoint) 
+    + sqr(k-midpoint)));
+</pre></td></tr></table></P><P>
+
+You can mix array operands and index placeholders:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,1&#62; A(5), B(5);
+firstIndex i;
+
+A = 0, 1, 1, 0, 2;
+B = i * A;          // Results in [ 0, 1, 2, 0, 8 ]
+</pre></td></tr></table></P><P>
+
+For your convenience, there is a namespace within blitz
+called <CODE>tensor</CODE> which declares all the index placeholders:
+</P><P>
+
+<A NAME="IDX179"></A>
+<A NAME="IDX180"></A>
+<A NAME="IDX181"></A>
+<A NAME="IDX182"></A>
+<A NAME="IDX183"></A>
+<A NAME="IDX184"></A>
+<A NAME="IDX185"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>namespace blitz {
+  namespace tensor {
+    firstIndex i;
+    secondIndex j;
+    thirdIndex k;
+     ...
+    eleventhIndex t;
+  }
+}
+</pre></td></tr></table></P><P>
+
+So instead of declaring your own index placeholder objects,
+you can just say 
+</P><P>
+
+<A NAME="IDX186"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>namespace blitz::tensor;
+</pre></td></tr></table>  
+when you would like to use them.  Alternately, you can just preface all the
+index placeholders with <CODE>tensor::</CODE>, for example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A = sin(2 * M_PI * tensor::i / 16.);
+</pre></td></tr></table></P><P>
+
+This will make your code more readable, since it is immediately clear that
+<CODE>i</CODE> is an index placeholder, rather than a scalar value.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC89"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC88"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC90"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC92"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC92"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.7 Type promotion </H2>
+<!--docid::SEC89::-->
+<P>
+
+When operands of different numeric types are used in an expression, the
+result gets promoted according to the usual C-style type promotion.  For
+example, the result of adding an <CODE>Array&#60;int&#62;</CODE> to an
+<CODE>Arrray&#60;float&#62;</CODE> will be promoted to <CODE>float</CODE>.  Generally, the
+result is promoted to whichever type has greater precision.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC90"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC89"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC91"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> Type promotion for user-defined types </H3>
+<!--docid::SEC90::-->
+<P>
+
+<A NAME="IDX187"></A>
+<A NAME="IDX188"></A>
+</P><P>
+
+The rules for type promotion of user-defined types (or types from another
+library) are a bit complicated.  Here's how a pair of operand types are
+promoted:
+</P><P>
+
+<UL>
+
+<LI>If both types are intrinsic (e.g. bool, int, float) then type
+promotion follows the standard C rules.  This generally means that the
+result will be promoted to whichever type has greater precision.  In
+Blitz++, these rules have been extended to incorporate
+<CODE>complex&#60;float&#62;</CODE>, <CODE>complex&#60;double&#62;</CODE>, and <CODE>complex&#60;long
+double&#62;</CODE>.
+<P>
+
+<LI>If one of the types is intrinsic (or complex), and the other is a
+user-defined type, then the result is promoted to the user-defined type.
+<P>
+
+<LI>If both types are user-defined, then the result is promoted to
+whichever type requires more storage space (as determined by
+<CODE>sizeof()</CODE>).  The rationale is that more storage space probably
+indicates more precision.
+<P>
+
+</UL>
+<P>
+
+If you wish to alter the default type promotion rules above, you have two
+choices:
+</P><P>
+
+<UL>
+
+<A NAME="IDX189"></A>
+
+<LI>If the type promotion behaviour isn't dependent on the type of
+operation performed, then you can provide appropriate specializations for
+the class <CODE>promote_trait&#60;A,B&#62;</CODE> which is declared in
+<CODE>&#60;blitz/promote.h&#62;</CODE>.
+<P>
+
+<LI>If type promotion does depend on the type of operation, then you
+will need to specialize the appropriate function objects in
+<CODE>&#60;blitz/ops.h&#62;</CODE>.
+<P>
+
+</UL>
+<P>
+
+Note that you can do these specializations in your own header files (you
+don't have to edit <TT>`promote.h'</TT> or <TT>`ops.h'</TT>).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC91"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC90"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC92"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> Manual casts </H3>
+<!--docid::SEC91::-->
+<P>
+
+<A NAME="IDX190"></A>
+<A NAME="IDX191"></A>
+</P><P>
+
+There are some inconvenient aspects of C-style type promotion.  For example,
+when you divide two integers in C, the result gets truncated.  The same
+problem occurs when dividing two integer arrays in Blitz++:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,1&#62; A(4), B(4);
+Array&#60;float,1&#62; C(4);
+
+A = 1, 2, 3, 5;
+B = 2, 2, 2, 7;
+
+C = A / B;      // Result:  [ 0  1  1  0 ]
+</pre></td></tr></table></P><P>
+
+The usual solution to this problem is to cast one of the operands to a
+floating type.  For this purpose, Blitz++ provides a function
+<CODE>cast(expr,type)</CODE> which will cast the result of <EM>expr</EM> as
+<EM>type</EM>:
+</P><P>
+
+<A NAME="IDX192"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>C = A / cast(B, float());   // Result: [ 0.5  1  1.5  0.714 ]
+</pre></td></tr></table></P><P>
+
+The first argument to <CODE>cast()</CODE> is an array or expression.  The second
+argument is a dummy object of the type to which you want to cast.  Once
+compilers support templates more thoroughly, it will be possible to use this
+cast syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>C = A / cast&#60;float&#62;(B);
+</pre></td></tr></table></P><P>
+
+But this is not yet supported.
+</P><P>
+
+<A NAME="Math functions 1"></A>
+<HR SIZE="6">
+<A NAME="SEC92"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC91"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC93"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC95"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.8 Single-argument math functions </H2>
+<!--docid::SEC92::-->
+<P>
+
+All of the functions described in this section are <EM>element-wise</EM>.  For
+example, this code--
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A, B;   //
+A = sin(B);
+</pre></td></tr></table></P><P>
+
+results in <CODE>A(i,j) = sin(B(i,j))</CODE> for all (i,j).
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC93"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC92"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC94"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> ANSI C++ math functions </H3>
+<!--docid::SEC93::-->
+<P>
+
+These math functions are available on all platforms:
+</P><P>
+
+<A NAME="IDX193"></A>
+<A NAME="IDX194"></A>
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>abs()</CODE>
+<DD><A NAME="IDX195"></A>
+Absolute value 
+<P>
+
+<DT><CODE>acos()</CODE>
+<DD><A NAME="IDX196"></A>
+Inverse cosine. For real arguments, the return value is in the range 
+<EM>[0, \pi]</EM>.  
+<P>
+
+<DT><CODE>arg()</CODE>
+<DD><A NAME="IDX197"></A>
+Argument of a complex number (<CODE>atan2(Im,Re)</CODE>). 
+<P>
+
+<DT><CODE>asin()</CODE>
+<DD><A NAME="IDX198"></A>
+Inverse sine. For real arguments, the return value is in the range 
+<EM>[-\pi/2, \pi/2]</EM>.  
+<P>
+
+<DT><CODE>atan()</CODE>
+<DD><A NAME="IDX199"></A>
+Inverse tangent.  For real arguments, the return value is in the range
+<EM>[-\pi/2, \pi/2]</EM>.  See also <CODE>atan2()</CODE> in section
+<A HREF="blitz_3.html#SEC95">3.9 Two-argument math functions</A>.  
+<P>
+
+<DT><CODE>ceil()</CODE>
+<DD><A NAME="IDX200"></A>
+Ceiling function: smallest floating-point integer value not less than the
+argument. 
+<P>
+
+<DT><CODE>cexp()</CODE>
+<DD><A NAME="IDX201"></A>
+Complex exponential; same as <CODE>exp()</CODE>. 
+<P>
+
+<DT><CODE>conj()</CODE>
+<DD><A NAME="IDX202"></A>
+Conjugate of a complex number. 
+<P>
+
+<DT><CODE>cos()</CODE>
+<DD><A NAME="IDX203"></A>
+Cosine.  Works for <CODE>complex&#60;T&#62;</CODE>.  
+<P>
+
+<DT><CODE>cosh()</CODE>
+<DD><A NAME="IDX204"></A>
+Hyperbolic cosine.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>csqrt()</CODE>
+<DD><A NAME="IDX205"></A>
+Complex square root; same as <CODE>sqrt()</CODE>. 
+<P>
+
+<DT><CODE>exp()</CODE>
+<DD><A NAME="IDX206"></A>
+Exponential.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>fabs()</CODE>
+<DD><A NAME="IDX207"></A>
+Same as <CODE>abs()</CODE>.  
+<P>
+
+<DT><CODE>floor()</CODE>
+<DD><A NAME="IDX208"></A>
+Floor function: largest floating-point integer value not greater than the
+argument. 
+<P>
+
+<DT><CODE>log()</CODE>
+<DD><A NAME="IDX209"></A>
+Natural logarithm.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>log10()</CODE>
+<DD><A NAME="IDX210"></A>
+Base 10 logarithm.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>pow2(), pow3(), pow4(), pow5(), pow6(), pow7(), pow8()</CODE>
+<DD><A NAME="IDX211"></A>
+<A NAME="IDX212"></A>
+<A NAME="IDX213"></A>
+These functions compute an integer power.  They expand to a series of
+multiplications, so they can be used on any type for which multiplication is
+well-defined.
+<P>
+
+<DT><CODE>sin()</CODE>
+<DD><A NAME="IDX214"></A>
+Sine.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>sinh()</CODE>
+<DD><A NAME="IDX215"></A>
+Hyperbolic sine.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>sqr()</CODE>
+<DD><A NAME="IDX216"></A>
+Same as <CODE>pow2()</CODE>.  Computes <CODE>x*x</CODE>. Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>sqrt()</CODE>
+<DD><A NAME="IDX217"></A>
+Square root.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>tan()</CODE>
+<DD><A NAME="IDX218"></A>
+Tangent.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>tanh()</CODE>
+<DD><A NAME="IDX219"></A>
+Hyperbolic tangent.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC94"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC93"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC95"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> IEEE/System V math functions </H3>
+<!--docid::SEC94::-->
+<P>
+
+<A NAME="IDX220"></A>
+<A NAME="IDX221"></A>
+<A NAME="IDX222"></A>
+<A NAME="IDX223"></A>
+</P><P>
+
+These functions are only available on platforms which provide the IEEE Math
+library (libm.a) and/or System V Math Library (libmsaa.a).  Apparently not
+all platforms provide all of these functions, so what you can use on your
+platform may be a subset of these.  If you choose to use one of these
+functions, be aware that you may be limiting the portability of your code.
+</P><P>
+
+<A NAME="IDX224"></A>
+<A NAME="IDX225"></A>
+</P><P>
+
+On some platforms, the preprocessor symbols <CODE>_XOPEN_SOURCE</CODE> and/or
+<CODE>_XOPEN_SOURCE_EXTENDED</CODE> need to be defined to use these functions.
+These symbols can be enabled by compiling with
+<CODE>-DBZ_ENABLE_XOPEN_SOURCE</CODE>.  (In previous version of Blitz++,
+<CODE>_XOPEN_SOURCE</CODE> and <CODE>_XOPEN_SOURCE_EXTENDED</CODE> were declared by
+default.  This was found to cause too many problems, so users must manually
+enable them with <CODE>-DBZ_ENABLE_XOPEN_SOURCE</CODE>.).
+</P><P>
+
+In the current version, Blitz++ divides these functions into two groups:
+IEEE and System V.  This distinction is probably artificial.  If one of the
+functions in a group is missing, Blitz++ won't allow you to use any of them.
+You can see the division of these functions in the files
+<TT>`Blitz++/compiler/ieeemath.cpp'</TT> and
+<TT>`Blitz++/compiler/sysvmath.cpp'</TT>.  This arrangement is unsatisfactory
+and will probably change in a future version.
+</P><P>
+
+You may have to link with <CODE>-lm</CODE> and/or <CODE>-lmsaa</CODE> to use these
+functions.
+</P><P>
+
+None of these functions are available for <CODE>complex&#60;T&#62;</CODE>.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>acosh()</CODE>
+<DD><A NAME="IDX226"></A>
+Inverse hyperbolic cosine 
+<P>
+
+<DT><CODE>asinh()</CODE>
+<DD><A NAME="IDX227"></A>
+Inverse hyperbolic sine 
+<P>
+
+<DT><CODE>atanh()</CODE>
+<DD><A NAME="IDX228"></A>
+Inverse hyperbolic tangent 
+<P>
+
+<DT><CODE>_class()</CODE>
+<DD><A NAME="IDX229"></A>
+Classification of floating point values.  The return type is integer and
+will be one of: 
+<P>
+
+<DL COMPACT>
+<DT><CODE>FP_PLUS_NORM</CODE>
+<DD><A NAME="IDX230"></A>
+			Positive normalized, nonzero 
+<P>
+
+<DT><CODE>FP_MINUS_NORM</CODE>
+<DD><A NAME="IDX231"></A>
+			Negative normalized, nonzero 
+<P>
+
+<DT><CODE>FP_PLUS_DENORM</CODE>
+<DD><A NAME="IDX232"></A>
+			Positive denormalized, nonzero 
+<P>
+
+<DT><CODE>FP_MINUS_DENORM</CODE>
+<DD><A NAME="IDX233"></A>
+			Negative denormalized, nonzero 
+<P>
+
+<DT><CODE>FP_PLUS_ZERO</CODE>
+<DD><A NAME="IDX234"></A>
+			+0.0 
+<P>
+
+<DT><CODE>FP_MINUS_ZERO</CODE>
+<DD><A NAME="IDX235"></A>
+			-0.0 
+<P>
+
+<DT><CODE>FP_PLUS_INF</CODE>
+<DD><A NAME="IDX236"></A>
+			Positive infinity  
+<P>
+
+<DT><CODE>FP_MINUS_INF</CODE>
+<DD><A NAME="IDX237"></A>
+			Negative infinity 
+<P>
+
+<DT><CODE>FP_NANS</CODE>
+<DD><A NAME="IDX238"></A>
+			Signalling Not a Number (NaNS) 
+<P>
+
+<DT><CODE>FP_NANQ</CODE>
+<DD><A NAME="IDX239"></A>
+			Quiet Not a Number (NaNQ) 
+</DL>
+<P>
+
+<DT><CODE>cbrt()</CODE>
+<DD><A NAME="IDX240"></A>
+Cubic root 
+<P>
+
+<DT><CODE>expm1()</CODE>
+<DD><A NAME="IDX241"></A>
+Computes exp(x)-1 
+<P>
+
+<DT><CODE>erf()</CODE>
+<DD><A NAME="IDX242"></A>
+Computes the error function:  
+@erf(x) = 2/sqrt(Pi) * integral(exp(-t^2), t=0..x)
+<P>
+
+Note that for large values of the parameter, calculating can result in
+extreme loss of accuracy.  Instead, use <CODE>erfc()</CODE>.
+</P><P>
+
+<DT><CODE>erfc()</CODE>
+<DD><A NAME="IDX243"></A>
+Computes the complementary error function <EM>erfc(x) = 1 - erf(x)</EM>.
+<P>
+
+<DT><CODE>finite()</CODE>
+<DD><A NAME="IDX244"></A>
+Returns a nonzero integer if the parameter is a finite number (i.e. not
++INF, -INF, NaNQ or NaNS).
+<P>
+
+<DT><CODE>ilogb()</CODE>
+<DD><A NAME="IDX245"></A>
+Returns an integer which is equal to the unbiased exponent of
+the parameter.               
+<P>
+
+<DT><CODE>blitz_isnan()</CODE>
+<DD><A NAME="IDX246"></A>
+<A NAME="IDX247"></A>
+Returns a nonzero integer if the parameter is NaNQ or
+NaNS (quiet or signalling Not a Number). 
+<P>
+
+<DT><CODE>itrunc()</CODE>
+<DD><A NAME="IDX248"></A>
+Round a floating-point number to a signed integer.  Returns
+the nearest signed integer to the parameter in the direction of 0.
+<P>
+
+<DT><CODE>j0()</CODE>
+<DD><A NAME="IDX249"></A>
+<A NAME="IDX250"></A>
+Bessel function of the first kind, order 0. 
+<P>
+
+<DT><CODE>j1()</CODE>
+<DD><A NAME="IDX251"></A>
+Bessel function of the first kind, order 1. 
+<P>
+
+<DT><CODE>lgamma()</CODE>
+<DD><A NAME="IDX252"></A>
+<A NAME="IDX253"></A>
+Natural logarithm of the gamma function.  The gamma function
+is defined as:
+Gamma(x) = integral(e^(-t) * t^(x-1), t=0..infinity))
+              
+<DT><CODE>logb()</CODE>
+<DD><A NAME="IDX254"></A>
+Returns a floating-point double that is equal to the unbiased
+exponent of the parameter. 
+<P>
+
+<DT><CODE>log1p()</CODE>
+<DD><A NAME="IDX255"></A>
+Calculates log(1+x), where x is the parameter. 
+<P>
+
+<DT><CODE>nearest()</CODE>
+<DD><A NAME="IDX256"></A>
+Returns the nearest floating-point integer value to the
+parameter.  If the parameter is exactly halfway between two integer values,
+an even value is returned. 
+<P>
+
+<DT><CODE>rint()</CODE>
+<DD><A NAME="IDX257"></A>
+<A NAME="IDX258"></A>
+Rounds the parameter and returns a floating-point integer value.  Whether
+<CODE>rint()</CODE> rounds up or down or to the nearest integer depends on the
+current floating-point rounding mode.  If you haven't altered the rounding
+mode, <CODE>rint()</CODE> should be equivalent to <CODE>nearest()</CODE>.  If rounding
+mode is set to round towards +INF, <CODE>rint()</CODE> is equivalent to
+<CODE>ceil()</CODE>.  If the mode is round toward -INF, <CODE>rint()</CODE> is
+equivalent to <CODE>floor()</CODE>.  If the mode is round toward zero,
+<CODE>rint()</CODE> is equivalent to <CODE>trunc()</CODE>. 
+<P>
+
+<DT><CODE>rsqrt()</CODE>
+<DD><A NAME="IDX259"></A>
+Reciprocal square root. 
+<P>
+
+<DT><CODE>uitrunc()</CODE>
+<DD><A NAME="IDX260"></A>
+Returns the nearest unsigned integer to the parameter in the
+direction of zero. 
+<P>
+
+<DT><CODE>y0()</CODE>
+<DD><A NAME="IDX261"></A>
+Bessel function of the second kind, order 0. 
+<P>
+
+<DT><CODE>y1()</CODE>
+<DD><A NAME="IDX262"></A>
+Bessel function of the second kind, order 1. 
+</DL>
+<P>
+
+There may be better descriptions of these functions in your
+system man pages.
+</P><P>
+
+<A NAME="Math functions 2"></A>
+<HR SIZE="6">
+<A NAME="SEC95"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC94"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC93"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC98"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.9 Two-argument math functions </H2>
+<!--docid::SEC95::-->
+<P>
+
+The math functions described in this section take two arguments.
+Most combinations of these types may be used as arguments:
+</P><P>
+
+<UL>
+<LI>An Array object
+<LI>An Array expression
+<LI>An index placeholder
+<LI>A scalar of type <CODE>float</CODE>, <CODE>double</CODE>, <CODE>long double</CODE>,
+or <CODE>complex&#60;T&#62;</CODE>
+</UL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC93"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC95"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC94"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> ANSI C++ math functions  </H3>
+<!--docid::SEC96::-->
+<P>
+
+These math functions are available on all platforms, and work for
+complex numbers.
+</P><P>
+
+<A NAME="IDX263"></A>
+<A NAME="IDX264"></A>
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>atan2(x,y)</CODE>
+<DD><A NAME="IDX265"></A>
+Inverse tangent of (y/x).  The signs of both parameters
+are used to determine the quadrant of the return value, which is in the
+range <EM>[-\pi, \pi]</EM>.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+<P>
+
+<DT><CODE>blitz::polar(r,t)</CODE>
+<DD><A NAME="IDX266"></A>
+Computes ; i.e. converts polar-form to
+Cartesian form complex numbers.  The <CODE>blitz::</CODE> scope qualifier is
+needed to disambiguate the ANSI C++ function template <CODE>polar(T,T)</CODE>.
+This qualifier will hopefully disappear in a future version.
+<P>
+
+<DT><CODE>pow(x,y)</CODE>
+<DD><A NAME="IDX267"></A>
+Computes x to the exponent y.  Works for <CODE>complex&#60;T&#62;</CODE>. 
+</DL>
+<P>
+
+<HR SIZE="6">
+<A NAME="SEC94"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC93"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC98"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[ &lt;&lt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[ &gt;&gt; ]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> IEEE/System V math functions  </H3>
+<!--docid::SEC97::-->
+<P>
+
+See the notes about IEEE/System V math functions in the previous section.
+None of these functions work for complex numbers.  They will all cast their
+arguments to double precision.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>copysign(x,y)</CODE>
+<DD><A NAME="IDX268"></A>
+Returns the x parameter with the same sign as the y parameter. 
+<P>
+
+<DT><CODE>drem(x,y)</CODE>
+<DD><A NAME="IDX269"></A>
+<A NAME="IDX270"></A>
+Computes a floating point remainder.  The return value r is equal to r = x -
+n * y, where n is equal to <CODE>nearest(x/y)</CODE> (the nearest integer to x/y).
+The return value will lie in the range [ -y/2, +y/2 ].  If y is zero or x is
++INF or -INF, NaNQ is returned.
+<P>
+
+<DT><CODE>fmod(x,y)</CODE>
+<DD><A NAME="IDX271"></A>
+<A NAME="IDX272"></A>
+Computes a floating point modulo remainder.  The return value r is equal to
+r = x - n * y, where n is selected so that r has the same sign as x and
+magnitude less than abs(y).  In order words, if x &#62; 0, r is in the range [0,
+|y|], and if x &#60; 0, r is in the range [-|y|, 0].
+<P>
+
+<DT><CODE>hypot(x,y)</CODE>
+<DD><A NAME="IDX273"></A>
+Computes so that underflow does not occur and overflow occurs only if the
+final result warrants it. 
+<P>
+
+<DT><CODE>nextafter(x,y)</CODE>
+<DD><A NAME="IDX274"></A>
+Returns the next representable number after x in the direction of y. 
+<P>
+
+<DT><CODE>remainder(x,y)</CODE>
+<DD><A NAME="IDX275"></A>
+Equivalent to drem(x,y). 
+<P>
+
+<DT><CODE>scalb(x,y)</CODE>
+<DD><A NAME="IDX276"></A>
+Calculates. 
+<P>
+
+<DT><CODE>unordered(x,y)</CODE>
+<DD><A NAME="IDX277"></A>
+Returns a nonzero value if a floating-point comparison between x and y would
+be unordered.  Otherwise, it returns zero.
+</DL>
+<P>
+
+<A NAME="User et"></A>
+<HR SIZE="6">
+<A NAME="SEC98"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC94"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC99"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.10 Declaring your own math functions on arrays </H2>
+<!--docid::SEC98::-->
+<P>
+
+<A NAME="IDX278"></A>
+<A NAME="IDX279"></A>
+</P><P>
+
+There are four macros which make it easy to turn your own scalar functions
+into functions defined on arrays.  They are:
+</P><P>
+
+<A NAME="IDX280"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_FUNCTION(f)                   // 1
+BZ_DECLARE_FUNCTION_RET(f,return_type)   // 2
+BZ_DECLARE_FUNCTION2(f)                  // 3
+BZ_DECLARE_FUNCTION2_RET(f,return_type)  // 4
+</pre></td></tr></table></P><P>
+
+Use version 1 when you have a function which takes one argument and returns
+a result of the same type.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+double myFunction(double x)
+{ 
+    return 1.0 / (1 + x); 
+}
+
+BZ_DECLARE_FUNCTION(myFunction)
+
+int main()
+{
+    Array&#60;double,2&#62; A(4,4), B(4,4);  // ...
+    B = myFunction(A);
+}
+</pre></td></tr></table></P><P>
+
+Use version 2 when you have a one argument function whose return type is
+different than the argument type, such as
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int g(double x);
+</pre></td></tr></table></P><P>
+
+Use version 3 for a function which takes two arguments and returns a result
+of the same type, such as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>double g(double x, double y);
+</pre></td></tr></table></P><P>
+
+Use version 4 for a function of two arguments which returns a different
+type, such as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int g(double x, double y);
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC99"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC98"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC100"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.11 Tensor notation </H2>
+<!--docid::SEC99::-->
+<P>
+
+<A NAME="IDX281"></A>
+<A NAME="IDX282"></A>
+</P><P>
+
+Blitz++ arrays support a tensor-like notation.  Here's an example of
+real-world tensor notation:
+<pre>
+ ijk    ij k
+A    = B  C
+</pre>
+</P><P>
+
+<EM>A</EM> is a rank 3 tensor (a three dimensional array), <EM>B</EM> is a rank
+2 tensor (a two dimensional array), and <EM>C</EM> is a rank 1 tensor (a one
+dimensional array).  The above expression sets 
+<CODE>A(i,j,k) = B(i,j) * C(k)</CODE>.
+</P><P>
+
+To implement this product using Blitz++, we'll need the arrays and some
+index placeholders:
+</P><P>
+
+<A NAME="IDX283"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,3&#62; A(4,4,4);
+Array&#60;float,2&#62; B(4,4);
+Array&#60;float,1&#62; C(4);
+
+firstIndex i;    // Alternately, could just say
+secondIndex j;   // using namespace blitz::tensor;
+thirdIndex k;
+</pre></td></tr></table></P><P>
+
+Here's the Blitz++ code which is equivalent to the tensor expression:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>A = B(i,j) * C(k);
+</pre></td></tr></table></P><P>
+
+The index placeholder arguments tell an array how to map its dimensions onto
+the dimensions of the destination array.  For example, here's some
+real-world tensor notation:
+<pre>
+ ijk    ij k    jk i
+C    = A  x  - A  y
+</pre>
+</P><P>
+
+In Blitz++, this would be coded as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>using namespace blitz::tensor;
+
+C = A(i,j) * x(k) - A(j,k) * y(i);
+</pre></td></tr></table></P><P>
+
+This tensor expression can be visualized in the following way:
+</P><P>
+
+<center>
+ <CENTER><IMG SRC="tensor1.gif" ALT="tensor1"></CENTER>
+</center>
+<center>
+ Examples of array indexing, subarrays, and slicing.
+</center>
+</P><P>
+
+Here's an example which computes an outer product of two one-dimensional
+arrays:
+<A NAME="IDX284"></A>
+<A NAME="IDX285"></A>
+<A NAME="IDX286"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+int main()
+{
+    Array&#60;float,1&#62; x(4), y(4);
+    Array&#60;float,2&#62; A(4,4);
+
+    x = 1, 2, 3, 4;
+    y = 1, 0, 0, 1;
+
+    firstIndex i;
+    secondIndex j;
+
+    A = x(i) * y(j);
+
+    cout &#60;&#60; A &#60;&#60; endl;
+
+    return 0;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+And the output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>4 x 4
+[         1         0         0         1 
+          2         0         0         2 
+          3         0         0         3 
+          4         0         0         4 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+Index placeholders can <EM>not</EM> be used on the left-hand side of an
+expression.  If you need to reorder the indices, you must do this on the
+right-hand side.
+</P><P>
+
+In real-world tensor notation, repeated indices imply a contraction (or
+summation).  For example, this tensor expression computes a matrix-matrix
+product:
+<pre>
+ ij    ik  kj
+C   = A   B
+</pre>
+</P><P>
+
+The repeated k index is interpreted as meaning
+<pre>
+c    = sum of {a   * b  } over k
+ ij             ik    kj
+</pre>
+</P><P>
+
+<A NAME="IDX287"></A>
+<A NAME="IDX288"></A>
+</P><P>
+
+In Blitz++, repeated indices do <EM>not</EM> imply contraction.  If you want
+to contract (sum along) an index, you must use the <CODE>sum()</CODE> function:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A, B, C;   // ...
+firstIndex i;
+secondIndex j;
+thirdIndex k;
+
+C = sum(A(i,k) * B(k,j), k);
+</pre></td></tr></table></P><P>
+
+The <CODE>sum()</CODE> function is an example of an <EM>array reduction</EM>,
+described in the next section.
+</P><P>
+
+Index placeholders can be used in any order in an expression.  This example
+computes a kronecker product of a pair of two-dimensional arrays, and
+permutes the indices along the way:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A, B;   // ...
+Array&#60;float,4&#62; C;      // ...
+fourthIndex l;
+
+C = A(l,j) * B(k,i);
+</pre></td></tr></table></P><P>
+
+This is equivalent to the tensor notation
+<pre>
+ ijkl    lj ki
+C     = A  B
+ </pre>
+</P><P>
+
+Tensor-like notation can be mixed with other array notations:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A, B;  // ...
+Array&#60;double,4&#62; C;    // ...
+
+C = cos(A(l,j)) * sin(B(k,i)) + 1./(i+j+k+l);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX289"></A>
+An important efficiency note about tensor-like notation: the right-hand side
+of an expression is <EM>completely evaluated</EM> for <EM>every</EM> element in
+the destination array.  For example, in this code:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,1&#62; x(4), y(4);
+Array&#60;float,2&#62; A(4,4):
+
+A = cos(x(i)) * sin(y(j));
+</pre></td></tr></table></P><P>
+
+The resulting implementation will look something like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (int n=0; n &#60; 4; ++n)
+  for (int m=0; m &#60; 4; ++m)
+    A(n,m) = cos(x(n)) * sin(y(m));
+</pre></td></tr></table></P><P>
+
+The functions <CODE>cos</CODE> and <CODE>sin</CODE> will be invoked sixteen times each.
+It's possible that a good optimizing compiler could hoist the <CODE>cos</CODE>
+evaluation out of the inner loop, but don't hold your breath -- there's a
+lot of complicated machinery behind the scenes to handle tensor notation,
+and most optimizing compilers are easily confused.  In a situation like the
+above, you are probably best off manually creating temporaries for
+<CODE>cos(x)</CODE> and <CODE>sin(y)</CODE> first.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC100"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC99"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC101"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.12 Array reductions </H2>
+<!--docid::SEC100::-->
+<P>
+
+Currently, Blitz++ arrays support two forms of reduction:
+</P><P>
+
+<UL>
+
+<LI>Reductions which transform an array into a scalar (for example,
+summing the elements).  These are referred to as <STRONG>complete
+reductions</STRONG>.
+<P>
+
+<LI>Reducing an N dimensional array (or array expression) to an N-1
+dimensional array expression.  These are called <STRONG>partial reductions</STRONG>.
+<P>
+
+</UL>
+<P>
+
+<A NAME="IDX290"></A>
+<A NAME="IDX291"></A>
+<A NAME="IDX292"></A>
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC101"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC100"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC102"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.13 Complete reductions </H2>
+<!--docid::SEC101::-->
+<P>
+
+Complete reductions transform an array (or array expression) into 
+a scalar.  Here are some examples:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A(3,3);
+A = 0, 1, 2,
+    3, 4, 5,
+    6, 7, 8;
+cout &#60;&#60; sum(A) &#60;&#60; endl          // 36
+     &#60;&#60; min(A) &#60;&#60; endl          // 0
+     &#60;&#60; count(A &#62;= 4) &#60;&#60; endl;  // 5
+</pre></td></tr></table></P><P>
+
+Here are the available complete reductions:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>sum()</CODE>
+<DD><A NAME="IDX293"></A>
+Summation (may be promoted to a higher-precision type)
+<P>
+
+<DT><CODE>product()</CODE>
+<DD><A NAME="IDX294"></A>
+Product 
+<P>
+
+<DT><CODE>mean()</CODE>
+<DD><A NAME="IDX295"></A>
+Arithmetic mean (promoted to floating-point type if necessary) 
+<P>
+
+<DT><CODE>min()</CODE>
+<DD><A NAME="IDX296"></A>
+Minimum value 
+<P>
+
+<DT><CODE>max()</CODE>
+<DD><A NAME="IDX297"></A>
+Maximum value 
+<P>
+
+<DT><CODE>minIndex()</CODE>
+<DD><A NAME="IDX298"></A>
+Index of the minimum value (<CODE>TinyVector&#60;int,N_rank&#62;</CODE>)
+<P>
+
+<DT><CODE>maxIndex()</CODE>
+<DD><A NAME="IDX299"></A>
+Index of the maximum value (<CODE>TinyVector&#60;int,N_rank&#62;</CODE>)
+<P>
+
+<DT><CODE>count()</CODE>
+<DD><A NAME="IDX300"></A>
+Counts the number of times the expression is logical true (<CODE>int</CODE>)
+<P>
+
+<DT><CODE>any()</CODE>
+<DD><A NAME="IDX301"></A>
+True if the expression is true anywhere (<CODE>bool</CODE>)
+<P>
+
+<DT><CODE>all()</CODE>
+<DD><A NAME="IDX302"></A>
+True if the expression is true everywhere (<CODE>bool</CODE>)
+</DL>
+<P>
+
+<STRONG>Note:</STRONG> <CODE>minIndex()</CODE> and <CODE>maxIndex()</CODE> return TinyVectors, 
+even when the rank of the array (or array expression) is 1.
+</P><P>
+
+Reductions can be combined with <CODE>where</CODE> expressions (<A HREF="blitz_3.html#SEC103">3.15 where statements</A>)
+to reduce over some part of an array.  For example, <CODE>sum(where(A &#62; 0,
+A, 0))</CODE> sums only the positive elements in an array.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC102"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC101"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC103"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.14 Partial Reductions </H2>
+<!--docid::SEC102::-->
+<P>
+
+<A NAME="IDX303"></A>
+<A NAME="IDX304"></A>
+<A NAME="IDX305"></A>
+</P><P>
+
+Here's an example which computes the sum of each row of a two-dimensional
+array:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,2&#62; A;    // ...
+Array&#60;float,1&#62; rs;   // ...
+firstIndex i;
+secondIndex j;
+
+rs = sum(A, j);
+</pre></td></tr></table></P><P>
+
+The reduction <CODE>sum()</CODE> takes two arguments:
+</P><P>
+
+<UL>
+
+<LI>The first argument is an array or array expression.
+<P>
+
+<LI>The second argument is an index placeholder indicating the
+dimension over which the reduction is to occur.  
+<P>
+
+</UL>
+<P>
+
+Reductions have an <STRONG>important restriction</STRONG>: It is currently only
+possible to reduce over the <EM>last</EM> dimension of an array or array
+expression.  Reducing a dimension other than the last would require Blitz++
+to reorder the dimensions to fill the hole left behind.  For example, in
+order for this reduction to work:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;float,3&#62; A;   // ...
+Array&#60;float,2&#62; B;   // ...
+secondIndex j;
+
+// Reduce over dimension 2 of a 3-D array?
+B = sum(A, j);
+</pre></td></tr></table></P><P>
+
+Blitz++ would have to remap the dimensions so that the third dimension
+became the second.  It's not currently smart enough to do this.
+</P><P>
+
+However, there is a simple workaround which solves some of the problems
+created by this limitation: you can do the reordering manually, prior to the
+reduction:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>B = sum(A(i,k,j), k);
+</pre></td></tr></table></P><P>
+
+Writing <CODE>A(i,k,j)</CODE> interchanges the second and third dimensions,
+permitting you to reduce over the second dimension.  Here's a list of the
+reduction operations currently supported:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>sum()</CODE>
+<DD>Summation
+<P>
+
+<DT><CODE>product()</CODE>
+<DD>Product 
+<P>
+
+<DT><CODE>mean()</CODE>
+<DD>Arithmetic mean (promoted to floating-point type if necessary)
+<P>
+
+<DT><CODE>min()</CODE>
+<DD>Minimum value
+<P>
+
+<DT><CODE>max()</CODE>
+<DD>Maximum value
+<P>
+
+<DT><CODE>minIndex()</CODE>
+<DD>Index of the minimum value (int)
+<P>
+
+<DT><CODE>maxIndex()</CODE>
+<DD>Index of the maximum value (int)
+<P>
+
+<DT><CODE>count()</CODE>
+<DD>Counts the number of times the expression is logical true (int)
+<P>
+
+<DT><CODE>any()</CODE>
+<DD>True if the expression is true anywhere (bool)
+<P>
+
+<DT><CODE>all()</CODE>
+<DD>True if the expression is true everywhere (bool)
+<P>
+
+<DT><CODE>first()</CODE>
+<DD>First index at which the expression is logical true (int); if the expression
+is logical true nowhere, then <CODE>tiny(int())</CODE> (INT_MIN) is returned.
+<P>
+
+<DT><CODE>last()</CODE>
+<DD>Last index at which the expression is logical true (int); if the expression
+is logical true nowhere, then <CODE>huge(int())</CODE> (INT_MAX) is returned.  
+</DL>
+<P>
+
+The reductions <CODE>any()</CODE>, <CODE>all()</CODE>, and <CODE>first()</CODE> have
+short-circuit semantics: the reduction will halt as soon as the answer is
+known.  For example, if you use <CODE>any()</CODE>, scanning of the expression
+will stop as soon as the first true value is encountered.
+</P><P>
+
+To illustrate, here's an example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int, 2&#62; A(4,4);
+
+A =  3,   8,   0,   1,
+     1,  -1,   9,   3,
+     2,  -5,  -1,   1,
+     4,   3,   4,   2;
+
+Array&#60;float, 1&#62; z;
+firstIndex i;
+secondIndex j;
+
+z = sum(A(j,i), j);
+</pre></td></tr></table></P><P>
+
+The array <CODE>z</CODE> now contains the sum of <CODE>A</CODE> along each column:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[ 10    5     12    7 ]
+</pre></td></tr></table></P><P>
+
+This table shows what the result stored in <CODE>z</CODE> would be if
+<CODE>sum()</CODE> were replaced with other reductions:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>sum                     [         10         5        12         7 ]
+mean                    [        2.5      1.25         3      1.75 ]
+min                     [          1        -5        -1         1 ]
+minIndex                [          1         2         2         0 ]
+max                     [          4         8         9         3 ]
+maxIndex                [          3         0         1         1 ]
+first((A &#60; 0), j)       [ -2147483648        1         2 -2147483648 ]
+product                 [         24       120         0         6 ]
+count((A(j,i) &#62; 0), j)  [          4         2         2         4 ]
+any(abs(A(j,i)) &#62; 4, j) [          0         1         1         0 ]
+all(A(j,i) &#62; 0, j)      [          1         0         0         1 ]
+</pre></td></tr></table></P><P>
+
+Note: the odd numbers for first() are <CODE>tiny(int())</CODE> i.e. the smallest
+number representable by an int.  The exact value is machine-dependent.
+</P><P>
+
+<A NAME="IDX306"></A>
+<A NAME="IDX307"></A>
+<A NAME="IDX308"></A>
+</P><P>
+
+The result of a reduction is an array expression, so reductions
+can be used as operands in an array expression:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,3&#62; A;
+Array&#60;int,2&#62; B;
+Array&#60;int,1&#62; C;   // ...
+
+secondIndex j;
+thirdIndex k;
+
+B = sqrt(sum(sqr(A), k));
+
+// Do two reductions in a row
+C = sum(sum(A, k), j);
+</pre></td></tr></table></P><P>
+
+Note that this is not allowed:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;int,2&#62; A;
+firstIndex i;
+secondIndex j;
+
+// Completely sum the array?
+int result = sum(sum(A, j), i);
+</pre></td></tr></table></P><P>
+
+You cannot reduce an array to zero dimensions!  Instead, use one of the
+global functions described in the previous section.
+</P><P>
+
+<A NAME="Where expr"></A>
+<HR SIZE="6">
+<A NAME="SEC103"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC102"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC80"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.15 where statements </H2>
+<!--docid::SEC103::-->
+<P>
+
+Blitz++ provides the <CODE>where</CODE> function as an array expression version of the
+<CODE>( ? : )</CODE> operator.  The syntax is:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>where(array-expr1, array-expr2, array-expr3)
+</pre></td></tr></table></P><P>
+
+Wherever <CODE>array-expr1</CODE> is true, <CODE>array-expr2</CODE> is returned.  Where
+<CODE>array-expr1</CODE> is false, <CODE>array-expr3</CODE> is returned.  For example,
+suppose we wanted to sum the squares of only the positive elements of an
+array.  This can be implemented using a where function:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>double posSquareSum = sum(where(A &#62; 0, pow2(A), 0));
+</pre></td></tr></table></P><P>
+
+<A NAME="Stencils"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_3.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC104"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

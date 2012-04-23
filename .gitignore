@@ -1,3 +1,8 @@
+3rdparty/linux
+3rdparty/osx
+3rdparty/win32
+3rdparty/win64
+
 # Compiled Object files
 *.slo
 *.lo

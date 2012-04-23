@@ -1,0 +1,445 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on October, 14  2005 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Blitz++: Customised Arrays</TITLE>
+
+<META NAME="description" CONTENT="Blitz++: Customised Arrays">
+<META NAME="keywords" CONTENT="Blitz++: Customised Arrays">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC121"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_4.html#SEC120"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC122"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 5. Multicomponent, complex, and user type arrays </H1>
+<!--docid::SEC121::-->
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_5.html#SEC122">5.1 Multicomponent and complex arrays</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Multicomponent Array's</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="blitz_5.html#SEC126">5.2 Creating arrays of a user type</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array's of your own type</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Array multi"></A>
+<HR SIZE="6">
+<A NAME="SEC122"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC123"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.1 Multicomponent and complex arrays </H2>
+<!--docid::SEC122::-->
+<P>
+
+Multicomponent arrays have elements which are vectors.  Examples of such
+arrays are vector fields, colour images (which contain, say, RGB tuples),
+and multispectral images.  Complex-valued arrays can also be regarded as
+multicomponent arrays, since each element is a 2-tuple of real values.
+</P><P>
+
+Here are some examples of multicomponent arrays:
+</P><P>
+
+<A NAME="IDX312"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// A 3-dimensional array; each element is a length 3 vector of float
+Array&#60;TinyVector&#60;float,3&#62;,3&#62; A;  
+
+// A complex 2-dimensional array
+Array&#60;complex&#60;double&#62;,2&#62; B;
+
+// A 2-dimensional image containing RGB tuples
+struct RGB24 {
+  unsigned char r, g, b;
+};
+
+Array&#60;RGB24,2&#62; C;
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC123"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC122"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC124"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC122"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.1.1 Extracting components </H3>
+<!--docid::SEC123::-->
+<P>
+
+<A NAME="IDX313"></A>
+<A NAME="IDX314"></A>
+</P><P>
+
+Blitz++ provides some special support for such arrays.  The most important
+is the ability to extract a single component.  For example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;TinyVector&#60;float,3&#62;,2&#62; A(128,128);
+Array&#60;float,2&#62; B = A.extractComponent(float(), 1, 3);
+B = 0;
+</pre></td></tr></table></P><P>
+
+The call to <CODE>extractComponent</CODE> returns an array of floats; this array
+is a view of the second component of each element of A.  The arguments of
+<CODE>extractComponent</CODE> are: (1) the type of the component (in this example,
+float); (2) the component number to extract (numbered 0, 1, ... N-1); and
+(3) the number of components in the array.
+</P><P>
+
+This is a little bit messy, so Blitz++ provides a handy shortcut using
+<CODE>operator[]</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;TinyVector&#60;float,3&#62;,2&#62; A(128,128);
+A[1] = 0;
+</pre></td></tr></table></P><P>
+
+The number inside the square brackets is the component number.  However, for
+this operation to work, Blitz++ has to already know how many components
+there are, and what type they are.  It knows this already for
+<CODE>TinyVector</CODE> and <CODE>complex&#60;T&#62;</CODE>.  If you use your own type, though,
+you will have to tell Blitz++ this information using the macro
+<CODE>BZ_DECLARE_MULTICOMPONENT_TYPE()</CODE>.  This macro has three arguments:
+</P><P>
+
+<A NAME="IDX315"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>BZ_DECLARE_MULTICOMPONENT_TYPE(T_element, T_componentType, numComponents)
+</pre></td></tr></table></P><P>
+
+<CODE>T_element</CODE> is the element type of the array.  <CODE>T_componentType</CODE>
+is the type of the components of that element.  <CODE>numComponents</CODE> is the
+number of components in each element.
+</P><P>
+
+An example will clarify this.  Suppose we wanted to make a colour image,
+stored in 24-bit HSV (hue-saturation-value) format.  We can make a class
+<CODE>HSV24</CODE> which represents a single pixel:
+</P><P>
+
+<A NAME="IDX316"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#include &#60;blitz/array.h&#62;
+
+using namespace blitz;
+
+class HSV24 {
+public:
+    // These constants will makes the code below cleaner; we can
+    // refer to the components by name, rather than number.
+
+    static const int hue=0, saturation=1, value=2;
+
+    HSV24() { }
+    HSV24(int hue, int saturation, int value)
+      : h_(hue), s_(saturation), v_(value)
+    { }
+
+    // Some other stuff here, obviously
+
+private:
+    unsigned char h_, s_, v_;
+};
+</pre></td></tr></table></P><P>
+
+Right after the class declaration, we will invoke the macro
+<CODE>BZ_DECLARE_MULTICOMPONENT_TYPE</CODE> to tell Blitz++ about HSV24:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// HSV24 has 3 components of type unsigned char
+BZ_DECLARE_MULTICOMPONENT_TYPE(HSV24, unsigned char, 3);
+</pre></td></tr></table></P><P>
+
+Now we can create HSV images and modify the individual components:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int main()
+{
+    Array&#60;HSV24,2&#62; A(128,128);   // A 128x128 HSV image
+    ...
+
+    // Extract a greyscale version of the image
+    Array&#60;unsigned char,2&#62; A_greyscale = A[HSV24::value];
+
+    // Bump up the saturation component to get a
+    // pastel effect
+    A[HSV24::saturation] *= 1.3; 
+
+    // Brighten up the middle of the image
+    Range middle(32,96);
+    A[HSV24::value](middle,middle) *= 1.2;
+}
+</pre></td></tr></table></P><P>
+
+<HR SIZE="6">
+<A NAME="SEC124"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC123"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC125"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC125"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC122"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.1.2 Special support for complex arrays </H3>
+<!--docid::SEC124::-->
+<P>
+
+<A NAME="IDX317"></A>
+<A NAME="IDX318"></A>
+</P><P>
+
+Since complex arrays are used frequently, Blitz++ provides two special
+methods for getting the real and imaginary components:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Array&#60;complex&#60;float&#62;,2&#62; A(32,32);
+
+real(A) = 1.0;
+imag(A) = 0.0;
+</pre></td></tr></table></P><P>
+
+The function <CODE>real(A)</CODE> returns an array view of the real component;
+<CODE>imag(A)</CODE> returns a view of the imaginary component.
+</P><P>
+
+Note: Blitz++ provides numerous math functions defined over complex-valued
+arrays, such as <CODE>conj</CODE>, <CODE>polar</CODE>, <CODE>arg</CODE>, <CODE>abs</CODE>,
+<CODE>cos</CODE>, <CODE>pow</CODE>, etc.  See the section on math functions
+(<A HREF="blitz_3.html#SEC92">3.8 Single-argument math functions</A>) for details.
+</P><P>
+
+<HR SIZE="6">
+<A NAME="SEC125"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC124"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC122"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.1.3 Zipping together expressions </H3>
+<!--docid::SEC125::-->
+<P>
+
+Blitz++ provides a function <CODE>zip()</CODE> which lets you combine two or more
+expressions into a single component.  For example, you can combine two real
+expressions into a complex expression, or three integer expressions into an
+HSV24 expression.  The function has this syntax:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>resultexpr zip(expr1, expr2, T_element)
+resultexpr zip(expr1, expr2, expr3, T_element)         ** not available yet
+resultexpr zip(expr1, expr2, expr3, expr4, T_element)  ** not available yet
+</pre></td></tr></table></P><P>
+
+The types <CODE>resultexpr</CODE>, <CODE>expr1</CODE> and <CODE>expr2</CODE> are array
+expressions.  The third argument is the type you want to create.  For
+example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int N = 16;
+Array&#60;complex&#60;float&#62;,1&#62; A(N);
+Array&#60;float,1&#62; theta(N);
+
+ ...
+
+A = zip(cos(theta), sin(theta), complex&#60;float&#62;());
+</pre></td></tr></table></P><P>
+
+The above line is equivalent to:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (int i=0; i &#60; N; ++i)
+   A[i] = complex&#60;float&#62;(cos(theta[i]), sin(theta[i]));
+</pre></td></tr></table></P><P>
+
+<A NAME="Array usertype"></A>
+<HR SIZE="6">
+<A NAME="SEC126"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC125"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.2 Creating arrays of a user type </H2>
+<!--docid::SEC126::-->
+<P>
+
+You can use the <CODE>Array</CODE> class with types you have created yourself, or
+types from another library.  If you want to do arithmetic on the array,
+whatever operators you use on the arrays have to be defined on the
+underlying type.
+</P><P>
+
+For example, here's a simple class for doing fixed point computations in the
+interval [0,1]:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>#include &#60;blitz/array.h&#62;
+#include &#60;blitz/numinquire.h&#62; // for huge()
+
+using namespace blitz;
+
+// A simple fixed point arithmetic class which represents a point
+// in the interval [0,1].
+class FixedPoint {
+
+public:
+	  // The type to use for the mantissa
+    typedef unsigned int T_mantissa;
+
+    FixedPoint() { }
+
+    FixedPoint(T_mantissa mantissa)
+    {  
+        mantissa_ = mantissa;
+    }
+
+    FixedPoint(double value)
+    {
+        assert((value &#62;= 0.0) &#38;&#38; (value &#60;= 1.0));
+        mantissa_ = static_cast&#60;T_mantissa&#62;(value * huge(T_mantissa()));
+    }
+   
+    FixedPoint operator+(FixedPoint x)
+    { return FixedPoint(mantissa_ + x.mantissa_); }
+
+    double value() const
+    { return mantissa_ / double(huge(T_mantissa())); }
+
+private:
+    T_mantissa mantissa_;
+};
+
+ostream&#38; operator&#60;&#60;(ostream&#38; os, const FixedPoint&#38; a)
+{
+    os &#60;&#60; a.value();
+    return os;
+}
+
+</FONT></pre></td></tr></table></P><P>
+
+The function <CODE>huge(T)</CODE> returns the largest representable value for type
+T; in the example above, it's equal to <CODE>UINT_MAX</CODE>.
+</P><P>
+
+The <CODE>FixedPoint</CODE> class declares three useful operations: conversion
+from <CODE>double</CODE>, addition, and outputing to an <CODE>ostream</CODE>.  We can
+use all of these operations on an <CODE>Array&#60;FixedPoint&#62;</CODE> object:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>
+#include &#60;fixed-point.h&#62; // FixedPoint class
+
+int main()
+{
+    // Create an array using the FixedPoint class:
+
+    Array&#60;FixedPoint, 2&#62; A(4,4), B(4,4);
+
+    A = 0.5, 0.3, 0.8, 0.2,
+        0.1, 0.3, 0.2, 0.9,
+        0.0, 1.0, 0.7, 0.4,
+        0.2, 0.3, 0.8, 0.4;
+
+    B = A + 0.05;
+
+    cout &#60;&#60; "B = " &#60;&#60; B &#60;&#60; endl;
+
+    return 0;
+}
+</FONT></pre></td></tr></table></P><P>
+
+Note that the array <CODE>A</CODE> is initialized using a comma-delimited list of
+<CODE>double</CODE>; this makes use of the constructor <CODE>FixedPoint(double)</CODE>.
+The assignment <CODE>B = A + 0.05</CODE> uses
+<CODE>FixedPoint::operator+(FixedPoint)</CODE>, with an implicit conversion from
+<CODE>double</CODE> to <CODE>FixedPoint</CODE>.  Formatting the array <CODE>B</CODE> onto the
+standard output stream is done using the output operator defined for
+<CODE>FixedPoint</CODE>.
+</P><P>
+
+Here's the program output:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>B = 4 x 4
+[      0.55      0.35      0.85      0.25 
+       0.15      0.35      0.25      0.95 
+       0.05      0.05      0.75      0.45 
+       0.25      0.35      0.85      0.45 ]
+
+</FONT></pre></td></tr></table></P><P>
+
+<A NAME="Indirection"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_5.html#SEC121"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_6.html#SEC127"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="blitz_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Julian Cummings</I> on <I>October, 14  2005</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

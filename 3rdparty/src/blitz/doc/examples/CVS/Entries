@@ -1,0 +1,20 @@
+/.cvsignore/1.8/Tue Feb  8 23:26:06 2005//
+/Makefile.am/1.13/Mon Dec  3 14:20:54 2007//
+/cast.cpp/1.2/Wed May  5 17:29:19 2004//
+/debug.cpp/1.3/Wed May  5 18:00:29 2004//
+/dump.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/fixed-class.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/fixed-point.h/1.1/Tue Jan 21 12:43:10 2003//
+/fixed.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/io.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/io.data/1.2/Thu Aug 23 11:09:03 2007//
+/makefile.example/1.1/Tue Jan 21 12:36:59 2003//
+/outer.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/output.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/range.cpp/1.2/Tue Jan 21 13:45:19 2003//
+/simple.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/slicing.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/storage.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/strideslice.cpp/1.1/Tue Jan 21 11:15:43 2003//
+/xor.cpp/1.1/Tue Jan 21 11:15:43 2003//
+D
