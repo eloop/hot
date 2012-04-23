@@ -7,9 +7,9 @@ UNAME=`uname`
 HIH="${HOME}/houdini${HOUDINI_MAJOR_RELEASE}.${HOUDINI_MINOR_RELEASE}"
 
 if [ ${UNAME} = 'Darwin' ] ; then
-    # pushd 3rdparty 
-    # ./build_osx.sh
-    # popd
+    pushd 3rdparty 
+    ./build_osx.sh
+    popd
     IFLAGS="-I. -I./3rdparty/include -I ./3rdparty/osx/include"
     LFLAGS="-L ./3rdparty/osx/lib  -l fftw3f -l blitz"
     FLAGS="$IFLAGS $LFLAGS -i ${HIH}/dso"
