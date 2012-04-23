@@ -1,0 +1,100 @@
+
+#	Path_0
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(52.40, 66.60);
+			vertex(54.20, 36.20);
+			vertex(26.80, 60.10);
+			vertex(42.40, 72.60);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_1
+		color(-248);
+		bgnoutlinepolygon();
+			vertex(64.60, 71.80);
+			vertex(71.80, 62.60);
+			vertex(64.60, 27.00);
+			vertex(55.60, 35.00);
+			vertex(53.60, 66.80);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_2
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(52.60, 67.51);
+			vertex(63.80, 72.60);
+			vertex(54.60, 82.60);
+			vertex(43.40, 73.31);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_3
+		bgnoutlinepolygon();
+			vertex(80.40, 26.80);
+			vertex(76.00, 17.80);
+			vertex(66.20, 26.40);
+			vertex(70.00, 45.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_4
+		bgnoutlinepolygon();
+			vertex(88.80, 42.60);
+			vertex(81.60, 28.60);
+			vertex(70.60, 46.80);
+			vertex(73.40, 61.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_5
+		bgnoutlinepolygon();
+			vertex(33.20, 52.20);
+			vertex(33.40, 52.40);
+			vertex(33.40, 52.40);
+			vertex(19.20, 37.60);
+			vertex(13.80, 49.20);
+			vertex(26.00, 59.20);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_6
+		color(-247);
+		bgnoutlinepolygon();
+			vertex(35.60, 36.60);
+			vertex(35.80, 36.40);
+			vertex(33.60, 25.00);
+			vertex(24.60, 28.60);
+			vertex(20.20, 36.20);
+			vertex(26.80, 42.80);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_7
+		color(-248);
+		bgnoutlinepolygon();
+			vertex(38.20, 48.40);
+			vertex(36.20, 38.40);
+			vertex(27.80, 44.40);
+			vertex(34.40, 51.40);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_8
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(58.00, 31.00);
+			vertex(47.20, 19.80);
+			vertex(35.20, 24.40);
+			vertex(39.40, 47.20);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_9
+		bgnoutlinepolygon();
+			vertex(35.40, 8.60);
+			vertex(44.60, 8.60);
+			vertex(46.40, 18.40);
+			vertex(25.40, 26.20);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_10
+		bgnoutlinepolygon();
+			vertex(75.00, 16.40);
+			vertex(71.00, 8.60);
+			vertex(46.00, 8.60);
+			vertex(48.00, 18.80);
+			vertex(59.00, 29.40);
+		endoutlinepolygon(outlinecolor);
