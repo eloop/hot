@@ -50,7 +50,7 @@ case $UNAME in
         DLLEXT="so"
         ;;
     *)
-        echo "Unknown architecture \"${UNAME}\", sorry."
+        echo "Unsupported architecture \"${UNAME}\", exiting."
         exit 1
         ;;
 esac
@@ -84,17 +84,18 @@ if [ -z $FAST ]; then
     echo " *** Compiling the 3rdparty dependencies. *** "
     echo
 
+    pushd 3rdparty 
+
     case $UNAME in
         "Darwin")
-            pushd 3rdparty 
             ./build_osx.sh
-            popd
             ;;
         "Linux")
-            pushd 3rdparty 
             ./build_linux.sh
-            popd
+            ;;
     esac
+
+    popd
 fi
 
 echo
