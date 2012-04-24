@@ -19,7 +19,7 @@ usage ()
     echo "flags:"
     echo
     echo "    -f|--fast - skip the 3rd party compile stage"
-    echo "    -n|--noinstall - just build, don't install (TBD)"
+    echo "    -n|--noinstall - just build, don't install the dso's"
     echo
 }
 
@@ -58,25 +58,28 @@ case $UNAME in
         ;;
 esac
 
-echo
-echo " *** Testing compilation environment ***"
-echo
 
-mkdir -p tmp
-cp $HT/samples/SOP/SOP_Star.* ./tmp
-chmod u+rw tmp/SOP_Star.*
-pushd tmp
-hcustom -i . SOP_Star.C
-if [ ! -e SOP_Star.${DLLEXT} ]; then
+if [ -z $FAST ]; then
+
     echo
-    echo "Sorry, we couldn't compile SOP_Star.C so you need to get that in order first!"
-    echo "Start by reading about the HDK at http://www.sidefx.com/docs"
+    echo " *** Testing compilation environment ***"
     echo
-    exit 1
+
+    mkdir -p tmp
+    cp $HT/samples/SOP/SOP_Star.* ./tmp
+    chmod u+rw tmp/SOP_Star.*
+    pushd tmp
+    hcustom -i . SOP_Star.C
+    if [ ! -e SOP_Star.${DLLEXT} ]; then
+        echo
+        echo "Sorry, we couldn't compile SOP_Star.C so you need to get that in order first!"
+        echo "Start by reading about the HDK at http://www.sidefx.com/docs"
+        echo
+        exit 1
+    fi
+    popd
+
 fi
-popd
-
-
 
 
 HIH="${HOME}/houdini${HOUDINI_MAJOR_RELEASE}.${HOUDINI_MINOR_RELEASE}"
@@ -109,14 +112,20 @@ case $UNAME in
     "Darwin")
         IFLAGS="-I. -I./3rdparty/include -I ./3rdparty/osx/include"
         LFLAGS="-L ./3rdparty/osx/lib  -l fftw3f -l blitz"
-        FLAGS="$IFLAGS $LFLAGS -i ${HIH}/dso"
         ;;
     "Linux")
         IFLAGS="-I. -I./3rdparty/include -I ./3rdparty/linux/include"
         LFLAGS="-L ./3rdparty/linux/lib  -l fftw3f -l blitz"
-        FLAGS="$IFLAGS $LFLAGS -i ${HIH}/dso"
         ;;
 esac
+
+if [ -z "$NOINSTALL" ]; then
+    INST="-i ${HIH}/dso"
+else
+    INST="-i ."
+fi
+
+FLAGS="$IFLAGS $LFLAGS $INST"
 
 hcustom  -e $FLAGS SOP_Ocean.C 
 hcustom  -e $FLAGS VEX_Ocean.C 
@@ -128,6 +137,14 @@ VEXDSO="${HIH}/vex"
 mkdir -p ${VEXDSO}
 cp VEXdso_${UNAME} ${VEXDSO}/VEXdso
 
-echo
-echo " *** Finished installing, go make waves. *** "
-echo
+if [ -z "$NOINSTALL" ]; then
+    echo
+    echo " *** Finished installing, go make waves. *** "
+    echo
+else
+    echo
+    echo " *** Finished building. *** "
+    echo
+
+fi
+
