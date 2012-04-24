@@ -11,12 +11,15 @@ fi
 
 usage () 
 {
+    echo
+    echo "Usage:"
+    echo 
     echo "./compile.sh [flags]"
     echo
-    echo " Flags:"
+    echo "flags:"
     echo
     echo "    -f|--fast - skip the 3rd party compile stage"
-    echo "    -n|--noinstall - just build, don't install"
+    echo "    -n|--noinstall - just build, don't install (TBD)"
     echo
 }
 
