@@ -112,15 +112,14 @@ case $UNAME in
         IFLAGS="-I. -I./3rdparty/include -I ./3rdparty/linux/include"
         LFLAGS="-L ./3rdparty/linux/lib  -l fftw3f -l blitz"
         FLAGS="$IFLAGS $LFLAGS -i ${HIH}/dso"
-        hcustom  -e $FLAGS SOP_Ocean.C 
-        hcustom  -e $FLAGS VEX_Ocean.C 
-        hcustom  SOP_Cleave.C
         ;;
 esac
 
 hcustom  -e $FLAGS SOP_Ocean.C 
 hcustom  -e $FLAGS VEX_Ocean.C 
-hcustom  SOP_Cleave.C
+
+# not ported yet ...
+# hcustom  SOP_Cleave.C
 
 VEXDSO="${HIH}/vex"
 mkdir -p ${VEXDSO}
