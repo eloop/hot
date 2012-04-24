@@ -133,9 +133,20 @@ hcustom  -e $FLAGS VEX_Ocean.C
 # not ported yet ...
 # hcustom  SOP_Cleave.C
 
+
 VEXDSO="${HIH}/vex"
 mkdir -p ${VEXDSO}
-cp VEXdso_${UNAME} ${VEXDSO}/VEXdso
+
+# don't nuke VEXdso if it exists
+
+if [ -z "$NOINSTALL" ]; then
+    if [ -e ${VEXDSO}/VEXdso ]; then
+        cp  ${VEXDSO}/VEXdso ${VEXDSO}/VEXdso.orig
+        cat ${VEXDSO}/VEXdso VEXdso_${UNAME} | uniq > ${VEXDSO}/VEXdso
+    else
+        cp VEXdso_${UNAME} ${VEXDSO}/VEXdso
+    fi
+fi
 
 if [ -z "$NOINSTALL" ]; then
     echo
