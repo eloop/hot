@@ -82,3 +82,4 @@ tmp/
 3rdparty/src/fftw-3.2.2/tools/Makefile
 3rdparty/src/fftw-3.2.2/tools/fftw-wisdom-to-conf
 3rdparty/src/fftw-3.2.2/tools/fftw_wisdom.1
+3rdparty/src/fftw-3.2.2/confcache
