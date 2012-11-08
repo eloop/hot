@@ -14,6 +14,12 @@ Compile and install with
 
 > ./compile.sh
 
+Note that 
+
+> ./compile.sh -f 
+
+will rebuild and install without the time consuming compile of the 3rd party libs.
+
 (Read the source of the compile.sh script for more build options.)
 
 Test by loading the examples, start with SOP_Simple.hip.
