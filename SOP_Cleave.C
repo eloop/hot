@@ -3,7 +3,7 @@
  * NAME:	The Cleave SOP version 1.0
  *
  * AUTHOR:      Stuart Ramsden, ANUSF Vizlab, Stuart.Ramsden@anu.edu.au
- * 
+ *
  * COMMENTS:	This SOP Cleaves the geometry recursively into multiple pieces
  *
  *
@@ -12,16 +12,16 @@
 
  *               Profile cleaving (cookie cutter) eg. jagged edge
  *               Tesselation cleaving (generalized bricker)
- *               Polygon amalgamation, either topology or color 
+ *               Polygon amalgamation, either topology or color
  *               Eventually: 3D Solid cleaving
 
  Copyright (C) 2003  Stuart Ramsden
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
  of the License, or (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -49,7 +49,7 @@
 #include "SOP_Cleave.h"
 #include <iostream.h>
 
-class OP_CleaveOperator : public OP_Operator 
+class OP_CleaveOperator : public OP_Operator
 {
     public:
         OP_CleaveOperator();
@@ -116,7 +116,7 @@ newSopOperator(OP_OperatorTable *table)
 
 
 static PRM_Name
-names[] = 
+names[] =
 {
 
     PRM_Name("freq",  "Frequency"),
@@ -137,7 +137,7 @@ names[] =
 };
 
 PRM_Template
-SOP_Cleave::myTemplateList[] = 
+SOP_Cleave::myTemplateList[] =
 {
     PRM_Template(PRM_STRING,    1, &PRMgroupName, 0, &SOP_Node::primGroupMenu),
     PRM_Template(PRM_INT_J,     1, &names[0], PRMtwoDefaults, 0, &PRMfrequency10Range),
@@ -161,11 +161,11 @@ SOP_Cleave::myConstructor(OP_Network *net, const char *name, OP_Operator *op)
 }
 
 SOP_Cleave::SOP_Cleave(OP_Network *net, const char *name, OP_Operator *op)
-  : SOP_Node(net, name, op) 
+  : SOP_Node(net, name, op)
 {
 }
 
-SOP_Cleave::~SOP_Cleave() 
+SOP_Cleave::~SOP_Cleave()
 {
 }
 
@@ -173,7 +173,7 @@ OP_ERROR
 SOP_Cleave::cookMySop(OP_Context &context)
 {
 
-    const GA_PrimitiveGroup  *polyGroup; 
+    const GA_PrimitiveGroup  *polyGroup;
 
     GEO_Primitive     	*prim;
     GQ_Detail           *gqd;
@@ -195,7 +195,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
     if (groups.isstring()) polyGroup = parsePrimitiveGroups(groups);
     else                   polyGroup = 0;
-    
+
     if (error() >= UT_ERROR_ABORT) {
         unlockInputs();
         return error();
@@ -207,7 +207,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
     boss->opStart("Cleaving Polys");
 
 
-    // separate out all polys to be cleaved	
+    // separate out all polys to be cleaved
     GA_PrimitiveGroup* cleave_group = gdp->newPrimitiveGroup("cleave",1);
     GA_PrimitiveGroup* not_cleave_group = gdp->newPrimitiveGroup("not_cleave",1);
 
@@ -245,7 +245,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
     // create rest pos attribute
     float zeros[3] = {1,1,1};
-    
+
 	GA_RWAttributeRef cleave_rest_pos = gdp->addFloatTuple(GA_ATTRIB_POINT, "CleaveRestPos", 3, GA_Defaults(3, GA_STORE_REAL32, 0.0, 0.0, 0.0));
 
     // Pointer to the color data
@@ -260,21 +260,21 @@ SOP_Cleave::cookMySop(OP_Context &context)
     gdp->uniquePoints();
 
     // assign rest pos attribute
-	
+
     for (i = 0; i < gdp->points().entries(); i++) {
-		
-	
+
+
 
         ppt = gdp->points()(i);
 
         pos = ppt->getPos();
-        
+
 		UT_Vector3 nrestPos(pos.x(), pos.y(), pos.z());
 		ppt->setValue(cleave_rest_pos,UT_Vector3(pos.x(), pos.y(), pos.z()));
-        
+
 
     }
-	
+
 
     float dist = DIST(now)/5.;
     float dscale = DSCALE(now);
@@ -333,7 +333,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
         // loop with area calculation
         GA_FOR_ALL_PRIMITIVES(gdp,prim)
         {
-            
+
             // Area computation
             area = 0.0;
             apt = prim->getVertex(0).getPt();
@@ -342,7 +342,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
                 bpt = prim->getVertex(i).getPt();
                 cpt = prim->getVertex(i-1).getPt();
- 		    
+
                 base = bpt->getPos() - apt->getPos();
                 rel = cpt->getPos() - apt->getPos();
                 area += (rel[0]*base[1] - rel[1]*base[0])/2.;
@@ -356,30 +356,30 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
             }
 
-            pos = prim->baryCenter();		
-            mat4.identity();		
+            pos = prim->baryCenter();
+            mat4.identity();
 
             rval = 2*UTfastRandomZero(seed);
-		
+
             if (j!=0) mat4.rotate(0,0,UTdegToRad(DANG(now)+rval*RANG(now)),order);
             else      mat4.rotate(0,0,UTdegToRad(rval*RANG(now)),order);
-		
-             // center and rotate polys 
+
+             // center and rotate polys
             for (i = prim->getVertexCount()-1; i >= 0; i--) {
 
-                ppt = prim->getVertex(i).getPt();		    
+                ppt = prim->getVertex(i).getPt();
                 ppt->setPos(ppt->getPos() - pos);
                 UT_Vector4D cPos = ppt->getPos();
 				cPos.multiply3(mat4);
 				ppt->setPos(cPos);
-				
+
 
             }
 
             scratch_gdp = new GU_Detail();
             scratch_gdp->merge(*prim);
             scratch_gdp->uniquePoints();
-	    
+
             if ((curr_splits%2==0)&&(dist==0)) {
 
                 // fast cleaving via creasing - only even cleaves, without channels
@@ -472,7 +472,7 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
     // Tell the interrupt server that we've completed
     boss->opEnd();
-	
+
     unlockInputs();
     return error();
 

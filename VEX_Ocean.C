@@ -6,8 +6,8 @@
 //     March 2005.
 //     Drew.Whitehouse@anu.edu.au
 //
-//     $Id: SOP_Ocean.C 132 2005-08-23 04:56:06Z drw900 $ 
-// 
+//     $Id: SOP_Ocean.C 132 2005-08-23 04:56:06Z drw900 $
+//
 //     Houdini Ocean Toolkit
 //     Copyright (C) 2005  Drew Whitehouse, ANU Supercomputer Facility
 
@@ -51,7 +51,7 @@
 //
 // vex functions implementing Tessendorf's ocean model
 //
-struct OceanHolder 
+struct OceanHolder
 {
     drw::Ocean        *ocean;
     drw::OceanContext *context;
@@ -63,9 +63,9 @@ struct OceanHolder
         // nothing
     }
 
-    ~OceanHolder() 
-    { 
-        if (ocean) delete ocean; 
+    ~OceanHolder()
+    {
+        if (ocean) delete ocean;
         if (context) delete context;
     }
 };
@@ -82,7 +82,7 @@ static void
 ocean_cleanup(void* data)
 {
   //std::cout << "Ocean VEX Cleanup()\n" << std::flush; // never called ?
-  if (data) 
+  if (data)
     {
       delete reinterpret_cast<OceanHolder*>(data);
     }
@@ -96,7 +96,7 @@ ocean_from_argv(void *argv[])
     int   res  = 1 << *(int *)argv[0]; // I
     float size = *(float *)argv[1];    // F
     float V    = *(float *)argv[2];    // F
-    float l    = *(float *)argv[3];    // F 
+    float l    = *(float *)argv[3];    // F
     float w    = *(float *)argv[4];    // F
     float damp = *(float *)argv[5];    // F
     float align= *(float *)argv[6];    // F
@@ -133,22 +133,22 @@ ocean_eval_ij(int, void *argv[], void *data)
     float *Eplus          =  (float*)argv[13]; // &V
 
     if (!oh->ocean)
-    {  
+    {
         oh->ocean = ocean_from_argv(argv+14);
         oh->normalize_factor = oh->ocean->get_height_normalize_factor();
-        oh->context = oh->ocean->new_context(true,do_chop,do_normal,do_jacobian);     
+        oh->context = oh->ocean->new_context(true,do_chop,do_normal,do_jacobian);
         oh->ocean->update (now,*oh->context, true,do_chop,do_normal,do_jacobian,
                            height_scale * oh->normalize_factor,chop_amount);
 				oh->now = now;
 
     }
-		
+
 		if ( oh->now != now ) {
         oh->ocean->update (now,*oh->context, true,do_chop,do_normal,do_jacobian,
                            height_scale * oh->normalize_factor,chop_amount);
 				oh->now = now;
 		}
-		
+
     oh->context->eval_ij(i,j);
 
     displacement[0] = oh->context->disp[0];
@@ -203,17 +203,17 @@ ocean_eval(int, void *argv[], void *data)
     float *Eplus          =  (float*)argv[13]; // &V
 
     if (!oh->ocean)
-    {  
+    {
         oh->ocean = ocean_from_argv(argv+14);
         oh->normalize_factor = oh->ocean->get_height_normalize_factor();
-        oh->context = oh->ocean->new_context(true,do_chop,do_normal,do_jacobian);     
+        oh->context = oh->ocean->new_context(true,do_chop,do_normal,do_jacobian);
         oh->ocean->update (now,*oh->context, true,do_chop,do_normal,do_jacobian,
                            height_scale * oh->normalize_factor,chop_amount);
 
 				oh->now = now;
 
     }
-		
+
 		if ( oh->now != now ) {
         oh->ocean->update (now,*oh->context, true,do_chop,do_normal,do_jacobian,
                            height_scale * oh->normalize_factor,chop_amount);
@@ -262,6 +262,5 @@ newVEXOp(void *)
     new VEX_VexOp("ocean_eval@FFFFIF&VI&VI&F&F&V&VIFFFFFFFI",
                   ocean_eval,
                   VEX_ALL_CONTEXT,
-                  ocean_init,ocean_cleanup); 
+                  ocean_init,ocean_cleanup);
 }
-

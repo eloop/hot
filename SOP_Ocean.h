@@ -6,8 +6,8 @@
 //     March 2005.
 //     Drew.Whitehouse@anu.edu.au
 //
-//     $Id: SOP_Ocean.C 88 2005-06-17 03:04:46Z drw900 $ 
-// 
+//     $Id: SOP_Ocean.C 88 2005-06-17 03:04:46Z drw900 $
+//
 
 //     Houdini Ocean Toolkit
 //     Copyright (C) 2005  Drew Whitehouse, ANU Supercomputer Facility
@@ -35,71 +35,71 @@
 
 class SOP_Ocean : public SOP_Node
 {
-public:
+ public:
 
-    static OP_Node *myConstructor(OP_Network*,const char *,OP_Operator *);
+  static OP_Node *myConstructor(OP_Network*,const char *,OP_Operator *);
 
-    static PRM_Template myTemplateList[];
+  static PRM_Template myTemplateList[];
 
-    static	int oceanChanged(void *,int,float,const PRM_Template *);
+  static	int oceanChanged(void *,int,float,const PRM_Template *);
 
-    // oceanChanged can call this to flag a rebuild of _ocean
-    void    oceanNeedsRebuild() { _ocean_needs_rebuild = true; }
+  // oceanChanged can call this to flag a rebuild of _ocean
+  void    oceanNeedsRebuild() { _ocean_needs_rebuild = true; }
 
-protected:
+ protected:
 
-    void getHelpText (UT_String &help, int level, bool *is_html_ptr);
+  void getHelpText (UT_String &help, int level, bool *is_html_ptr);
 
-    // These guys are called for us, hence the protected status
-    SOP_Ocean(OP_Network *net, const char *name, OP_Operator *op);
-    virtual ~SOP_Ocean();
+  // These guys are called for us, hence the protected status
+  SOP_Ocean(OP_Network *net, const char *name, OP_Operator *op);
+  virtual ~SOP_Ocean();
 
-    virtual unsigned disableParms();
+  virtual unsigned disableParms();
 
-    virtual OP_ERROR cookMySop(OP_Context &context);
+  virtual OP_ERROR cookMySop(OP_Context &context);
 
-    // This is where all the wave action takes place
-    drw::Ocean        *_ocean;
-    drw::OceanContext *_ocean_context;
-    float              _ocean_scale;
+  // This is where all the wave action takes place
+  drw::Ocean        *_ocean;
+  drw::OceanContext *_ocean_context;
+  float              _ocean_scale;
 
-    // If this is true cook will create a new instance of drw::Ocean 
-    // next time it runs.
-    bool _ocean_needs_rebuild;
+  // If this is true cook will create a new instance of drw::Ocean
+  // next time it runs.
+  bool _ocean_needs_rebuild;
 
-private:
+ private:
 
-    int     GRID_RES(float t)       { return evalInt   (0,0,t); }
+  int     GRID_RES(float t)       { return evalInt   (0,0,t); }
 
-    float   GRID_SIZE(float t)    { return evalFloat (1,0,t); }
+  float   GRID_SIZE(float t)    { return evalFloat (1,0,t); }
 
-    float   V(float t)        { return evalFloat (2,0,t); }
+  float   V(float t)        { return evalFloat (2,0,t); }
 
-    float   W(float t)        { return UTdegToRad(evalFloat (3,0,t)); }
+  float   W(float t)        { return UTdegToRad(evalFloat (3,0,t)); }
 
-    float   L(float t)        { return evalFloat (4,0,t); }
+  float   L(float t)        { return evalFloat (4,0,t); }
 
-    float   SCALE(float t)    { return evalFloat (5,0,t); }
+  float   SCALE(float t)    { return evalFloat (5,0,t); }
 
-    int     SEED(float t)     { return evalInt (6,0,t); }
+  int     SEED(float t)     { return evalInt (6,0,t); }
 
-    int     CHOP(float t)     { return evalInt(7,0,t); }
+  int     CHOP(float t)     { return evalInt(7,0,t); }
 
-    float   CHOPAMOUNT(float t){ return evalFloat (8,0,t); }
-    
-    float   DAMP(float t)     { return evalFloat (9,0,t); }
-    
-    float   FOOALIGN(float t)    { return evalFloat (10,0,t); }
+  float   CHOPAMOUNT(float t){ return evalFloat (8,0,t); }
 
-    float   DEPTH(float t)    { return evalFloat (11,0,t); }
+  float   DAMP(float t)     { return evalFloat (9,0,t); }
 
-    float   TIME(float t)    { return evalFloat (12,0,t); }
+  float   FOOALIGN(float t)    { return evalFloat (10,0,t); }
 
-    int     INTERP(float t)     { return evalInt(13,0,t); }
+  float   DEPTH(float t)    { return evalFloat (11,0,t); }
 
-    int     NORMALS(float t)      { return evalInt(14,0,t); }
+  float   TIME(float t)    { return evalFloat (12,0,t); }
 
-    int     JACOBIAN(float t)     { return evalInt(15,0,t); }
+  int     INTERP(float t)     { return evalInt(13,0,t); }
+
+  int     NORMALS(float t)      { return evalInt(14,0,t); }
+
+  int     JACOBIAN(float t)     { return evalInt(15,0,t); }
 
 };
 
