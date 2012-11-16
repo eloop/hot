@@ -114,10 +114,10 @@ ocean_eval_ij(int, void *argv[], void *data)
 {
     OceanHolder *oh = reinterpret_cast<OceanHolder*>(data);
 
-    int    i              = *(int *)argv[0];  // F
-    int    j              = *(int *)argv[1];  // F
-    float  now            = *(int *)argv[2];  // F
-    float  height_scale   = *(int *)argv[3];  // F
+    int    i              = *(int *)argv[0];  // I
+    int    j              = *(int *)argv[1];  // I
+    float  now            = *(float *)argv[2];  // F
+    float  height_scale   = *(float *)argv[3];  // F
 
     int    do_chop        = *(int *)argv[4];    // I
     float  chop_amount    = *(float *)argv[5];  // F
