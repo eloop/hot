@@ -16,17 +16,10 @@ Compile and install with
 
 Note that
 =======
-Note that
 
 > ./compile.sh -f
 
-will rebuild and install without the time consuming compile of the 3rd party libs.
-
-(Read the source of the compile.sh script for more build options.)
-
-> ./compile.sh -f
-
-will rebuild and install without the time consuming compile of the 3rd party libs.
+will rebuild and install without a time consuming recompile of the 3rd party libs (of course you must have compiled them once).
 
 (Read the source of the compile.sh script for more build options.)
 
