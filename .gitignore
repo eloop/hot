@@ -13,7 +13,7 @@
 *.a
 
 tmp/
-
+backup/*
 3rdparty/linux
 3rdparty/osx
 3rdparty/win32
