@@ -31,7 +31,7 @@ Test by loading the examples, start with SOP_Simple.hip.
 Sightings
 ========= 
 
-The HOT was used in Houdini, but also the code was ported to many (most?) of the other 3D systems. E.g.
+The HOT was used in Houdini, but also ported to many (most?) of the other 3D systems. E.g.
 
 * Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site.
 * Sam Loxton's Ocean Storm.
