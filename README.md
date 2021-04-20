@@ -45,7 +45,7 @@ The HOT was used in Houdini, but also ported to many (most?) of the other 3D sys
 * Houdini ocean toolkit videos on vimeo.
 * The HOT for MAX, some example animations on this youtube channel.
 * The HOT for Maya, see this forum and this download.
-* More HOT for Maya.
+* More HOT for Maya http://nico-rehberg.de/shader.html
 * HOT for Maya tutorial video.
 * Naiad plus HOT video by Igor Zanic.
 * 15 Tips for impressive fluid effects from 3D World Magazine.
