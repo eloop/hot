@@ -50,3 +50,6 @@ The HOT was used in Houdini, but also ported to many (most?) of the other 3D sys
 * Naiad plus HOT video by Igor Zanic.
 * 15 Tips for impressive fluid effects from 3D World Magazine.
 * Water Foam Generation Tests by Christian Schnellhammer, using his own port to Maya.
+
+(link to the original code archive https://code.google.com/archive/p/houdini-ocean-toolkit/)
+
