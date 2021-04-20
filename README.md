@@ -1,7 +1,7 @@
 HOT
 ===
 
-*Notice: Houdini versions >= 12.5 now include functionality equivalent/superior to the HOT and hence this code won't be supported
+*Notice: Houdini versions >= 12.5 now include functionality (Houdini Ocean *Tools*) equivalent/superior to the HOT and hence this code won't be supported
 from this point on. I'll leave it up on github as the source code may be useful for perusal.* It's been a blast!
 
 Houdini Ocean Toolkit
@@ -33,19 +33,19 @@ Sightings
 
 The HOT was used in Houdini, but also ported to many (most?) of the other 3D systems. E.g.
 
+* Storm's Kon-Tiki VFX https://vimeo.com/48314160
 * Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site. https://gregoryyepes.com/#projects
 * Sam Loxton's Ocean Storm.
 * Some blender guys have ported the code to C.
 * It looks like this XSI guy has also used the HOT as a base.
-* Framestore used the HOT in the award winning Smirnoff Sea commercial - cool!
+* Framestore used the HOT in the award winning Smirnoff Sea commercial - cool! https://www.cgw.com/Press-Center/Web-Exclusives/2007/Framestore-CFC-Works-on-Smirnoff-Shot.aspx, https://www.broadcastnow.co.uk/british-companies-snare-vfx-awards/658050.article, https://www.digitalartsonline.co.uk/news/creative-lifestyle/framestore-cleans-up-sea-for-smirnoff/
 * Ocean whirlpool WIP on the forum.
-* The HOT has been ported to Lightwave, see this newsletter for an interview with the author.
+* The HOT has been ported to Lightwave, see this newsletter for an interview with the author.https://www.facebook.com/groups/lightwiki/permalink/1773119119460746/
 * Kenneth A Huff used the HOT for his art work, see his blog entry.
 * Houdini ocean toolkit videos on vimeo.
 * The HOT for MAX, some example animations on this youtube channel.
 * The HOT for Maya, see this forum and this download.
 * More HOT for Maya.
-* A HOT for Lightwave.
 * HOT for Maya tutorial video.
 * Naiad plus HOT video by Igor Zanic.
 * 15 Tips for impressive fluid effects from 3D World Magazine.
