@@ -32,8 +32,13 @@ Test by loading the examples, start with SOP_Simple.hip.
 Sightings
 ========= 
 
-The HOT was used in Houdini, but also ported to many (most?) of the other 3D systems. E.g.
+The HOT was used quite a bit in Houdini, but also ported to many (most?) of the other 3D systems. 
 
+Here are a few references. 
+
+PS I'd love to hear of any other places it was used. (email: Drew.Whitehouse@gmail.com)
+
+* Happy Feet2 https://vimeo.com/98038762 (0:36)
 * Storm Studio's Kon-Tiki VFX https://vimeo.com/48314160, https://vimeo.com/25545997
 * Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site. https://gregoryyepes.com/#projects
 * Sam Loxton's Ocean Storm.
