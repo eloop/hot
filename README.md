@@ -1,7 +1,7 @@
 HOT
 ===
 
-*Notice: Houdini versions >= 12.5 now include functionality (Houdini Ocean *Tools*) equivalent/superior to the HOT and hence this code won't be supported
+*Notice: Houdini versions >= 12.5 now include functionality (Houdini Ocean **Tools**) equivalent/superior to the HOT and hence this code won't be supported
 from this point on. I'll leave it up on github as the source code may be useful for perusal.* It's been a blast!
 
 Houdini Ocean Toolkit
