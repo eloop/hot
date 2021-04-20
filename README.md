@@ -36,7 +36,7 @@ The HOT was used in Houdini, but also ported to many (most?) of the other 3D sys
 * Storm Studio's Kon-Tiki VFX https://vimeo.com/48314160, https://vimeo.com/25545997
 * Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site. https://gregoryyepes.com/#projects
 * Sam Loxton's Ocean Storm.
-* Some blender guys have ported the code to C.
+* Some blender guys have ported the code to C https://mattebb.com/blog/weblog/ocean-simulation/, https://docs.blender.org/manual/en/latest/modeling/modifiers/physics/ocean.html
 * It looks like this XSI guy has also used the HOT as a base.
 * Framestore used the HOT in the award winning Smirnoff Sea commercial - cool! https://www.cgw.com/Press-Center/Web-Exclusives/2007/Framestore-CFC-Works-on-Smirnoff-Shot.aspx, https://www.broadcastnow.co.uk/british-companies-snare-vfx-awards/658050.article, https://www.digitalartsonline.co.uk/news/creative-lifestyle/framestore-cleans-up-sea-for-smirnoff/
 * Ocean whirlpool WIP on the forum.
