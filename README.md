@@ -2,7 +2,10 @@ The Houdini Ocean Toolkit (HOT)
 ===============================
  
 *Notice: Houdini versions >= 12.5 now include functionality (Houdini Ocean **Tools**) equivalent/superior to the HOT and hence this code won't be supported
-from this point on. I'll leave it up on github as the source code may be useful for perusal.* It's been a blast!
+from this point on. I'll leave it up on github as the source code may be useful for perusal. *
+
+*The first port of the code outside of Houdini was for 3DStudio Max. The guy asked me if it would be ok, and what he should call it. I jokingly suggested HOT for Max, and it became Hot4Max, then Hot4LW etc. Eventually I was seeing a references all over the place to the Houdini Ocean Toolkit, which was a bit embarrasing, but the SideFX people didn't seem to have a problem with it. I hoped it would make people more curious to try Houdini which back in 2011 was nowhere near as popular as it is now become. All up it was a blast! 
+*
 
 This version of the HOT is strictly for versions of Houdini >= 12.0.
 For legacy versions go to the old repository on the Google Code site.
@@ -48,6 +51,7 @@ The HOT was used in Houdini, but also ported to many (most?) of the other 3D sys
 * Naiad plus HOT video by Igor Zanic.
 * 15 Tips for impressive fluid effects from 3D World Magazine.
 * Water Foam Generation Tests by Christian Schnellhammer, using his own port to Maya.
+* Cinema 4D https://www.studiodaily.com/2015/02/framestores-graphics-send-evironmental-message-mission-blue/, https://www.cgrecord.net/2013/01/download-houdini-ocean-toolkit-v03-for.html
 
 (link to the original code archive https://code.google.com/archive/p/houdini-ocean-toolkit/)
 
