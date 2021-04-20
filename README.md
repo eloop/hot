@@ -33,7 +33,7 @@ Sightings
 
 The HOT was used in Houdini, but also ported to many (most?) of the other 3D systems. E.g.
 
-* Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site.
+* Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site. https://gregoryyepes.com/#projects
 * Sam Loxton's Ocean Storm.
 * Some blender guys have ported the code to C.
 * It looks like this XSI guy has also used the HOT as a base.
