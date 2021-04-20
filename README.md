@@ -33,7 +33,7 @@ Sightings
 
 The HOT was used in Houdini, but also ported to many (most?) of the other 3D systems. E.g.
 
-* Storm's Kon-Tiki VFX https://vimeo.com/48314160
+* Storm Studio's Kon-Tiki VFX https://vimeo.com/48314160, https://vimeo.com/25545997
 * Rising Sun Pictures used the HOT on Terminator Salvation, see Gregory Yepes's web site. https://gregoryyepes.com/#projects
 * Sam Loxton's Ocean Storm.
 * Some blender guys have ported the code to C.
