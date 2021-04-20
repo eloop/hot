@@ -5,7 +5,7 @@ The Houdini Ocean Toolkit (HOT)
 _Notice: Houdini versions >= 12.5 now include functionality (Houdini Ocean **Tools**) equivalent/superior to the HOT and hence this code won't be supported
 from this point on. I'll leave it up on github as the source code may be useful for perusal._
 
-_The first port of the code outside of Houdini was to 3DStudio Max. The guy asked me if it would be ok, and what he should call it. I jokingly suggested HOT for Max, and it became Hot4Max, then Hot4LW etc. Eventually I was seeing a references all over the place to the Houdini Ocean Toolkit for <some 3d software>, which was a bit embarrasing, but the SideFX people thankfully never seemed to have a problem with it. I hoped it would make people more curious to try Houdini which back in 2011 was nowhere near as popular as it is now become. All up it was a blast!_
+_The first port of the code outside of Houdini was to 3DStudio Max. The guy asked me if it would be ok, and what he should call it. I jokingly suggested HOT for Max, and it became Hot4Max, then Hot4LW etc. Eventually I was seeing a references all over the place to the Houdini Ocean Toolkit for <some 3d software>, which was a bit embarrasing, but the SideFX people thankfully never seemed to have a problem with it. I hoped it would make people more curious to try Houdini which back in 2011 was nowhere near as popular as it is now. All up it was a blast!_
 
 This version of the HOT is strictly for versions of Houdini >= 12.0.
 For legacy versions go to the old repository on the Google Code site.
